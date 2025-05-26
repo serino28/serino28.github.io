@@ -3,8 +3,8 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<!-- ==== CAROSELLO NEWS ==== -->
-<div class="carousel-container">
+<!-- ==== CAROSELLO NEWS CENTRATO ==== -->
+<div class="centered-block carousel-container">
   <div id="carousel-news" class="carousel-news">
     <div class="carousel-slide">
       <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</span> <span class="pub-venue">ACM SAC</span>
@@ -19,9 +19,9 @@ title: "Antonio Serino"
 </div>
 <!-- ==== FINE CAROSELLO ==== -->
 
-<!-- ==== INIZIO GIOCO DINO FULLWIDTH ==== -->
-<div id="dino-game-container" class="fullwidth">
-  <canvas id="dinoGame" width="1600" height="160"></canvas>
+<!-- ==== INIZIO GIOCO DINO CENTRATO ==== -->
+<div id="dino-game-container" class="centered-block">
+  <canvas id="dinoGame" width="900" height="160"></canvas>
   <div id="dino-score"></div>
   <p style="margin:0;font-size:0.95em;opacity:0.7;">
     Jump over obstacles! <b>Space</b> = jump / restart
@@ -29,7 +29,8 @@ title: "Antonio Serino"
 </div>
 <!-- ==== FINE GIOCO DINO ==== -->
 
-<div class="profile-container">
+<!-- ==== PROFILO CENTRATO ==== -->
+<div class="profile-container centered-block">
   <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
   <div>
     <h1>👨‍💻 Antonio Serino</h1>
@@ -40,6 +41,8 @@ title: "Antonio Serino"
   </div>
 </div>
 
+<!-- ==== CONTENUTO PRINCIPALE CENTRATO ==== -->
+<div class="centered-content">
 
 ## 🔍 About Me
 
@@ -89,7 +92,9 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
+</div>
 
+<!-- ==== STILI E FONT ==== -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
 body {
@@ -102,10 +107,23 @@ body {
   box-sizing: border-box;
   text-align: center;
 }
+.centered-block {
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .centered-content {
-  display: inline-block;
-  max-width: 820px;
+  max-width: 900px;
   margin: 0 auto 60px auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   text-align: left;
 }
 h1, h2, h3 {
@@ -158,37 +176,31 @@ a:hover {
   background: #181a20;
 }
 hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#00ffe7 100%); margin: 24px 0;}
-/* Carosello */
 .carousel-container {
-  width: 100vw;
-  min-width: 320px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #181a20cc;
   box-shadow: 0 0 36px #00ffe777;
   border-bottom: 2px solid #ff4d00;
+  min-height: 56px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  width: 100%;
   margin-bottom: 0;
-  padding: 0;
-  height: 56px;
 }
 .carousel-news {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
   font-family: 'Orbitron', 'Roboto Mono', monospace;
   font-size: 1.1em;
   color: #00ffe7;
   font-weight: bold;
   position: relative;
   justify-content: center;
-  height: 56px;
+  align-items: center;
+  display: flex;
+  min-height: 44px;
 }
 .carousel-slide {
   display: none;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.7s;
@@ -203,24 +215,24 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 .pub-date { color: #ffb300; margin-right: 12px; }
 .pub-title { color: #ff4d00; font-weight: bold; margin-right: 8px;}
 .pub-venue { color: #00ffe7; background: #222; padding: 1px 6px; border-radius: 8px; margin-left: 8px; }
-/* Gioco Dino Fullwidth */
-#dino-game-container.fullwidth {
-  width: 100vw;
+#dino-game-container {
+  background: transparent;
+  border-bottom: 4px solid #00ffe7;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 0 40px #00ffe788, 0 0 16px #ff4d00bb;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto 2.5em auto;
-  padding: 0;
+  margin-bottom: 24px;
 }
 #dinoGame {
   display: block;
-  margin: 0 auto;
   width: 100%;
-  max-width: 900px; /* cambia qui se vuoi più largo */
+  max-width: 900px;
   background: #181a20;
   border-bottom: 4px solid #ff4d00;
-  box-shadow: 0 0 40px #00ffe788, 0 0 16px #ff4d00bb;
+  border-radius: 0 0 12px 12px;
 }
 #dino-score {
   color: #00ffe7;
@@ -229,10 +241,30 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   margin-top: 0.4em;
   margin-bottom: 0.2em;
 }
-@media (max-width: 900px) {
-  .profile-container { flex-direction: column; align-items: center; gap: 1em; }
+@media (max-width: 1000px) {
+  .centered-block,
+  .centered-content {
+    max-width: 98vw;
+    padding: 0 4vw;
+  }
+  #dinoGame {
+    max-width: 98vw;
+  }
   .profile-pic { width: 80px; height: 80px; }
-  .centered-content { padding: 0 8px; }
+}
+@media (max-width: 600px) {
+  .profile-container {
+    flex-direction: column;
+    gap: 1em;
+  }
+  .centered-block,
+  .centered-content {
+    max-width: 100vw;
+    padding: 0 4vw;
+  }
+  #dinoGame {
+    max-width: 100vw;
+  }
 }
 </style>
 
@@ -251,24 +283,25 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   }, 3600);
 })();
 
-// === DINO GAME FULLWIDTH RESPONSIVE ===
+// === DINO GAME CENTRATO ===
 (function() {
   const canvas = document.getElementById('dinoGame');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let cw = window.innerWidth, ch = 160;
+  let cw = canvas.width, ch = canvas.height;
   let dino = { x: 30, y: 0, vy: 0, jumping: false, w: 32, h: 26 };
   let ground = ch - 40, gravity = 0.8, jump = -13;
   let obstacles = [], frame = 0, score = 0, gameOver = false;
-  // Resize canvas
+
   function resize() {
-    cw = window.innerWidth;
-    canvas.width = cw;
-    canvas.height = ch;
+    // Adatta le coordinate solo per mobile
+    cw = canvas.width = Math.min(900, window.innerWidth - 48);
+    ch = canvas.height = 160;
+    ground = ch - 40;
     dino.y = ground - dino.h;
   }
-  resize();
   window.addEventListener('resize', resize);
+  resize();
 
   function reset() {
     dino.y = ground - dino.h; dino.vy = 0; dino.jumping = false;
@@ -302,7 +335,7 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
       obstacles.push({ x: cw, w: w, h: h });
     }
     for (let o of obstacles) {
-      o.x -= Math.max(6, cw/220); // speed up a bit on larger screens
+      o.x -= Math.max(6, cw/220);
       drawObstacle(o);
       // Collision
       if (
@@ -330,7 +363,7 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   }
   document.addEventListener('keydown', function(e) {
     if ((e.code === 'Space' || e.keyCode === 32)) {
-      e.preventDefault(); // blocca scroll!
+      e.preventDefault();
       if (!gameOver && !dino.jumping) {
         dino.vy = jump;
         dino.jumping = true;
@@ -340,11 +373,11 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
       }
     }
   });
-  // Start the game
   reset();
   update();
 })();
 </script>
+
 
 
 
