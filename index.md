@@ -40,7 +40,6 @@ title: "Antonio Serino"
   </div>
 </div>
 
-<div class="centered-content">
 
 ## 🔍 About Me
 
