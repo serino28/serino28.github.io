@@ -383,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     obstacles = obstacles.filter(o => o.x + o.w > 0);
     // Score (slowed)
-    if (frame % 8 === 0) score += 1;
+    if (frame % 4 === 0) score += 1;
     ctx.font = "bold 22px Orbitron, monospace";
     ctx.fillStyle = "#00ffe7";
     ctx.fillText(`Score: ${score}`, cw - 180, 38);
