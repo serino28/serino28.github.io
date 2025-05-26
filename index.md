@@ -3,21 +3,22 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<!-- ==== CAROSELLO NEWS CENTRATO ==== -->
-<div class="centered-block carousel-container">
-  <div id="carousel-news" class="carousel-news">
-    <div class="carousel-slide">
+<!-- ==== TICKER NEWS ==== -->
+<div class="news-ticker-container">
+  <span class="news-icon">📰</span>
+  <div class="news-ticker" id="news-ticker">
+    <span class="ticker-item">
       <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</span> <span class="pub-venue">ACM SAC</span>
-    </div>
-    <div class="carousel-slide">
+    </span>
+    <span class="ticker-item">
       <span class="pub-date">Feb 2025</span> – <span class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</span> <span class="pub-venue">IJCAI</span>
-    </div>
-    <div class="carousel-slide">
+    </span>
+    <span class="ticker-item">
       <span class="pub-date">Oct 2024</span> – <span class="pub-title">An approach to Evaluative AI through LLMs</span> <span class="pub-venue">ECAI</span>
-    </div>
+    </span>
   </div>
 </div>
-<!-- ==== FINE CAROSELLO ==== -->
+<!-- ==== FINE TICKER ==== -->
 
 <!-- ==== INIZIO GIOCO DINO CENTRATO ==== -->
 <div id="dino-game-container" class="centered-block">
@@ -42,31 +43,31 @@ title: "Antonio Serino"
 </div>
 
 <!-- ==== CONTENUTO PRINCIPALE CENTRATO ==== -->
-<div class="centered-content">
 
 ## 🔍 About Me
 
-I’m a PhD student in **Big Data & Analytics for Business** at the University of Milan-Bicocca. My research focuses on **Natural Language Processing (NLP)** and **Large Language Models (LLMs)**, exploring their applications in the labour market and explainable AI.
-
-I’m passionate about solving real-world problems using AI, and I’ve worked extensively on skill extraction, labour data intelligence, and explainable decision-support systems.
+Currently a PhD student at the University of Milano-Bicocca in **Big Data Analytics for Business**.
+My research area focuses on **Artificial Intelligence** and **Natural Language Processing**, with a specific focus on the **evaluation**, **explanation** and **interpretation** of **Machine Learning**, **Transformer** and **Large Language Models**. 
+Moreover, every day i try to tackle the challenge of smartly integrating these systems into a business perspective to improve the human-machine collaboration paradigm.
+I love being multi-disciplinary and drinking sugar-free coffee.
 
 ---
 
 ## 📚 Publications
 
-- **Mar 2025** – *SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models* – ACM SAC
-- **Feb 2025** – *Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs* – IJCAI
-- **Oct 2024** – *An approach to Evaluative AI through LLMs* – ECAI
-- **Jul 2024** – *Augmenting XAI with LLMs* – XAI Conf _(Best Presentation Award)_
-- **Jun 2024** – *Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI* – arXiv
-- **Nov 2023** – *Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction* – AIxIA
+- **Mar 2025** – *SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models* – ACM SAC 2025
+- **Feb 2025** – *Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs* – IJCAI 2025
+- **Oct 2024** – *An approach to Evaluative AI through LLMs* – ECAI 2024
+- **Jul 2024** – *Augmenting XAI with LLMs* – XAI World Conf 2024 _(Best Presentation Award)_
+- **Jun 2024** – *Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI* – arXiv - Under Review at ECML-PKDD 2025
+- **Nov 2023** – *Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction* – AIxIA 2023
 
 ---
 
 ## 🚀 Projects
 
 - **MHEO Report** – Labour market analysis on 100K+ Lombardy graduates
-- **TEAI Index** – Framework to assess AI task exposure
+- **TEAI & TRAI Indexes** – Framework to assess AI exposure to job occupations 
 - **Skills-Hunter & SkiLLMo** – NLP pipelines for ESCO skill extraction and standardization
 
 ---
@@ -75,6 +76,15 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 
 - **2024–2025** – Research collaboration at Univ. of Milan – MHEO Report (Statale & Bicocca)
 - **2023–2024** – NLP Researcher – Interuniversity Research Centre for Public Services
+
+---
+
+## 🎓 Review Activities
+
+- **ECML-PKDD 2024** – Research Track
+- **COLING 2025** – Industry Track
+- **Knowledge-Based Systems** – Journal Q1
+- **International Journal of Information Technology & Decision Making** - Journal Q2
 
 ---
 
@@ -92,7 +102,7 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
-</div>
+
 
 <!-- ==== STILI E FONT ==== -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -176,45 +186,74 @@ a:hover {
   background: #181a20;
 }
 hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#00ffe7 100%); margin: 24px 0;}
-.carousel-container {
-  background: #181a20cc;
-  box-shadow: 0 0 36px #00ffe777;
-  border-bottom: 2px solid #ff4d00;
-  min-height: 56px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+/* News Ticker */
+.news-ticker-container {
   width: 100%;
-  margin-bottom: 0;
-}
-.carousel-news {
-  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+  background: linear-gradient(90deg, #ff4d00 0, #222 100%);
+  box-shadow: 0 0 16px #ff4d0088, 0 0 8px #00ffe788;
+  border-radius: 7px;
+  border-bottom: 2px solid #00ffe7;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 48px;
   font-family: 'Orbitron', 'Roboto Mono', monospace;
-  font-size: 1.1em;
+}
+.news-icon {
+  font-size: 1.65em;
+  animation: pulseIcon 1.3s infinite alternate;
+  margin: 0 16px 0 10px;
+  filter: drop-shadow(0 0 6px #ff4d00);
+  flex-shrink: 0;
+}
+@keyframes pulseIcon {
+  0% { filter: drop-shadow(0 0 2px #ff4d00); }
+  100% { filter: drop-shadow(0 0 12px #ffb300); }
+}
+.news-ticker {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: ticker-scroll 24s linear infinite;
+  font-size: 1.09em;
+  padding-left: 0;
+}
+.ticker-item {
+  display: inline-block;
+  margin-right: 54px;
+  color: #fffbe7;
+  font-weight: 500;
+  text-shadow: 0 0 8px #222, 0 0 14px #ffb30055;
+}
+.pub-date {
+  color: #ffb300;
+  font-weight: bold;
+  margin-right: 10px;
+  letter-spacing: 1px;
+}
+.pub-title {
   color: #00ffe7;
   font-weight: bold;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  min-height: 44px;
+  margin-right: 7px;
+  text-shadow: 0 0 8px #00ffe7, 0 0 12px #fff2;
 }
-.carousel-slide {
-  display: none;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 0.7s;
+.pub-venue {
+  color: #fff;
+  background: #00ffe7;
+  padding: 2px 10px;
+  border-radius: 11px;
+  margin-left: 12px;
+  font-weight: bold;
+  font-size: 0.92em;
+  box-shadow: 0 0 4px #ff4d00aa;
 }
-.carousel-slide.active {
-  display: flex;
+@keyframes ticker-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-60%); }
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.pub-date { color: #ffb300; margin-right: 12px; }
-.pub-title { color: #ff4d00; font-weight: bold; margin-right: 8px;}
-.pub-venue { color: #00ffe7; background: #222; padding: 1px 6px; border-radius: 8px; margin-left: 8px; }
 #dino-game-container {
   background: transparent;
   border-bottom: 4px solid #00ffe7;
@@ -243,7 +282,8 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 }
 @media (max-width: 1000px) {
   .centered-block,
-  .centered-content {
+  .centered-content,
+  .news-ticker-container {
     max-width: 98vw;
     padding: 0 4vw;
   }
@@ -258,7 +298,8 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
     gap: 1em;
   }
   .centered-block,
-  .centered-content {
+  .centered-content,
+  .news-ticker-container {
     max-width: 100vw;
     padding: 0 4vw;
   }
@@ -269,19 +310,15 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 </style>
 
 <script>
-// === CAROSELLO NEWS ===
-(function(){
-  const slides = document.querySelectorAll('.carousel-slide');
-  let i = 0;
-  function showSlide(idx) {
-    slides.forEach((s,j) => s.classList.toggle('active', j===idx));
+// NEWS TICKER - Clona notizie per scroll continuo se ci sono pochi elementi
+document.addEventListener("DOMContentLoaded", function(){
+  const ticker = document.getElementById('news-ticker');
+  if (ticker) {
+    const content = ticker.innerHTML;
+    // Ripeti le news almeno due volte per uno scroll continuo
+    ticker.innerHTML = content + content;
   }
-  showSlide(i);
-  setInterval(()=>{
-    i = (i+1) % slides.length;
-    showSlide(i);
-  }, 3600);
-})();
+});
 
 // === DINO GAME CENTRATO ===
 (function() {
@@ -294,7 +331,6 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   let obstacles = [], frame = 0, score = 0, gameOver = false;
 
   function resize() {
-    // Adatta le coordinate solo per mobile
     cw = canvas.width = Math.min(900, window.innerWidth - 48);
     ch = canvas.height = 160;
     ground = ch - 40;
@@ -347,7 +383,7 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
     }
     obstacles = obstacles.filter(o => o.x + o.w > 0);
     // Score (slowed)
-    if (frame % 4 === 0) score += 1;
+    if (frame % 8 === 0) score += 1;
     ctx.font = "bold 22px Orbitron, monospace";
     ctx.fillStyle = "#00ffe7";
     ctx.fillText(`Score: ${score}`, cw - 180, 38);
@@ -377,7 +413,3 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   update();
 })();
 </script>
-
-
-
-
