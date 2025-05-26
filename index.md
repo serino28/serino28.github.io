@@ -3,19 +3,35 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<!-- ==== INIZIO GIOCO DINO ==== -->
-<div id="dino-game-container">
-  <h2>🎮 Quick Game: Dino Runner!</h2>
-  <canvas id="dinoGame" width="400" height="80"></canvas>
-  <p style="margin:0;font-size:0.9em;opacity:0.7;">
-    Jump over obstacles!<br/>Press <b>Space</b> to jump.
-  </p>
+<!-- ==== CAROSELLO NEWS ==== -->
+<div class="carousel-container">
+  <div id="carousel-news" class="carousel-news">
+    <div class="carousel-slide">
+      <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</span> <span class="pub-venue">ACM SAC</span>
+    </div>
+    <div class="carousel-slide">
+      <span class="pub-date">Feb 2025</span> – <span class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</span> <span class="pub-venue">IJCAI</span>
+    </div>
+    <div class="carousel-slide">
+      <span class="pub-date">Oct 2024</span> – <span class="pub-title">An approach to Evaluative AI through LLMs</span> <span class="pub-venue">ECAI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==== FINE CAROSELLO ==== -->
+
+<!-- ==== INIZIO GIOCO DINO FULLWIDTH ==== -->
+<div id="dino-game-container" class="fullwidth">
+  <canvas id="dinoGame" width="1600" height="160"></canvas>
   <div id="dino-score"></div>
+  <p style="margin:0;font-size:0.95em;opacity:0.7;">
+    Jump over obstacles! <b>Space</b> = jump / restart
+  </p>
 </div>
 <!-- ==== FINE GIOCO DINO ==== -->
 
 <div class="profile-container">
-  <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
+  <img src="assets/img/antonio.jpg" alt="Antonio Serino" class="profile-pic"/>
   <div>
     <h1>👨‍💻 Antonio Serino</h1>
     <p class="subtitle">Data Scientist · PhD Student · NLP Researcher</p>
@@ -26,6 +42,8 @@ title: "Antonio Serino"
 </div>
 
 ---
+
+<div class="centered-content">
 
 ## 🔍 About Me
 I’m a PhD student in **Big Data & Analytics for Business** at the University of Milan-Bicocca. My research focuses on **Natural Language Processing (NLP)** and **Large Language Models (LLMs)**, exploring their applications in the labour market and explainable AI.
@@ -69,6 +87,8 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
+</div>
+
 <!-- === STILE E FONT === -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
@@ -76,10 +96,17 @@ body {
   font-family: 'Roboto Mono', monospace;
   background: radial-gradient(ellipse at center, #181a20 0%, #0e0e0e 100%);
   color: #00ffe7;
-  padding: 32px 10vw;
+  padding: 0;
   margin: 0;
   min-height: 100vh;
   box-sizing: border-box;
+  text-align: center;
+}
+.centered-content {
+  display: inline-block;
+  max-width: 820px;
+  margin: 0 auto 60px auto;
+  text-align: left;
 }
 h1, h2, h3 {
   font-family: 'Orbitron', 'Roboto Mono', monospace;
@@ -104,6 +131,7 @@ blockquote {
   text-shadow: 0 0 4px #000, 0 0 4px #00ffe7;
   margin-top: 10px;
   margin-bottom: 10px;
+  text-align: left;
 }
 a {
   color: #00ffe7;
@@ -117,7 +145,8 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 2em;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
+  justify-content: center;
 }
 .profile-pic {
   width: 120px;
@@ -128,86 +157,158 @@ a:hover {
   object-fit: cover;
   background: #181a20;
 }
-#dino-game-container {
-  background: #191919e8;
-  border: 2px solid #00ffe7;
-  box-shadow: 0 0 24px #00ffe766;
-  border-radius: 16px;
-  margin: 2em 0 2.5em 0;
-  padding: 1em 2em 1em 2em;
-  max-width: 440px;
-  text-align: center;
+hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#00ffe7 100%); margin: 24px 0;}
+/* Carosello */
+.carousel-container {
+  width: 100vw;
+  overflow: hidden;
+  background: #181a20cc;
+  box-shadow: 0 0 36px #00ffe777;
+  border-bottom: 2px solid #ff4d00;
+  margin-bottom: 0;
+  padding: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#dino-game-container h2 {
-  font-family: 'Orbitron', monospace;
-  color: #ff4d00;
-  margin-top: 0;
-  text-shadow: 0 0 8px #ff4d00, 0 0 30px #ffb30050;
+.carousel-news {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 56px;
+  font-family: 'Orbitron', 'Roboto Mono', monospace;
+  font-size: 1.1em;
+  color: #00ffe7;
+  font-weight: bold;
+  position: relative;
+}
+.carousel-slide {
+  display: none;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.7s;
+}
+.carousel-slide.active {
+  display: flex;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.pub-date { color: #ffb300; margin-right: 12px; }
+.pub-title { color: #ff4d00; font-weight: bold; margin-right: 8px;}
+.pub-venue { color: #00ffe7; background: #222; padding: 1px 6px; border-radius: 8px; margin-left: 8px; }
+/* Gioco Dino Fullwidth */
+#dino-game-container.fullwidth {
+  width: 100vw;
+  margin: 0 auto 2.5em auto;
+  padding: 0;
+  border: none;
+  border-bottom: 4px solid #00ffe7;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#dinoGame {
+  display: block;
+  margin: 0 auto;
+  width: 100vw;
+  max-width: 100vw;
+  background: #181a20;
+  border-bottom: 4px solid #ff4d00;
+  box-shadow: 0 0 40px #00ffe788, 0 0 16px #ff4d00bb;
 }
 #dino-score {
   color: #00ffe7;
   font-family: 'Orbitron', monospace;
-  font-size: 1.1em;
-  margin-top: 0.5em;
+  font-size: 1.25em;
+  margin-top: 0.4em;
+  margin-bottom: 0.2em;
 }
-@media (max-width: 700px) {
-  body { padding: 16px; }
-  .profile-container { flex-direction: column; align-items: flex-start; gap: 1em; }
+@media (max-width: 900px) {
+  .profile-container { flex-direction: column; align-items: center; gap: 1em; }
   .profile-pic { width: 80px; height: 80px; }
-  #dino-game-container { padding: 1em; }
+  .centered-content { padding: 0 8px; }
 }
-hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#00ffe7 100%); margin: 24px 0;}
 </style>
 
 <script>
+// === CAROSELLO NEWS ===
+(function(){
+  const slides = document.querySelectorAll('.carousel-slide');
+  let i = 0;
+  function showSlide(idx) {
+    slides.forEach((s,j) => s.classList.toggle('active', j===idx));
+  }
+  showSlide(i);
+  setInterval(()=>{
+    i = (i+1) % slides.length;
+    showSlide(i);
+  }, 3600);
+})();
+
+// === DINO GAME FULLWIDTH RESPONSIVE ===
 (function() {
-  // Simple Dino Game MODERN
   const canvas = document.getElementById('dinoGame');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let dino = { x: 30, y: 72, vy: 0, jumping: false };
-  let ground = 82, gravity = 0.7, jump = -11;
+  let cw = window.innerWidth, ch = 160;
+  let dino = { x: 30, y: 0, vy: 0, jumping: false, w: 32, h: 26 };
+  let ground = ch - 40, gravity = 0.8, jump = -13;
   let obstacles = [], frame = 0, score = 0, gameOver = false;
+  // Resize canvas
+  function resize() {
+    cw = window.innerWidth;
+    canvas.width = cw;
+    canvas.height = ch;
+    dino.y = ground - dino.h;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
   function reset() {
-    dino.y = 72; dino.vy = 0; dino.jumping = false;
+    dino.y = ground - dino.h; dino.vy = 0; dino.jumping = false;
     obstacles = [];
     frame = 0; score = 0; gameOver = false;
     document.getElementById('dino-score').innerText = '';
   }
-
   function drawDino() {
     ctx.fillStyle = '#00ffe7';
-    ctx.fillRect(dino.x, dino.y, 24, 20);
+    ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
     ctx.fillStyle = '#181a20';
-    ctx.fillRect(dino.x + 15, dino.y + 6, 4, 4);
+    ctx.fillRect(dino.x + dino.w - 9, dino.y + 6, 5, 5);
   }
   function drawObstacle(o) {
     ctx.fillStyle = '#ff4d00';
     ctx.fillRect(o.x, ground - o.h + 1, o.w, o.h);
   }
   function update() {
-    ctx.clearRect(0,0,600,100);
+    ctx.clearRect(0,0,cw,ch);
     // Draw ground
     ctx.fillStyle = "#353535";
-    ctx.fillRect(0, ground + 16, 600, 4);
+    ctx.fillRect(0, ground + 20, cw, 5);
     drawDino();
     // Dino gravity/jump
     dino.y += dino.vy;
     dino.vy += gravity;
-    if (dino.y >= 72) { dino.y = 72; dino.jumping = false; }
+    if (dino.y >= ground - dino.h) { dino.y = ground - dino.h; dino.jumping = false; }
     // Obstacles
-    if (frame % 70 === 0) {
-      let h = 24 + Math.random()*20, w = 10 + Math.random()*14;
-      obstacles.push({ x: 600, w: w, h: h });
+    if (frame % 75 === 0) {
+      let h = 30 + Math.random()*22, w = 18 + Math.random()*18;
+      obstacles.push({ x: cw, w: w, h: h });
     }
     for (let o of obstacles) {
-      o.x -= 5;
+      o.x -= Math.max(6, cw/220); // speed up a bit on larger screens
       drawObstacle(o);
       // Collision
       if (
-        dino.x + 24 > o.x && dino.x < o.x + o.w &&
-        dino.y + 20 > ground - o.h && dino.y < ground
+        dino.x + dino.w > o.x && dino.x < o.x + o.w &&
+        dino.y + dino.h > ground - o.h && dino.y < ground
       ) {
         gameOver = true;
       }
@@ -215,13 +316,13 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
     obstacles = obstacles.filter(o => o.x + o.w > 0);
     // Score (slowed)
     if (frame % 4 === 0) score += 1;
-    ctx.font = "bold 18px Orbitron, monospace";
+    ctx.font = "bold 22px Orbitron, monospace";
     ctx.fillStyle = "#00ffe7";
-    ctx.fillText(`Score: ${score}`, 480, 26);
+    ctx.fillText(`Score: ${score}`, cw - 180, 38);
     if (gameOver) {
-      ctx.font = "bold 26px Orbitron, monospace";
+      ctx.font = "bold 36px Orbitron, monospace";
       ctx.fillStyle = "#ff4d00";
-      ctx.fillText("GAME OVER", 220, 55);
+      ctx.fillText("GAME OVER", cw/2-115, ch/2);
       document.getElementById('dino-score').innerText = "Press Space to Retry";
       return;
     }
@@ -245,4 +346,5 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   update();
 })();
 </script>
+
 
