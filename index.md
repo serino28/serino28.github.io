@@ -89,7 +89,6 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
-</div>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
@@ -162,27 +161,30 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 /* Carosello */
 .carousel-container {
   width: 100vw;
-  overflow: hidden;
+  min-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #181a20cc;
   box-shadow: 0 0 36px #00ffe777;
   border-bottom: 2px solid #ff4d00;
   margin-bottom: 0;
   padding: 0;
   height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .carousel-news {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  width: 100vw;
-  height: 56px;
   font-family: 'Orbitron', 'Roboto Mono', monospace;
   font-size: 1.1em;
   color: #00ffe7;
   font-weight: bold;
   position: relative;
+  justify-content: center;
+  height: 56px;
 }
 .carousel-slide {
   display: none;
@@ -204,22 +206,18 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 /* Gioco Dino Fullwidth */
 #dino-game-container.fullwidth {
   width: 100vw;
-  margin: 0 auto 2.5em auto;
-  padding: 0;
-  border: none;
-  border-bottom: 4px solid #00ffe7;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto 2.5em auto;
+  padding: 0;
 }
 #dinoGame {
   display: block;
   margin: 0 auto;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 900px; /* cambia qui se vuoi più largo */
   background: #181a20;
   border-bottom: 4px solid #ff4d00;
   box-shadow: 0 0 40px #00ffe788, 0 0 16px #ff4d00bb;
