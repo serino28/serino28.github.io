@@ -2,7 +2,7 @@
 layout: default
 title: "Antonio Serino"
 ---
-<div class="centered-content">
+
 <!-- ==== CAROSELLO NEWS ==== -->
 <div class="carousel-container">
   <div id="carousel-news" class="carousel-news">
@@ -17,7 +17,6 @@ title: "Antonio Serino"
     </div>
   </div>
 </div>
-
 <!-- ==== FINE CAROSELLO ==== -->
 
 <!-- ==== INIZIO GIOCO DINO FULLWIDTH ==== -->
@@ -41,11 +40,10 @@ title: "Antonio Serino"
   </div>
 </div>
 
----
-
 <div class="centered-content">
 
 ## 🔍 About Me
+
 I’m a PhD student in **Big Data & Analytics for Business** at the University of Milan-Bicocca. My research focuses on **Natural Language Processing (NLP)** and **Large Language Models (LLMs)**, exploring their applications in the labour market and explainable AI.
 
 I’m passionate about solving real-world problems using AI, and I’ve worked extensively on skill extraction, labour data intelligence, and explainable decision-support systems.
@@ -53,6 +51,7 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 ---
 
 ## 📚 Publications
+
 - **Mar 2025** – *SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models* – ACM SAC
 - **Feb 2025** – *Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs* – IJCAI
 - **Oct 2024** – *An approach to Evaluative AI through LLMs* – ECAI
@@ -63,6 +62,7 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 ---
 
 ## 🚀 Projects
+
 - **MHEO Report** – Labour market analysis on 100K+ Lombardy graduates
 - **TEAI Index** – Framework to assess AI task exposure
 - **Skills-Hunter & SkiLLMo** – NLP pipelines for ESCO skill extraction and standardization
@@ -70,12 +70,14 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 ---
 
 ## 💼 Experience
+
 - **2024–2025** – Research collaboration at Univ. of Milan – MHEO Report (Statale & Bicocca)
 - **2023–2024** – NLP Researcher – Interuniversity Research Centre for Public Services
 
 ---
 
 ## 🎓 Education
+
 - **PhD** – Big Data & Analytics – Univ. Milan-Bicocca (2023–Now)
 - **MSc** – Data Science – Univ. Milan-Bicocca (2021–2023)
 - **BSc** – Computer Science – Univ. Bari (2018–2021)
@@ -83,13 +85,13 @@ I’m passionate about solving real-world problems using AI, and I’ve worked e
 ---
 
 ## 📫 Contact
+
 - 📧 Email: a.serino3@campus.unimib.it
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
 </div>
 
-<!-- === STILE E FONT === -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
 body {
@@ -346,5 +348,6 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   update();
 })();
 </script>
+
 
 
