@@ -161,16 +161,16 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 
 <script>
 (function() {
-  // Simple Dino Game
+  // Simple Dino Game MODERN
   const canvas = document.getElementById('dinoGame');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let dino = { x: 30, y: 52, vy: 0, jumping: false };
-  let ground = 62, gravity = 0.7, jump = -11;
+  let dino = { x: 30, y: 72, vy: 0, jumping: false };
+  let ground = 82, gravity = 0.7, jump = -11;
   let obstacles = [], frame = 0, score = 0, gameOver = false;
 
   function reset() {
-    dino.y = 52; dino.vy = 0; dino.jumping = false;
+    dino.y = 72; dino.vy = 0; dino.jumping = false;
     obstacles = [];
     frame = 0; score = 0; gameOver = false;
     document.getElementById('dino-score').innerText = '';
@@ -178,51 +178,50 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
 
   function drawDino() {
     ctx.fillStyle = '#00ffe7';
-    ctx.fillRect(dino.x, dino.y, 20, 18);
-    // Eye
+    ctx.fillRect(dino.x, dino.y, 24, 20);
     ctx.fillStyle = '#181a20';
-    ctx.fillRect(dino.x + 13, dino.y + 5, 3, 3);
+    ctx.fillRect(dino.x + 15, dino.y + 6, 4, 4);
   }
   function drawObstacle(o) {
     ctx.fillStyle = '#ff4d00';
     ctx.fillRect(o.x, ground - o.h + 1, o.w, o.h);
   }
   function update() {
-    ctx.clearRect(0,0,400,80);
+    ctx.clearRect(0,0,600,100);
     // Draw ground
     ctx.fillStyle = "#353535";
-    ctx.fillRect(0, ground + 16, 400, 4);
+    ctx.fillRect(0, ground + 16, 600, 4);
     drawDino();
     // Dino gravity/jump
     dino.y += dino.vy;
     dino.vy += gravity;
-    if (dino.y >= 52) { dino.y = 52; dino.jumping = false; }
+    if (dino.y >= 72) { dino.y = 72; dino.jumping = false; }
     // Obstacles
-    if (frame % 60 === 0) {
-      let h = 20 + Math.random()*18, w = 8 + Math.random()*10;
-      obstacles.push({ x: 400, w: w, h: h });
+    if (frame % 70 === 0) {
+      let h = 24 + Math.random()*20, w = 10 + Math.random()*14;
+      obstacles.push({ x: 600, w: w, h: h });
     }
     for (let o of obstacles) {
-      o.x -= 4;
+      o.x -= 5;
       drawObstacle(o);
       // Collision
       if (
-        dino.x + 20 > o.x && dino.x < o.x + o.w &&
-        dino.y + 18 > ground - o.h && dino.y < ground
+        dino.x + 24 > o.x && dino.x < o.x + o.w &&
+        dino.y + 20 > ground - o.h && dino.y < ground
       ) {
         gameOver = true;
       }
     }
     obstacles = obstacles.filter(o => o.x + o.w > 0);
-    // Score
-    score += 1;
-    ctx.font = "bold 16px Orbitron, monospace";
+    // Score (slowed)
+    if (frame % 4 === 0) score += 1;
+    ctx.font = "bold 18px Orbitron, monospace";
     ctx.fillStyle = "#00ffe7";
-    ctx.fillText(`Score: ${score}`, 300, 22);
+    ctx.fillText(`Score: ${score}`, 480, 26);
     if (gameOver) {
-      ctx.font = "bold 20px Orbitron, monospace";
+      ctx.font = "bold 26px Orbitron, monospace";
       ctx.fillStyle = "#ff4d00";
-      ctx.fillText("GAME OVER", 130, 45);
+      ctx.fillText("GAME OVER", 220, 55);
       document.getElementById('dino-score').innerText = "Press Space to Retry";
       return;
     }
@@ -231,6 +230,7 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   }
   document.addEventListener('keydown', function(e) {
     if ((e.code === 'Space' || e.keyCode === 32)) {
+      e.preventDefault(); // blocca scroll!
       if (!gameOver && !dino.jumping) {
         dino.vy = jump;
         dino.jumping = true;
@@ -245,3 +245,4 @@ hr, .hr { border: 0; height: 2px; background: linear-gradient(90deg,#ff4d00 0,#0
   update();
 })();
 </script>
+
