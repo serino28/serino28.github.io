@@ -2,7 +2,7 @@
 layout: default
 title: "Antonio Serino"
 ---
-
+<div class="centered-content">
 <!-- ==== CAROSELLO NEWS ==== -->
 <div class="carousel-container">
   <div id="carousel-news" class="carousel-news">
@@ -31,7 +31,7 @@ title: "Antonio Serino"
 <!-- ==== FINE GIOCO DINO ==== -->
 
 <div class="profile-container">
-  <img src="assets/img/antonio.jpg" alt="Antonio Serino" class="profile-pic"/>
+  <img src="assets/img/Antonio.jpg" alt="Antonio Serino" class="profile-pic"/>
   <div>
     <h1>👨‍💻 Antonio Serino</h1>
     <p class="subtitle">Data Scientist · PhD Student · NLP Researcher</p>
