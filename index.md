@@ -31,7 +31,7 @@ title: "Antonio Serino"
 <!-- ==== FINE GIOCO DINO ==== -->
 
 <div class="profile-container">
-  <img src="assets/img/Antonio.jpg" alt="Antonio Serino" class="profile-pic"/>
+  <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
   <div>
     <h1>👨‍💻 Antonio Serino</h1>
     <p class="subtitle">Data Scientist · PhD Student · NLP Researcher</p>
