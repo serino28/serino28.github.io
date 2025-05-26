@@ -5,7 +5,7 @@ title: "Antonio Serino"
 
 <!-- ==== TICKER NEWS ==== -->
 <div class="news-ticker-container">
-  <span class="news-icon">📰</span>
+  <span class="news-icon"></span>
   <div class="news-ticker" id="news-ticker">
     <span class="ticker-item">
       <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</span> <span class="pub-venue">ACM SAC</span>
@@ -79,7 +79,7 @@ I love being multi-disciplinary and drinking sugar-free coffee.
 
 ---
 
-## 🎓 Review Activities
+## ✍🏻 Review Activities
 
 - **ECML-PKDD 2024** – Research Track
 - **COLING 2025** – Industry Track
