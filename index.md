@@ -201,7 +201,7 @@ title: "Antonio Serino"
     display: flex;
     align-items: center;
     white-space: nowrap;
-    animation: ticker-scroll 45s linear infinite;
+    animation: ticker-scroll 25s linear infinite;
     font-size: 1.07em;
     will-change: transform;
   }
@@ -430,13 +430,13 @@ title: "Antonio Serino"
   <span class="news-icon">📰</span>
   <div class="news-ticker" id="news-ticker">
     <span class="ticker-item">
-      <span class="pub-date">May 2025</span> – <span class="pub-title">Towards the Terminator Economy</span> <span class="pub-venue">IJCAI 2025</span>
+      <span class="pub-date">May 2025</span> – <span class="pub-title">A Benchmark to Evaluate LLMs’ Proficiency on Italian Student Competencies</span> <span class="pub-venue">ECML-PKDD 2025</span>
+    </span>
+    <span class="ticker-item">
+      <span class="pub-date">Mar 2025</span> – <span class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs </span> <span class="pub-venue">IJCAI 2025</span>
     </span>
     <span class="ticker-item">
       <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction</span> <span class="pub-venue">ACM SAC 2025</span>
-    </span>
-    <span class="ticker-item">
-      <span class="pub-date">Oct 2024</span> – <span class="pub-title">An approach to Evaluative AI</span> <span class="pub-venue">ECAI 2024</span>
     </span>
   </div>
 </div>
@@ -464,35 +464,37 @@ title: "Antonio Serino"
 
 <!-- RESTO DEL SITO -->
 <div class="centered-block">
+  <!-- About Me in English -->
   <div class="content-section about-me-fancy">
     <h2>🔍 About Me</h2>
     <div class="fancy-intro">
       <div class="intro-card" style="--accent-color: var(--accent);">
-        <h3>Intelligenza Artificiale & NLP</h3>
-        <p>Esploro le frontiere del linguaggio e del ragionamento automatico.</p>
+        <h3>Artificial Intelligence & NLP</h3>
+        <p>I explore the frontiers of language and automated reasoning.</p>
         <span class="icon">🧠</span>
       </div>
       <div class="intro-card" style="--accent-color: #F78166;">
-        <h3>Valutazione ed Interpretazione</h3>
-        <p>Rendo i modelli di machine learning più trasparenti e affidabili.</p>
+        <h3>Evaluation and Interpretability</h3>
+        <p>I work on making machine learning models more transparent and reliable.</p>
         <span class="icon">💡</span>
       </div>
       <div class="intro-card" style="--accent-color: #6F42C1;">
-        <h3>Applicazioni nel Business</h3>
-        <p>Integro l'AI per migliorare la collaborazione uomo-macchina nel mondo aziendale.</p>
+        <h3>Business Applications</h3>
+        <p>I integrate AI to enhance human-machine collaboration in business contexts.</p>
         <span class="icon">📈</span>
       </div>
     </div>
     <div class="intro-details">
-      <p>Attualmente dottorando in <strong>Big Data Analytics for Business</strong> all'Università di Milano-Bicocca, la mia ricerca si concentra sull'<strong>Intelligenza Artificiale</strong> e sul <strong>Natural Language Processing</strong>, con un focus particolare sulla <strong>valutazione</strong>, <strong>spiegazione</strong> e <strong>interpretazione</strong> di modelli di <strong>Machine Learning</strong>, <strong>Transformer</strong> e <strong>Grandi Modelli Linguistici</strong>.</p>
-      <p>Ogni giorno affronto la sfida di integrare intelligentemente questi sistemi in un contesto aziendale per potenziare la sinergia tra uomo e macchina. Sono convinto del valore di un approccio multidisciplinare e la mia passione per la conoscenza è alimentata da una tazza di caffè senza zucchero ☕.</p>
+      <p>I am currently a PhD student in <strong>Big Data Analytics for Business</strong> at the University of Milano-Bicocca. My research focuses on <strong>Artificial Intelligence</strong> and <strong>Natural Language Processing</strong>, with particular attention to the <strong>evaluation</strong>, <strong>explanation</strong>, and <strong>interpretation</strong> of <strong>Machine Learning</strong> models, <strong>Transformers</strong>, and <strong>Large Language Models</strong>.</p>
+      <p>I tackle the challenge of smartly integrating these technologies into business environments to empower effective human-AI synergy. I believe in the value of multidisciplinary approaches, and my passion for knowledge is fueled by a cup of coffee (no sugar) ☕.</p>
     </div>
   </div>
 
+  <!-- Publications -->
   <div class="content-section">
     <h2>📚 Publications</h2>
     <div id="publications-map" style="height:350px;width:100%;max-width:900px;margin:0 auto 20px auto;background:#eee;"></div>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   // Array di tutte le pubblicazioni con coordinate, sigla e titolo
@@ -535,56 +537,28 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   ];
 
-  // Centra la mappa sul primo punto (puoi usare [45.4642,9.19] se vuoi Milano)
-  var map = L.map('publications-map').setView([41.1621, 12.5], 3.7);
+    // Centra la mappa sul primo punto (puoi usare [45.4642,9.19] se vuoi Milano)
+    var map = L.map('publications-map').setView([41.1621, 12.5], 3.7);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-  // Aggiungi i marker
-  pubs.forEach(function(pub) {
-    L.marker([pub.lat, pub.lng]).addTo(map)
-      .bindPopup('<strong>' + pub.sigla + '</strong><br/>' +
-                 pub.title + '<br/><i>' + pub.city + '</i>');
-  });
+    // Aggiungi i marker
+    pubs.forEach(function(pub) {
+      L.marker([pub.lat, pub.lng]).addTo(map)
+        .bindPopup('<strong>' + pub.sigla + '</strong><br/>' +
+                  pub.title + '<br/><i>' + pub.city + '</i>');
+    });
 
-  // Adatta la vista a tutti i marker
-  var group = new L.featureGroup(pubs.map(pub => L.marker([pub.lat, pub.lng])));
-  map.fitBounds(group.getBounds().pad(0.25));
-});
-</script>
-
-
+    // Adatta la vista a tutti i marker
+    var group = new L.featureGroup(pubs.map(pub => L.marker([pub.lat, pub.lng])));
+    map.fitBounds(group.getBounds().pad(0.25));
+    });
+  </script>
   </div>
 
-  <div class="content-section">
-    <h2>🚀 Projects</h2>
-    <ul>
-      <li><strong>MHEO Report</strong> – Labour market analysis on 100K+ Lombardy graduates</li>
-      <li><strong>TEAI & TRAI Indexes</strong> – Framework to assess AI exposure to job occupations </li>
-      <li><strong>Skills-Hunter & SkiLLMo</strong> – NLP pipelines for ESCO skill extraction and standardization</li>
-    </ul>
-  </div>
-
-  <div class="content-section">
-    <h2>💼 Experience</h2>
-    <ul>
-      <li><strong>2024–2025</strong> – Research collaboration at Univ. of Milan – MHEO Report (Statale & Bicocca)</li>
-      <li><strong>2023–2024</strong> – NLP Researcher – Interuniversity Research Centre for Public Services</li>
-    </ul>
-  </div>
-
-  <div class="content-section">
-    <h2>✍🏻 Review Activities</h2>
-    <ul>
-      <li><strong>ECML-PKDD 2024</strong> – Research Track</li>
-      <li><strong>COLING 2025</strong> – Industry Track</li>
-      <li><strong>Knowledge-Based Systems</strong> – Journal Q1</li>
-      <li><strong>International Journal of Information Technology & Decision Making</strong> - Journal Q2</li>
-    </ul>
-  </div>
-
+  <!-- Education spostata qui -->
   <div class="content-section">
     <h2>🎓 Education</h2>
     <div class="timeline">
@@ -614,6 +588,37 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
   </div>
 
+  <!-- Projects -->
+  <div class="content-section">
+    <h2>🚀 Projects</h2>
+    <ul>
+      <li><strong>MHEO Report</strong> – Labour market analysis on 100K+ Lombardy graduates</li>
+      <li><strong>TEAI & TRAI Indexes</strong> – Framework to assess AI exposure to job occupations </li>
+      <li><strong>Skills-Hunter & SkiLLMo</strong> – NLP pipelines for ESCO skill extraction and standardization</li>
+    </ul>
+  </div>
+
+  <!-- Experience -->
+  <div class="content-section">
+    <h2>💼 Experience</h2>
+    <ul>
+      <li><strong>2024–2025</strong> – Research collaboration at Univ. of Milan – MHEO Report (Statale & Bicocca)</li>
+      <li><strong>2023–2024</strong> – NLP Researcher – Interuniversity Research Centre for Public Services</li>
+    </ul>
+  </div>
+
+  <!-- Review Activities -->
+  <div class="content-section">
+    <h2>✍🏻 Review Activities</h2>
+    <ul>
+      <li><strong>ECML-PKDD 2024</strong> – Research Track</li>
+      <li><strong>COLING 2025</strong> – Industry Track</li>
+      <li><strong>Knowledge-Based Systems</strong> – Journal Q1</li>
+      <li><strong>International Journal of Information Technology & Decision Making</strong> - Journal Q2</li>
+    </ul>
+  </div>
+
+  <!-- Contact -->
   <div class="content-section">
     <h2>📫 Contact</h2>
     <ul>
@@ -623,6 +628,7 @@ document.addEventListener("DOMContentLoaded", function(){
     </ul>
   </div>
 </div>
+
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMMLjQi37JyJl1IBVWI/Km2yc4Ilv0nqhccecs0ZnFHjKjnoXtuyVcWRwGDC9QmPxaGxFKZxlIxBMwywJmQ==" crossorigin=""></script>
 <script>
