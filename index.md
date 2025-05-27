@@ -27,8 +27,18 @@ title: "Antonio Serino"
   <p style="margin:0;font-size:0.95em;opacity:0.7;">
     Jump over obstacles! <b>Space</b> = jump / restart
   </p>
+  <!-- qui inseriamo i bottoni -->
+  <div style="margin-top:12px; display:flex; gap:12px;">
+    <button id="jump-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:#00ffe7; color:#000;">
+      Jump
+    </button>
+    <button id="restart-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:#ff4d00; color:#fff;">
+      Restart
+    </button>
+  </div>
 </div>
 <!-- ==== FINE GIOCO DINO ==== -->
+
 
 <!-- ==== PROFILO CENTRATO ==== -->
 <div class="profile-container centered-block">
@@ -320,14 +330,17 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 });
 
-// === DINO GAME CENTRATO ===
+// === DINO GAME CENTRATO con controlli mobile e velocità aumentata ===
 (function() {
   const canvas = document.getElementById('dinoGame');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let cw = canvas.width, ch = canvas.height;
   let dino = { x: 30, y: 0, vy: 0, jumping: false, w: 32, h: 26 };
-  let ground = ch - 40, gravity = 0.8, jump = -13;
+  let ground = ch - 40;
+  const gravity = 0.8;
+  const jumpForce = -13;
+  const speedMultiplier = 1.2;  // fattore di velocità
   let obstacles = [], frame = 0, score = 0, gameOver = false;
 
   function resize() {
@@ -340,68 +353,91 @@ document.addEventListener("DOMContentLoaded", function(){
   resize();
 
   function reset() {
-    dino.y = ground - dino.h; dino.vy = 0; dino.jumping = false;
+    dino.y = ground - dino.h;
+    dino.vy = 0;
+    dino.jumping = false;
     obstacles = [];
-    frame = 0; score = 0; gameOver = false;
+    frame = 0;
+    score = 0;
+    gameOver = false;
     document.getElementById('dino-score').innerText = '';
   }
+
   function drawDino() {
     ctx.fillStyle = '#00ffe7';
     ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
     ctx.fillStyle = '#181a20';
     ctx.fillRect(dino.x + dino.w - 9, dino.y + 6, 5, 5);
   }
+
   function drawObstacle(o) {
     ctx.fillStyle = '#ff4d00';
     ctx.fillRect(o.x, ground - o.h + 1, o.w, o.h);
   }
+
   function update() {
     ctx.clearRect(0,0,cw,ch);
-    // Draw ground
+    // terra
     ctx.fillStyle = "#353535";
     ctx.fillRect(0, ground + 20, cw, 5);
+
     drawDino();
-    // Dino gravity/jump
+
+    // fisica
     dino.y += dino.vy;
     dino.vy += gravity;
-    if (dino.y >= ground - dino.h) { dino.y = ground - dino.h; dino.jumping = false; }
-    // Obstacles
-    if (frame % 75 === 0) {
-      let h = 30 + Math.random()*22, w = 18 + Math.random()*18;
-      obstacles.push({ x: cw, w: w, h: h });
+    if (dino.y >= ground - dino.h) {
+      dino.y = ground - dino.h;
+      dino.jumping = false;
     }
-    for (let o of obstacles) {
-      o.x -= Math.max(6, cw/220);
+
+    // spawn ostacoli più frequente
+    if (frame % 60 === 0) {
+      obstacles.push({
+        x: cw,
+        w: 18 + Math.random() * 18,
+        h: 30 + Math.random() * 22
+      });
+    }
+
+    // muovi ostacoli
+    obstacles.forEach(o => {
+      o.x -= Math.max(6, cw / 220) * speedMultiplier;
       drawObstacle(o);
-      // Collision
+      // collisione
       if (
         dino.x + dino.w > o.x && dino.x < o.x + o.w &&
         dino.y + dino.h > ground - o.h && dino.y < ground
       ) {
         gameOver = true;
       }
-    }
+    });
     obstacles = obstacles.filter(o => o.x + o.w > 0);
-    // Score (slowed)
-    if (frame % 4 === 0) score += 1;
+
+    // punteggio
+    if (frame % 4 === 0) score++;
     ctx.font = "bold 22px Orbitron, monospace";
     ctx.fillStyle = "#00ffe7";
     ctx.fillText(`Score: ${score}`, cw - 180, 38);
+
     if (gameOver) {
       ctx.font = "bold 36px Orbitron, monospace";
       ctx.fillStyle = "#ff4d00";
-      ctx.fillText("GAME OVER", cw/2-115, ch/2);
+      ctx.fillText("GAME OVER", cw/2 - 115, ch/2);
       document.getElementById('dino-score').innerText = "Press Space to Retry";
       return;
     }
+
     frame++;
     requestAnimationFrame(update);
   }
+
+  // controlli tastiera
   document.addEventListener('keydown', function(e) {
-    if ((e.code === 'Space' || e.keyCode === 32)) {
+    if (e.code === 'Space' || e.keyCode === 32) {
       e.preventDefault();
       if (!gameOver && !dino.jumping) {
-        dino.vy = jump;
+        dino.vy = jumpForce;
         dino.jumping = true;
       } else if (gameOver) {
         reset();
@@ -409,7 +445,24 @@ document.addEventListener("DOMContentLoaded", function(){
       }
     }
   });
+
+  // controlli mobile (pulsanti)
+  document.getElementById('jump-btn')?.addEventListener('click', function() {
+    if (!gameOver && !dino.jumping) {
+      dino.vy = jumpForce;
+      dino.jumping = true;
+    }
+  });
+  document.getElementById('restart-btn')?.addEventListener('click', function() {
+    if (gameOver) {
+      reset();
+      update();
+    }
+  });
+
+  // avvio
   reset();
   update();
 })();
 </script>
+
