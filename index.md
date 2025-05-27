@@ -491,7 +491,7 @@ title: "Antonio Serino"
 
   <div class="content-section">
     <h2>📚 Publications</h2>
-    <div id="publications-map"></div>
+    <!-- <div id="publications-map"></div>
     <ul id="publications-list" style="display:none;">
       <li data-lat="41.1621" data-lng="-8.6291" data-sigla="ECML-PKDD 25" data-title="Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI">Porto, Portogallo</li>
       <li data-lat="45.5017" data-lng="-73.5673" data-sigla="IJCAI 25" data-title="Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs">Montreal, Canada</li>
@@ -499,7 +499,19 @@ title: "Antonio Serino"
       <li data-lat="42.8782" data-lng="-8.5449" data-sigla="ECAI 24" data-title="An approach to Evaluative AI through LLMs">Santiago de Compostela, Spagna</li>
       <li data-lat="35.9375" data-lng="14.5001" data-sigla="XAI World 24" data-title="Augmenting XAI with LLMs">Malta, Malta</li>
       <li data-lat="41.9028" data-lng="12.4964" data-sigla="AIxIA 23" data-title="Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction">Roma, Italia</li>
-    </ul>
+    </ul> -->
+    <div id="publications-map" style="height:350px;width:100%;max-width:900px;margin:0 auto 20px auto;background:#eee;"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      var map = L.map('publications-map').setView([45.4642, 9.19], 5);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      L.marker([45.4642, 9.19]).addTo(map).bindPopup('Milano').openPopup();
+    });
+    </script>
+
   </div>
 
   <div class="content-section">
