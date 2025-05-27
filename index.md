@@ -250,7 +250,6 @@ title: "Antonio Serino"
 </div>
 
 <!-- ==== CONTENUTO PRINCIPALE CENTRATO ==== -->
-<div class="centered-content">
 ## 🔍 About Me
 
 Currently a PhD student at the University of Milano-Bicocca in **Big Data Analytics for Business**.
@@ -308,7 +307,7 @@ I love being multi-disciplinary and drinking sugar-free coffee.
 - 📧 Email: a.serino3@campus.unimib.it
 - 🔗 GitHub: [serino28](https://github.com/serino28)
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
-</div>
+
 
 <!-- 3) SCRIPT: NEWS TICKER, DINO GAME & THEMING -->
 <script>
