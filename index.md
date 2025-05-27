@@ -7,43 +7,40 @@ title: "Antonio Serino"
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 
 <style>
-  /* CSS CUSTOM PROPERTIES & THEME (Night/Day) - INALTERATO */
-  :root { /* NIGHT MODE (Default) */
-    --bg: #0D1117; /* GitHub Dark Dimmed BG */
+  :root {
+    --bg: #0D1117;
     --bg-gradient: radial-gradient(ellipse at center, #1A222F 0%, #0D1117 100%);
-    --fg: #C9D1D9; /* GitHub Dark Dimmed Text */
-    --accent: #58A6FF; /* GitHub Dark Dimmed Blue Accent */
+    --fg: #C9D1D9;
+    --accent: #58A6FF;
     --accent-hover: #79C0FF;
     --border-color: #30363D;
-    --card-bg: #161B22; /* Sfondo per elementi "card" o container */
+    --card-bg: #161B22;
 
     --font-heading: 'Audiowide', cursive;
     --font-body: 'Roboto Mono', monospace;
     --font-game: 'Orbitron', monospace;
 
-    /* Game Colors - Night Mode */
     --dino-color: var(--accent);
-    --obstacle-color: #F78166; /* Arancione GitHub Dark Dimmed */
+    --obstacle-color: #F78166;
     --game-text-color: var(--fg);
     --game-ground-color: var(--border-color);
     --dino-eye-color: var(--bg);
-    --game-canvas-bg: var(--card-bg); /* Sfondo del canvas gioco */
+    --game-canvas-bg: var(--card-bg);
 
     transition: background 0.3s, color 0.3s;
   }
 
-  body.day-mode { /* DAY MODE */
-    --bg: #F6F8FA; /* GitHub Light BG */
+  body.day-mode {
+    --bg: #F6F8FA;
     --bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #F6F8FA 100%);
-    --fg: #24292F; /* GitHub Light Text */
-    --accent: #0969DA; /* GitHub Light Blue Accent */
+    --fg: #24292F;
+    --accent: #0969DA;
     --accent-hover: #0C82FB;
     --border-color: #D0D7DE;
     --card-bg: #FFFFFF;
 
-    /* Game Colors - Day Mode */
-    --dino-color: var(--fg); /* Dino scuro su sfondo chiaro */
-    --obstacle-color: #CF222E; /* Rosso GitHub Light */
+    --dino-color: var(--fg);
+    --obstacle-color: #CF222E;
     --game-text-color: var(--fg);
     --game-ground-color: var(--border-color);
     --dino-eye-color: var(--bg);
@@ -51,7 +48,7 @@ title: "Antonio Serino"
   }
 
   body {
-    background: var(--bg-gradient); /* Usa il gradiente */
+    background: var(--bg-gradient);
     color: var(--fg);
     font-family: var(--font-body);
     margin: 0;
@@ -61,7 +58,6 @@ title: "Antonio Serino"
     line-height: 1.6;
   }
 
-  /* GLOBAL ELEMENT STYLES - INALTERATO */
   a {
     color: var(--accent);
     text-decoration: none;
@@ -75,7 +71,7 @@ title: "Antonio Serino"
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--accent);
-    text-shadow: 0 0 8px var(--accent)33; /* Ombra più leggera */
+    text-shadow: 0 0 8px var(--accent)33;
     letter-spacing: 1.5px;
     margin-bottom: 0.75em;
     margin-top: 1.5em;
@@ -84,7 +80,6 @@ title: "Antonio Serino"
   h2 { font-size: 1.8em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em;}
   h3 { font-size: 1.4em; }
 
-  /* THEME SWITCHER BUTTONS - INALTERATO */
   #theme-switcher {
     position: fixed;
     top: 16px;
@@ -97,7 +92,7 @@ title: "Antonio Serino"
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--fg);
-    font-size: 1.3em; /* Leggermente più piccolo */
+    font-size: 1.3em;
     cursor: pointer;
     padding: 6px 10px;
     border-radius: 6px;
@@ -108,26 +103,24 @@ title: "Antonio Serino"
     border-color: var(--accent);
     filter: brightness(1.1);
   }
-  #theme-switcher button.active { /* Stile per il bottone del tema attivo */
+  #theme-switcher button.active {
     background: var(--accent);
-    color: var(--bg); /* O un colore di testo che contrasta bene con l'accento */
+    color: var(--bg);
     border-color: var(--accent);
   }
 
-
-  /* Centered blocks & Content Sections - INALTERATO */
   .centered-block {
     max-width: 900px;
-    margin: 24px auto 32px auto; /* Aumentato margine sopra */
+    margin: 24px auto 32px auto;
     padding: 24px;
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    text-align: left; /* Contenuto allineato a sinistra di default */
+    text-align: left;
   }
-  .content-section { /* Usato per About, Publications, etc. */
-     margin-bottom: 2em;
+  .content-section {
+    margin-bottom: 2em;
   }
   .content-section ul {
     list-style: none;
@@ -141,28 +134,28 @@ title: "Antonio Serino"
     border-bottom: none;
   }
 
-
-  /* Profile pic - INALTERATO */
   .profile-pic {
     width: 120px;
     height: 120px;
-    border-radius: 50%; /* Cerchio perfetto */
+    border-radius: 50%;
     border: 3px solid var(--accent);
     box-shadow: 0 0 15px var(--accent)77;
     object-fit: cover;
-    background: var(--bg); /* Sfondo nel caso l'immagine non carichi */
+    background: var(--bg);
   }
-  .profile-container { /* Blocco specifico per il profilo */
+  .profile-container {
     display: flex;
-    flex-direction: row; /* Default: riga */
+    flex-direction: row;
     align-items: center;
     gap: 24px;
     text-align: left;
-    background: transparent !important; /* Rimuove lo sfondo da .centered-block */
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    padding-top: 3em; /* Più spazio sopra */
+    padding-top: 3em;
     padding-bottom: 1em;
+    max-width: 900px;
+    margin: 0 auto 24px auto;
   }
   .profile-container h1 { margin-top: 0;}
   .profile-container .subtitle {
@@ -181,12 +174,10 @@ title: "Antonio Serino"
     opacity: 0.9;
   }
 
-
-  /* News Ticker - INALTERATO */
   .news-ticker-container {
     width: 100%;
     max-width: 900px;
-    margin: 0 auto 32px auto; /* Allineato con centered-block */
+    margin: 0 auto 32px auto;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     box-shadow: 0 2px 8px var(--accent)22;
@@ -195,10 +186,12 @@ title: "Antonio Serino"
     align-items: center;
     overflow: hidden;
     min-height: 48px;
-    padding: 0 10px; /* Padding interno */
+    padding: 0 10px;
+    position: relative;
+    height: 54px;
   }
   .news-icon {
-    font-size: 1.5em; /* Leggermente ridotto */
+    font-size: 1.5em;
     color: var(--accent);
     margin-right: 12px;
     filter: drop-shadow(0 0 4px var(--accent)55);
@@ -208,8 +201,9 @@ title: "Antonio Serino"
     display: flex;
     align-items: center;
     white-space: nowrap;
-    animation: ticker-scroll 24s linear infinite;
-    font-size: 0.95em; /* Leggermente ridotto */
+    animation: ticker-scroll 45s linear infinite;
+    font-size: 1.07em;
+    will-change: transform;
   }
   .ticker-item {
     display: inline-block;
@@ -218,41 +212,38 @@ title: "Antonio Serino"
     font-weight: 500;
   }
   .ticker-item .pub-date { color: var(--accent); font-weight: bold; margin-right: 8px; }
-  .ticker-item .pub-title { color: var(--fg); font-weight: normal; margin-right: 5px; } /* Testo normale per il titolo */
+  .ticker-item .pub-title { color: var(--fg); font-weight: normal; margin-right: 5px; }
   .ticker-item .pub-venue {
-    color: var(--bg); /* Testo scuro/chiaro a seconda del tema */
+    color: var(--bg);
     background: var(--accent);
-    padding: 2px 8px; border-radius: 4px; /* Più squadrato */
+    padding: 2px 8px; border-radius: 4px;
     margin-left: 8px; font-weight: bold; font-size: 0.9em;
   }
   @keyframes ticker-scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    0% { transform: translateX(100%);}
+    100% { transform: translateX(-100%);}
   }
 
-
-  /* Dino Game Container - INALTERATO */
   #dino-game-container {
     width: 100%;
     max-width: 900px;
-    background: var(--game-canvas-bg); /* Sfondo del container */
+    background: var(--game-canvas-bg);
     border: 1px solid var(--border-color);
-    border-bottom: 4px solid var(--accent); /* Bordo inferiore accentuato */
-    border-radius: 8px; /* Stessa curvatura del .centered-block */
+    border-bottom: 4px solid var(--accent);
+    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin: 0 auto 24px auto; /* Centrato */
+    margin: 0 auto 24px auto;
     padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  #dinoGame { /* Il canvas stesso */
+  #dinoGame {
     width: 100%;
-    /* max-width gestito dal container */
-    background: var(--game-canvas-bg); /* Sfondo del canvas, può essere var(--bg) per integrarsi */
-    border-radius: 4px; /* Leggera curvatura interna */
+    background: var(--game-canvas-bg);
+    border-radius: 4px;
   }
-  #dino-score-text { /* Testo "Jump over obstacles" */
+  #dino-score-text {
     color: var(--fg);
     opacity: 0.7;
     font-size: 0.9em;
@@ -260,9 +251,9 @@ title: "Antonio Serino"
   }
   #dino-game-controls button {
     padding: 8px 16px; font-size: 1em; border: 1px solid var(--border-color); border-radius: 6px;
-    background: var(--accent); color: var(--bg); /* O testo bianco/nero fisso */
+    background: var(--accent); color: var(--bg);
     cursor: pointer;
-    font-family: var(--font-body); /* Usa il font del body */
+    font-family: var(--font-body);
     transition: background 0.3s, filter 0.3s;
   }
   #dino-game-controls button:hover {
@@ -270,17 +261,15 @@ title: "Antonio Serino"
   }
   #dino-game-controls { margin-top: 12px; display:flex; gap:12px; }
 
-
-  /* EDUCATION TIMELINE - INALTERATO */
   .timeline {
     position: relative;
     padding: 20px 0;
     margin-top: 1em;
   }
-  .timeline::before { /* La linea verticale centrale */
+  .timeline::before {
     content: '';
     position: absolute;
-    left: 20px; /* Spostata a sinistra per layout a colonna singola */
+    left: 20px;
     top: 0;
     bottom: 0;
     width: 3px;
@@ -295,31 +284,30 @@ title: "Antonio Serino"
   .timeline li {
     margin-bottom: 30px;
     position: relative;
-    padding-left: 50px; /* Spazio per il pallino e la linea */
-    border-bottom: none; /* Rimuovi la linea tratteggiata di default delle li */
+    padding-left: 50px;
+    border-bottom: none;
   }
-  .timeline li::before { /* Il pallino sulla linea */
+  .timeline li::before {
     content: '';
     position: absolute;
-    left: 9.5px; /* Centra il pallino sulla linea (20px - (20px/2) - (width/2) approx ) -> (20px - 10px - width/2) */
-    top: 5px; /* Allineamento verticale del pallino */
+    left: 21.5px;
+    top: 5px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background-color: var(--accent);
-    border: 3px solid var(--bg); /* Crea effetto "buco" */
+    border: 3px solid var(--bg);
     z-index: 1;
-    transform: translateX(-50%); /* Centra esattamente sulla linea */
-     left: 21.5px; /* (line-left + line-width/2) */
+    transform: translateX(-50%);
   }
   .timeline-content {
-    background-color: var(--bg); /* Sfondo leggermente diverso per staccare */
+    background-color: var(--bg);
     padding: 15px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
-  .timeline-content h3 { /* Titolo dell'evento nella timeline */
+  .timeline-content h3 {
     margin-top: 0;
     font-size: 1.2em;
     color: var(--accent);
@@ -330,7 +318,7 @@ title: "Antonio Serino"
     color: var(--fg);
     opacity: 0.9;
   }
-  .timeline-date { /* Per le date, se vuoi separarle */
+  .timeline-date {
     display: block;
     font-size: 0.9em;
     color: var(--accent);
@@ -338,14 +326,12 @@ title: "Antonio Serino"
     margin-bottom: 5px;
   }
 
-  /* ABOUT ME FANCY - NUOVO STILE */
   .about-me-fancy .fancy-intro {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 16px;
     margin-bottom: 20px;
   }
-
   .about-me-fancy .intro-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -355,32 +341,27 @@ title: "Antonio Serino"
     transition: transform;
     transform: scale(1.0);
   }
-
   .about-me-fancy .intro-card:hover {
     transform: scale(1.05);
   }
-
   .about-me-fancy .intro-card h3 {
     color: var(--accent);
     margin-top: 0;
     margin-bottom: 8px;
     font-size: 1.1em;
   }
-
   .about-me-fancy .intro-card p {
     font-size: 0.9em;
     color: var(--fg);
     opacity: 0.8;
     margin-bottom: 0;
   }
-
   .about-me-fancy .intro-card .icon {
     font-size: 1.5em;
     opacity: 0.7;
     display: block;
     margin-top: 10px;
   }
-
   .about-me-fancy .intro-details {
     font-size: 0.95em;
     color: var(--fg);
@@ -389,7 +370,6 @@ title: "Antonio Serino"
     margin-top: 20px;
   }
 
-  /* PUBLICATIONS MAP STYLES */
   #publications-map {
     height: 350px;
     width: 100%;
@@ -422,10 +402,10 @@ title: "Antonio Serino"
     white-space: nowrap;
     opacity: 0;
     position: absolute;
-    transform: translate(-50%, -150%); /* Posiziona sopra il marker */
+    transform: translate(-50%, -150%);
     transition: opacity 0.2s ease-in-out;
     z-index: 1000;
-    pointer-events: none; /* Permette l'hover sul marker sottostante */
+    pointer-events: none;
   }
   .leaflet-marker-icon:hover + .publication-label {
     opacity: 1;
@@ -445,6 +425,7 @@ title: "Antonio Serino"
   <button id="day-mode-btn" title="Day Mode">☀️</button>
 </div>
 
+<!-- NEWS TICKER (ULTIMI 3 PAPER) -->
 <div class="news-ticker-container">
   <span class="news-icon">📰</span>
   <div class="news-ticker" id="news-ticker">
@@ -457,26 +438,10 @@ title: "Antonio Serino"
     <span class="ticker-item">
       <span class="pub-date">Oct 2024</span> – <span class="pub-title">An approach to Evaluative AI</span> <span class="pub-venue">ECAI 2024</span>
     </span>
-    <span class="ticker-item">
-      <span class="pub-date">Jul 2024</span> – <span class="pub-title">Augmenting XAI with LLMs</span> <span class="pub-venue">XAI World Conf 2024</span>
-    </span>
-    <span class="ticker-item">
-      <span class="pub-date">Jun 2024</span> – <span class="pub-title">Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI</span> <span class="pub-venue">arXiv</span>
-    </span>
-    <span class="ticker-item">
-      <span class="pub-date">Nov 2023</span> – <span class="pub-title">Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction</span> <span class="pub-venue">AIxIA 2023</span>
-    </span>
   </div>
 </div>
 
-<div id="dino-game-container">
-  <canvas id="dinoGame" width="850" height="160"></canvas> <p id="dino-score-text">Jump over obstacles! (Spacebar or Button)</p>
-  <div id="dino-game-controls">
-    <button id="jump-btn">Jump</button>
-    <button id="restart-btn">Restart</button>
-  </div>
-</div>
-
+<!-- PROFILE CONTAINER (ora subito sotto il ticker) -->
 <div class="profile-container">
   <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
   <div>
@@ -488,6 +453,16 @@ title: "Antonio Serino"
   </div>
 </div>
 
+<!-- DINO GAME -->
+<div id="dino-game-container">
+  <canvas id="dinoGame" width="850" height="160"></canvas> <p id="dino-score-text">Jump over obstacles! (Spacebar or Button)</p>
+  <div id="dino-game-controls">
+    <button id="jump-btn">Jump</button>
+    <button id="restart-btn">Restart</button>
+  </div>
+</div>
+
+<!-- RESTO DEL SITO -->
 <div class="centered-block">
   <div class="content-section about-me-fancy">
     <h2>🔍 About Me</h2>
@@ -596,17 +571,6 @@ title: "Antonio Serino"
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMMLjQi37JyJl1IBVWI/Km2yc4Ilv0nqhccecs0ZnFHjKjnoXtuyVcWRwGDC9QmPxaGxFKZxlIxBMwywJmQ==" crossorigin=""></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  // News Ticker Duplication for seamless scroll
-  const ticker = document.getElementById('news-ticker');
-  if (ticker && ticker.children.length > 0) {
-      if (ticker.scrollWidth > ticker.offsetWidth) { // Solo se il contenuto è più largo del contenitore
-        const originalContent = ticker.innerHTML;
-        ticker.innerHTML += originalContent; // Duplica una volta
-        if (ticker.scrollWidth < ticker.offsetWidth * 2) { // Se ancora non basta (caso raro con poco contenuto)
-             ticker.innerHTML += originalContent; // Duplica di nuovo
-        }
-      }
-  }
 
   // Theme Switcher Logic - INALTERATO
   const nightModeBtn = document.getElementById('night-mode-btn');
@@ -631,16 +595,14 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     localStorage.setItem('site-theme', theme);
     setActiveButton(theme);
-    document.dispatchEvent(new CustomEvent('themeChanged')); // Notifica il gioco
+    document.dispatchEvent(new CustomEvent('themeChanged'));
   }
 
   nightModeBtn.addEventListener('click', () => applyTheme('night'));
   dayModeBtn.addEventListener('click', () => applyTheme('day'));
 
-  // Load saved theme or default to night
   const savedTheme = localStorage.getItem('site-theme') || 'night';
   applyTheme(savedTheme);
-
 
   // Dino game - INALTERATO
   (function() {
@@ -679,7 +641,6 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     window.addEventListener('resize', resizeCanvas);
 
-
     function reset(){
       updateGameColors();
       resizeCanvas();
@@ -714,8 +675,7 @@ document.addEventListener("DOMContentLoaded", function(){
           ctx.fillRect(o.x + (o.armSide === 'left' ? -armWidth + 2 : o.w - 2), armY, armWidth, armHeight);
         }
       } else if (o.type === 'bird') {
-        ctx.fillRect(o.x, o.yPos, o.w, o.h); // Corpo
-        // Ali stilizzate
+        ctx.fillRect(o.x, o.yPos, o.w, o.h);
         ctx.beginPath();
         ctx.moveTo(o.x - o.w * 0.4, o.yPos + o.h / 2);
         ctx.lineTo(o.x + o.w / 2, o.yPos - o.h * 0.3);
@@ -861,7 +821,7 @@ document.addEventListener("DOMContentLoaded", function(){
           iconAnchor: [10, 10]
         });
 
-        const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+        L.marker([lat, lng], { icon: customIcon }).addTo(map);
       }
     });
 
@@ -877,5 +837,6 @@ document.addEventListener("DOMContentLoaded", function(){
       map.fitBounds(bounds, { padding: [50, 50] });
     }
   }
+
 });
 </script>
