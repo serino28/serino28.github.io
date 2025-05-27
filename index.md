@@ -1,5 +1,5 @@
 ---
-layout: noheader
+layout: plain
 title: "Antonio Serino"
 ---
 
