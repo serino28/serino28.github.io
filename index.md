@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ""
+title: "Antonio Serino"
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto+Mono:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
