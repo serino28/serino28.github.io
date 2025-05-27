@@ -3,7 +3,7 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<!-- 1) IMPORT FONTS & THEME SWITCHER -->
+<!-- ==== IMPORT FONTS & SWITCHER ==== -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Audiowide&family=Anton&display=swap" rel="stylesheet">
 
 <style>
@@ -15,7 +15,6 @@ title: "Antonio Serino"
     --font-main: 'Roboto Mono', monospace;
     transition: background 0.5s, color 0.5s;
   }
-
   body {
     background: var(--bg);
     color: var(--fg);
@@ -26,15 +25,15 @@ title: "Antonio Serino"
     text-align: center;
   }
 
-  /* Inferno (After Hours) */
+  /* Inferno: solo nero e rosso */
   body.inferno {
     --bg: #0a0a0a;
     --fg: #e31b23;
-    --accent: #ff4d00;
+    --accent: #e31b23;
     --font-main: 'Cinzel', serif;
   }
 
-  /* Purgatorio (Dawn FM) */
+  /* Purgatorio */
   body.purgatorio {
     --bg: #1b1c3a;
     --fg: #c69cf0;
@@ -42,11 +41,11 @@ title: "Antonio Serino"
     --font-main: 'Audiowide', cursive;
   }
 
-  /* Paradiso (Hurry Up Tomorrow) */
+  /* Paradiso: beige e marrone */
   body.paradiso {
     --bg: #f7f2ea;
-    --fg: #1a1a1a;
-    --accent: #ffffff;
+    --fg: #6b4226;
+    --accent: #6b4226;
     --font-main: 'Anton', sans-serif;
   }
 
@@ -94,6 +93,15 @@ title: "Antonio Serino"
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .centered-content {
+    max-width: 900px;
+    margin: 0 auto 60px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
   }
 
   /* Profile pic */
@@ -149,7 +157,7 @@ title: "Antonio Serino"
     text-shadow: 0 0 8px #222, 0 0 14px var(--accent)55;
   }
   .pub-date { color: #ffb300; font-weight: bold; margin-right: 10px; letter-spacing: 1px; }
-  .pub-title { color: #00ffe7; font-weight: bold; margin-right: 7px; }
+  .pub-title { color: var(--fg); font-weight: bold; margin-right: 7px; }
   .pub-venue {
     color: #fff; background: var(--accent);
     padding: 2px 10px; border-radius: 11px;
@@ -177,25 +185,26 @@ title: "Antonio Serino"
   #dinoGame {
     width: 100%;
     max-width: 900px;
-    background: #181a20;
-    border-bottom: 4px solid #ff4d00;
+    background: var(--bg);
+    border-bottom: 4px solid var(--fg);
     border-radius: 0 0 12px 12px;
   }
   #dino-score {
-    color: var(--accent);
+    color: var(--fg);
     font-family: var(--font-main);
     font-size: 1.25em;
     margin: 0.4em 0 0.2em;
   }
+
   @media (max-width: 600px) {
     .profile-container { flex-direction: column; gap: 1em; }
-    .centered-block, .news-ticker-container { max-width: 100vw; padding: 0 4vw; }
+    .centered-block, .centered-content, .news-ticker-container { max-width: 100vw; padding: 0 4vw; }
     #dinoGame { max-width: 100vw; }
     .profile-pic { width: 80px; height: 80px; }
   }
 </style>
 
-<!-- 2) SWITCHER HTML -->
+<!-- ==== THEME SWITCHER ==== -->
 <div id="theme-switcher">
   <button data-theme="inferno" title="Inferno">🌙</button>
   <button data-theme="purgatorio" title="Purgatorio">🌗</button>
@@ -217,39 +226,33 @@ title: "Antonio Serino"
     </span>
   </div>
 </div>
-<!-- ==== FINE TICKER ==== -->
 
-<!-- ==== INIZIO GIOCO DINO CENTRATO ==== -->
+<!-- ==== INIZIO GIOCO DINO ==== -->
 <div id="dino-game-container" class="centered-block">
   <canvas id="dinoGame" width="900" height="160"></canvas>
   <div id="dino-score"></div>
-  <p style="margin:0;font-size:0.95em;opacity:0.7;">
-    Jump over obstacles!
-  </p>
+  <p style="margin:0;font-size:0.95em;opacity:0.7;">Jump over obstacles!</p>
   <div style="margin-top:12px; display:flex; gap:12px;">
-    <button id="jump-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:var(--accent); color:#000;">
+    <button id="jump-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:var(--fg); color:#000;">
       Jump
     </button>
-    <button id="restart-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:#ff4d00; color:#fff;">
+    <button id="restart-btn" style="padding:8px 16px; font-size:1em; border:none; border-radius:6px; background:var(--accent); color:#fff;">
       Restart
     </button>
   </div>
 </div>
-<!-- ==== FINE GIOCO DINO ==== -->
 
-<!-- ==== PROFILO CENTRATO ==== -->
+<!-- ==== PROFILO CENTRATO (senza header/footer ridondanti) ==== -->
 <div class="profile-container centered-block">
   <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
   <div>
     <h1>👨‍💻 Antonio Serino</h1>
     <p class="subtitle">Data Scientist · PhD Student · NLP Researcher</p>
-    <blockquote>
-      “Luck does not exist: there is a moment when talent meets opportunity.”
-    </blockquote>
+    <blockquote>“Luck does not exist: there is a moment when talent meets opportunity.”</blockquote>
   </div>
 </div>
 
-<!-- ==== CONTENUTO PRINCIPALE CENTRATO ==== -->
+<!-- ==== CONTENUTO PRINCIPALE ==== -->
 ## 🔍 About Me
 
 Currently a PhD student at the University of Milano-Bicocca in **Big Data Analytics for Business**.
@@ -309,95 +312,108 @@ I love being multi-disciplinary and drinking sugar-free coffee.
 - 💼 LinkedIn: [antonio-serino](https://www.linkedin.com/in/antonio-serino-881799205)
 
 
-<!-- 3) SCRIPT: NEWS TICKER, DINO GAME & THEMING -->
+<!-- ==== SCRIPTS: TICKER, DINO & THEME ==== -->
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", ()=>{
   const ticker = document.getElementById('news-ticker');
   if (ticker) ticker.innerHTML += ticker.innerHTML;
 });
 
-// Tri-tema toggle + save
+// Tri-tema toggle + persistence
 (function(){
-  const btns = document.querySelectorAll('#theme-switcher button');
-  btns.forEach(b => b.addEventListener('click', ()=>{
-    document.body.className = b.dataset.theme;
-    localStorage.setItem('site-theme', b.dataset.theme);
-  }));
+  document.querySelectorAll('#theme-switcher button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.body.className = b.dataset.theme;
+      localStorage.setItem('site-theme', b.dataset.theme);
+    });
+  });
   const saved = localStorage.getItem('site-theme');
   if (saved) document.body.className = saved;
 })();
 
-// Dino game
-(function() {
+// Dino Game con colori da variabili CSS
+(function(){
   const canvas = document.getElementById('dinoGame');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let cw = canvas.width, ch = canvas.height;
-  let dino = { x:30, y:0, vy:0, jumping:false, w:32, h:26 };
-  let ground = ch-40, gravity=0.8, jumpForce=-13, speedMul=1.2;
-  let obstacles=[], frame=0, score=0, gameOver=false;
+  let cw=canvas.width, ch=canvas.height;
+  let dino={x:30,y:0,vy:0,jumping:false,w:32,h:26};
+  let ground=ch-40, gravity=0.8, jumpF=-13, speedMul=1.2;
+  let obs=[], frame=0, score=0, over=false;
+
+  // Leggi colori dal tema
+  function getColor(varName){ 
+    return getComputedStyle(document.body).getPropertyValue(varName).trim();
+  }
+  let dinoCol, obsCol, lineCol;
+  function updateColors(){
+    dinoCol = getColor('--fg');
+    obsCol  = getColor('--accent');
+    lineCol = getColor('--fg');
+  }
+  updateColors();
 
   function resize(){
     cw=canvas.width=Math.min(900,innerWidth-48);
     ch=canvas.height=160;
     ground=ch-40; dino.y=ground-dino.h;
   }
-  addEventListener('resize', resize); resize();
+  addEventListener('resize', resize);
+  resize();
 
   function reset(){
     dino.y=ground-dino.h; dino.vy=0; dino.jumping=false;
-    obstacles=[]; frame=0; score=0; gameOver=false;
+    obs=[]; frame=0; score=0; over=false;
     document.getElementById('dino-score').innerText='';
+    updateColors();
   }
   function drawDino(){
-    ctx.fillStyle='#00ffe7';
-    ctx.fillRect(dino.x,dino.y,dino.w,dino.h);
-    ctx.fillStyle='#181a20';
-    ctx.fillRect(dino.x+dino.w-9, dino.y+6,5,5);
+    ctx.fillStyle=dinoCol; ctx.fillRect(dino.x,dino.y,dino.w,dino.h);
+    ctx.fillStyle=var(--bg); // occhio spessore optional
   }
   function drawObs(o){
-    ctx.fillStyle='#ff4d00';
-    ctx.fillRect(o.x,ground-o.h+1,o.w,o.h);
+    ctx.fillStyle=obsCol; ctx.fillRect(o.x,ground-o.h+1,o.w,o.h);
   }
   function update(){
     ctx.clearRect(0,0,cw,ch);
-    ctx.fillStyle='#353535';
-    ctx.fillRect(0,ground+20,cw,5);
+    // ground line
+    ctx.fillStyle=lineCol; ctx.fillRect(0,ground+20,cw,5);
     drawDino();
     dino.y+=dino.vy; dino.vy+=gravity;
     if(dino.y>=ground-dino.h){dino.y=ground-dino.h; dino.jumping=false;}
-    if(frame%60===0) obstacles.push({x:cw,w:18+Math.random()*18,h:30+Math.random()*22});
-    obstacles.forEach(o=>{
+    if(frame%60===0) obs.push({x:cw,w:18+Math.random()*18,h:30+Math.random()*22});
+    obs.forEach(o=>{
       o.x-=Math.max(6,cw/220)*speedMul; drawObs(o);
-      if(dino.x+dino.w>o.x&&dino.x<o.x+o.w&&dino.y+dino.h>ground-o.h&&dino.y<ground) gameOver=true;
+      if(dino.x+dino.w>o.x&&dino.x<o.x+o.w&&dino.y+dino.h>ground-o.h&&dino.y<ground) over=true;
     });
-    obstacles=obstacles.filter(o=>o.x+o.w>0);
+    obs=obs.filter(o=>o.x+o.w>0);
     if(frame%4===0) score++;
-    ctx.font="bold 22px Orbitron, monospace";
-    ctx.fillStyle="#00ffe7";
+    ctx.font="bold 22px Orbitron, monospace"; ctx.fillStyle=dinoCol;
     ctx.fillText(`Score: ${score}`, cw-180,38);
-    if(gameOver){
-      ctx.font="bold 36px Orbitron, monospace";
-      ctx.fillStyle="#ff4d00";
+    if(over){
+      ctx.font="bold 36px Orbitron, monospace"; ctx.fillStyle=obsCol;
       ctx.fillText("GAME OVER",cw/2-115,ch/2);
       document.getElementById('dino-score').innerText="Press Space to Retry";
       return;
     }
     frame++; requestAnimationFrame(update);
   }
+
   addEventListener('keydown',e=>{
-    if(e.code==='Space'){ e.preventDefault();
-      if(!gameOver&&!dino.jumping){ dino.vy=jumpForce; dino.jumping=true; }
-      else if(gameOver){ reset(); update(); }
+    if(e.code==='Space'){e.preventDefault();
+      if(!over&&!dino.jumping){dino.vy=jumpF; dino.jumping=true;}
+      else if(over){reset();update();}
     }
   });
   document.getElementById('jump-btn')?.addEventListener('click',()=>{
-    if(!gameOver&&!dino.jumping){ dino.vy=jumpForce; dino.jumping=true; }
+    if(!over&&!dino.jumping){dino.vy=jumpF; dino.jumping=true;}
   });
   document.getElementById('restart-btn')?.addEventListener('click',()=>{
-    if(gameOver){ reset(); update(); }
+    if(over){reset();update();}
   });
+
   reset(); update();
 })();
 </script>
+
 
