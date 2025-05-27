@@ -1,5 +1,5 @@
 ---
-layout: minimal
+layout: noheader
 title: "Antonio Serino"
 ---
 
@@ -201,7 +201,7 @@ title: "Antonio Serino"
     display: flex;
     align-items: center;
     white-space: nowrap;
-    animation: ticker-scroll 25s linear infinite;
+    animation: ticker-scroll 40s linear infinite;
     font-size: 1.07em;
     will-change: transform;
   }
