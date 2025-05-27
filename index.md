@@ -491,26 +491,70 @@ title: "Antonio Serino"
 
   <div class="content-section">
     <h2>📚 Publications</h2>
-    <!-- <div id="publications-map"></div>
-    <ul id="publications-list" style="display:none;">
-      <li data-lat="41.1621" data-lng="-8.6291" data-sigla="ECML-PKDD 25" data-title="Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI">Porto, Portogallo</li>
-      <li data-lat="45.5017" data-lng="-73.5673" data-sigla="IJCAI 25" data-title="Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs">Montreal, Canada</li>
-      <li data-lat="37.5022" data-lng="15.0873" data-sigla="ACM SAC 25" data-title="SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models">Catania, Italia</li>
-      <li data-lat="42.8782" data-lng="-8.5449" data-sigla="ECAI 24" data-title="An approach to Evaluative AI through LLMs">Santiago de Compostela, Spagna</li>
-      <li data-lat="35.9375" data-lng="14.5001" data-sigla="XAI World 24" data-title="Augmenting XAI with LLMs">Malta, Malta</li>
-      <li data-lat="41.9028" data-lng="12.4964" data-sigla="AIxIA 23" data-title="Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction">Roma, Italia</li>
-    </ul> -->
     <div id="publications-map" style="height:350px;width:100%;max-width:900px;margin:0 auto 20px auto;background:#eee;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function(){
-      var map = L.map('publications-map').setView([45.4642, 9.19], 5);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-      L.marker([45.4642, 9.19]).addTo(map).bindPopup('Milano').openPopup();
-    });
-    </script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // Array di tutte le pubblicazioni con coordinate, sigla e titolo
+  var pubs = [
+    {
+      lat: 41.1621, lng: -8.6291,
+      sigla: "ECML-PKDD 25",
+      title: "Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI",
+      city: "Porto, Portogallo"
+    },
+    {
+      lat: 45.5017, lng: -73.5673,
+      sigla: "IJCAI 25",
+      title: "Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs",
+      city: "Montreal, Canada"
+    },
+    {
+      lat: 37.5022, lng: 15.0873,
+      sigla: "ACM SAC 25",
+      title: "SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models",
+      city: "Catania, Italia"
+    },
+    {
+      lat: 42.8782, lng: -8.5449,
+      sigla: "ECAI 24",
+      title: "An approach to Evaluative AI through LLMs",
+      city: "Santiago de Compostela, Spagna"
+    },
+    {
+      lat: 35.9375, lng: 14.5001,
+      sigla: "XAI World 24",
+      title: "Augmenting XAI with LLMs",
+      city: "Malta, Malta"
+    },
+    {
+      lat: 41.9028, lng: 12.4964,
+      sigla: "AIxIA 23",
+      title: "Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction",
+      city: "Roma, Italia"
+    }
+  ];
+
+  // Centra la mappa sul primo punto (puoi usare [45.4642,9.19] se vuoi Milano)
+  var map = L.map('publications-map').setView([41.1621, 12.5], 3.7);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Aggiungi i marker
+  pubs.forEach(function(pub) {
+    L.marker([pub.lat, pub.lng]).addTo(map)
+      .bindPopup('<strong>' + pub.sigla + '</strong><br/>' +
+                 pub.title + '<br/><i>' + pub.city + '</i>');
+  });
+
+  // Adatta la vista a tutti i marker
+  var group = new L.featureGroup(pubs.map(pub => L.marker([pub.lat, pub.lng])));
+  map.fitBounds(group.getBounds().pad(0.25));
+});
+</script>
+
 
   </div>
 
