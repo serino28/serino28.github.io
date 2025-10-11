@@ -3,902 +3,452 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto+Mono:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+<!--
+  Revamped single‑file homepage
+  - Professional, clean aesthetic
+  - Accessible, responsive, and fast
+  - System dark/light with toggle + localStorage
+  - Subtle animations honoring prefers-reduced-motion
+  - Semantic HTML, improved typography
+  Updated: added EMNLP 2025 Industry Track (Suzhou, China)
+-->
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Antonio Serino — Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies for business and society." />
+<meta property="og:title" content="Antonio Serino" />
+<meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --bg: #0D1117;
-    --bg-gradient: radial-gradient(ellipse at center, #1A222F 0%, #0D1117 100%);
-    --fg: #C9D1D9;
-    --accent: #58A6FF;
-    --accent-hover: #79C0FF;
-    --border-color: #30363D;
-    --card-bg: #161B22;
+  :root{
+    --bg: #0D1117;           /* GitHub dark */
+    --panel: #0f1622;        /* card bg */
+    --text: #d1d6de;
+    --muted: #94a3b8;
+    --brand: #58A6FF;
+    --brand-2: #7ee7ff;
+    --border: #273043;
+    --ring: #2b6cb0;
 
-    --font-heading: 'Audiowide', cursive;
-    --font-body: 'Roboto Mono', monospace;
-    --font-game: 'Orbitron', monospace;
+    --bg-light: #ffffff;
+    --panel-light: #f7fafc;
+    --text-light: #1f2937;
+    --muted-light: #475569;
+    --border-light: #e5e7eb;
+    --brand-light: #0B5FFF;
 
-    --dino-color: var(--accent);
-    --obstacle-color: #F78166;
-    --game-text-color: var(--fg);
-    --game-ground-color: var(--border-color);
-    --dino-eye-color: var(--bg);
-    --game-canvas-bg: var(--card-bg);
-
-    transition: background 0.3s, color 0.3s;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(0,0,0,.25);
   }
 
-  body.day-mode {
-    --bg: #F6F8FA;
-    --bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #F6F8FA 100%);
-    --fg: #24292F;
-    --accent: #0969DA;
-    --accent-hover: #0C82FB;
-    --border-color: #D0D7DE;
-    --card-bg: #FFFFFF;
-
-    --dino-color: var(--fg);
-    --obstacle-color: #CF222E;
-    --game-text-color: var(--fg);
-    --game-ground-color: var(--border-color);
-    --dino-eye-color: var(--bg);
-    --game-canvas-bg: var(--card-bg);
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg: var(--bg-light);
+      --panel: var(--panel-light);
+      --text: var(--text-light);
+      --muted: var(--muted-light);
+      --border: var(--border-light);
+      --brand: var(--brand-light);
+      --brand-2: #2ea6ff;
+    }
   }
 
-  body {
-    background: var(--bg-gradient);
-    color: var(--fg);
-    font-family: var(--font-body);
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    text-align: center;
+  html,body{margin:0;padding:0}
+  body{
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: radial-gradient(90vmax 90vmax at 100% -10%, #0a1120 0%, var(--bg) 45%, var(--bg) 100%);
+    color: var(--text);
     line-height: 1.6;
   }
-
-  a {
-    color: var(--accent);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  a:hover {
-    color: var(--accent-hover);
-    text-decoration: underline;
+  @media (prefers-color-scheme: light){
+    body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--accent);
-    text-shadow: 0 0 8px var(--accent)33;
-    letter-spacing: 1.5px;
-    margin-bottom: 0.75em;
-    margin-top: 1.5em;
-  }
-  h1 { font-size: 2.2em; }
-  h2 { font-size: 1.8em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em;}
-  h3 { font-size: 1.4em; }
+  /* Layout */
+  .container{max-width:1040px;margin:0 auto;padding:24px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+  nav{display:flex;gap:18px;flex-wrap:wrap}
+  nav a{color:var(--muted);text-decoration:none;font-weight:600;border:1px solid transparent;padding:8px 12px;border-radius:10px}
+  nav a:hover{border-color:var(--border)}
 
-  #theme-switcher {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    gap: 8px;
-    z-index: 1000;
-  }
-  #theme-switcher button {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--fg);
-    font-size: 1.3em;
-    cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: background 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;
-  }
-  #theme-switcher button:hover {
-    border-color: var(--accent);
-    filter: brightness(1.1);
-  }
-  #theme-switcher button.active {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-  }
+  /* Theme toggle */
+  .toggle{display:inline-flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px}
+  .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);padding:6px 10px;border-radius:999px;font:600 14px/1 Inter;cursor:pointer}
+  .toggle button.active{background:var(--brand);color:white}
 
-  .centered-block {
-    max-width: 900px;
-    margin: 24px auto 32px auto;
-    padding: 24px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    text-align: left;
-  }
-  .content-section {
-    margin-bottom: 2em;
-  }
-  .content-section ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  .content-section li {
-    padding: 0.3em 0;
-    border-bottom: 1px dashed var(--border-color);
-  }
-  .content-section li:last-child {
-    border-bottom: none;
-  }
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:22px}
+  .avatar{width:140px;height:140px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
+  .badge{display:inline-flex;align-items:center;gap:8px;color:white;background:linear-gradient(135deg,var(--brand),var(--brand-2));padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.3px}
+  .hero h1{font-size:clamp(28px,4vw,44px);margin:.4rem 0 .6rem}
+  .subtitle{color:var(--muted);font-size:clamp(15px,2vw,18px)}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;border-radius:12px;border:1px solid var(--border);padding:10px 14px;color:var(--text);background:var(--panel)}
+  .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;border-color:transparent}
+  .btn:hover{box-shadow:0 8px 24px rgba(80,80,120,.15)}
 
-  .profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 15px var(--accent)77;
-    object-fit: cover;
-    background: var(--bg);
-  }
-  .profile-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    text-align: left;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding-top: 3em;
-    padding-bottom: 1em;
-    max-width: 900px;
-    margin: 0 auto 24px auto;
-  }
-  .profile-container h1 { margin-top: 0;}
-  .profile-container .subtitle {
-    font-size: 1.1em;
-    color: var(--fg);
-    opacity: 0.85;
-    margin-top: -0.5em;
-    margin-bottom: 1em;
-  }
-  .profile-container blockquote {
-    font-style: italic;
-    border-left: 3px solid var(--accent);
-    padding-left: 12px;
-    margin-left: 0;
-    color: var(--fg);
-    opacity: 0.9;
-  }
+  /* Section */
+  section{margin:42px 0}
+  .section-title{display:flex;align-items:center;gap:10px;margin:0 0 16px}
+  .section-title .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
 
-  .news-ticker-container {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto 32px auto;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px var(--accent)22;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    min-height: 48px;
-    padding: 0 10px;
-    position: relative;
-    height: 54px;
-  }
-  .news-icon {
-    font-size: 1.5em;
-    color: var(--accent);
-    margin-right: 12px;
-    filter: drop-shadow(0 0 4px var(--accent)55);
-    flex-shrink: 0;
-  }
-  .news-ticker {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    animation: ticker-scroll 40s linear infinite;
-    font-size: 1.07em;
-    will-change: transform;
-  }
-  .ticker-item {
-    display: inline-block;
-    margin-right: 48px;
-    color: var(--fg);
-    font-weight: 500;
-  }
-  .ticker-item .pub-date { color: var(--accent); font-weight: bold; margin-right: 8px; }
-  .ticker-item .pub-title { color: var(--fg); font-weight: normal; margin-right: 5px; }
-  .ticker-item .pub-venue {
-    color: var(--bg);
-    background: var(--accent);
-    padding: 2px 8px; border-radius: 4px;
-    margin-left: 8px; font-weight: bold; font-size: 0.9em;
-  }
-  @keyframes ticker-scroll {
-    0% { transform: translateX(100%);}
-    100% { transform: translateX(-100%);}
-  }
+  /* Highlights */
+  .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .highlights .item{position:relative}
+  .pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);margin-right:8px}
+  .item h3{margin:.4rem 0 .2rem;font-size:18px}
+  .item .venue{font:600 12px/1 Inter;color:var(--brand)}
 
-  #dino-game-container {
-    width: 100%;
-    max-width: 900px;
-    background: var(--game-canvas-bg);
-    border: 1px solid var(--border-color);
-    border-bottom: 4px solid var(--accent);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin: 0 auto 24px auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #dinoGame {
-    width: 100%;
-    background: var(--game-canvas-bg);
-    border-radius: 4px;
-  }
-  #dino-score-text {
-    color: var(--fg);
-    opacity: 0.7;
-    font-size: 0.9em;
-    margin-top: 8px;
-  }
-  #dino-game-controls button {
-    padding: 8px 16px; font-size: 1em; border: 1px solid var(--border-color); border-radius: 6px;
-    background: var(--accent); color: var(--bg);
-    cursor: pointer;
-    font-family: var(--font-body);
-    transition: background 0.3s, filter 0.3s;
-  }
-  #dino-game-controls button:hover {
-    filter: brightness(1.15);
-  }
-  #dino-game-controls { margin-top: 12px; display:flex; gap:12px; }
+  /* Two-column grid section */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:860px){.hero{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
 
-  .timeline {
-    position: relative;
-    padding: 20px 0;
-    margin-top: 1em;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: var(--accent);
-    border-radius: 2px;
-  }
-  .timeline ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .timeline li {
-    margin-bottom: 30px;
-    position: relative;
-    padding-left: 50px;
-    border-bottom: none;
-  }
-  .timeline li::before {
-    content: '';
-    position: absolute;
-    left: 21.5px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: var(--accent);
-    border: 3px solid var(--bg);
-    z-index: 1;
-    transform: translateX(-50%);
-  }
-  .timeline-content {
-    background-color: var(--bg);
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
-  .timeline-content h3 {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: var(--accent);
-  }
-  .timeline-content p {
-    margin-bottom: 0;
-    font-size: 0.95em;
-    color: var(--fg);
-    opacity: 0.9;
-  }
-  .timeline-date {
-    display: block;
-    font-size: 0.9em;
-    color: var(--accent);
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+  /* Lists */
+  .list{list-style:none;padding:0;margin:0}
+  .list li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--border)}
+  .list li:last-child{border-bottom:none}
+  .left{max-width:70%}
+  .right{white-space:nowrap;color:var(--muted)}
 
-  .about-me-fancy .fancy-intro {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  .about-me-fancy .intro-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-    transition: transform;
-    transform: scale(1.0);
-  }
-  .about-me-fancy .intro-card:hover {
-    transform: scale(1.05);
-  }
-  .about-me-fancy .intro-card h3 {
-    color: var(--accent);
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-size: 1.1em;
-  }
-  .about-me-fancy .intro-card p {
-    font-size: 0.9em;
-    color: var(--fg);
-    opacity: 0.8;
-    margin-bottom: 0;
-  }
-  .about-me-fancy .intro-card .icon {
-    font-size: 1.5em;
-    opacity: 0.7;
-    display: block;
-    margin-top: 10px;
-  }
-  .about-me-fancy .intro-details {
-    font-size: 0.95em;
-    color: var(--fg);
-    opacity: 0.9;
-    line-height: 1.7;
-    margin-top: 20px;
-  }
+  /* Projects cards */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .project{display:flex;flex-direction:column;gap:10px}
+  .project h3{margin:.2rem 0 .1rem}
+  .project p{margin:0;color:var(--muted)}
+  .project .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+  .tag{font:600 11px/1 Inter;border:1px solid var(--border);border-radius:999px;padding:6px 10px;color:var(--muted)}
 
-  #publications-map {
-    height: 350px;
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-  }
-  .publication-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .publication-marker .sigla {
-    background-color: var(--accent);
-    color: var(--bg);
-    padding: 2px 5px;
-    border-radius: 3px;
-    font-size: 0.8em;
-    white-space: nowrap;
-    margin-bottom: 4px;
-  }
-  .publication-label {
-    background-color: var(--card-bg);
-    color: var(--fg);
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.9em;
-    white-space: nowrap;
-    opacity: 0;
-    position: absolute;
-    transform: translate(-50%, -150%);
-    transition: opacity 0.2s ease-in-out;
-    z-index: 1000;
-    pointer-events: none;
-  }
-  .leaflet-marker-icon:hover + .publication-label {
-    opacity: 1;
-  }
-  .leaflet-div-icon {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: auto !important;
-    height: auto !important;
-  }
+  /* Education timeline */
+  .timeline{position:relative}
+  .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--brand),transparent);border-radius:2px}
+  .edu{position:relative;padding-left:28px;margin:18px 0}
+  .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--brand)}
+  .edu h3{margin:.1rem 0}
+  .edu .where{color:var(--muted);font-size:14px}
+
+  /* Footer */
+  footer{margin:48px 0 16px;color:var(--muted);font-size:14px}
+
+  /* Animations */
+  [data-anim]{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .6s ease}
+  [data-anim].in{opacity:1;transform:translateY(0)}
 </style>
 
-<div id="theme-switcher">
-  <button id="night-mode-btn" title="Night Mode">🌙</button>
-  <button id="day-mode-btn" title="Day Mode">☀️</button>
-</div>
-
-<!-- NEWS TICKER (ULTIMI 3 PAPER) -->
-<div class="news-ticker-container">
-  <span class="news-icon">📰</span>
-  <div class="news-ticker" id="news-ticker">
-    <span class="ticker-item">
-      <span class="pub-date">May 2025</span> – <span class="pub-title">A Benchmark to Evaluate LLMs’ Proficiency on Italian Student Competencies</span> <span class="pub-venue">ECML-PKDD 2025</span>
-    </span>
-    <span class="ticker-item">
-      <span class="pub-date">Mar 2025</span> – <span class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs </span> <span class="pub-venue">IJCAI 2025</span>
-    </span>
-    <span class="ticker-item">
-      <span class="pub-date">Mar 2025</span> – <span class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction</span> <span class="pub-venue">ACM SAC 2025</span>
-    </span>
+<header class="container" aria-label="Site header">
+  <nav aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#pubs">Publications</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="toggle" aria-label="Color scheme toggle">
+    <button id="theme-dark" aria-pressed="false" title="Dark">🌙</button>
+    <button id="theme-light" aria-pressed="false" title="Light">☀️</button>
   </div>
-</div>
+</header>
 
-<!-- PROFILE CONTAINER (ora subito sotto il ticker) -->
-<div class="profile-container">
-  <img src="assets/img/Antonio.jpeg" alt="Antonio Serino" class="profile-pic"/>
-  <div>
-    <h1>👨‍💻 Antonio Serino</h1>
-    <p class="subtitle">Data Scientist · PhD Student · NLP Researcher</p>
-    <blockquote>
-      “Luck does not exist: there is a moment when talent meets opportunity.”
-    </blockquote>
-  </div>
-</div>
-
-<!-- DINO GAME -->
-<div id="dino-game-container">
-  <canvas id="dinoGame" width="850" height="160"></canvas> <p id="dino-score-text">Jump over obstacles! (Spacebar or Button)</p>
-  <div id="dino-game-controls">
-    <button id="jump-btn">Jump</button>
-    <button id="restart-btn">Restart</button>
-  </div>
-</div>
-
-<!-- RESTO DEL SITO -->
-<div class="centered-block">
-  <!-- About Me in English -->
-  <div class="content-section about-me-fancy">
-    <h2>🔍 About Me</h2>
-    <div class="fancy-intro">
-      <div class="intro-card" style="--accent-color: var(--accent);">
-        <h3>Artificial Intelligence & NLP</h3>
-        <p>I explore the frontiers of language and automated reasoning.</p>
-        <span class="icon">🧠</span>
-      </div>
-      <div class="intro-card" style="--accent-color: #F78166;">
-        <h3>Evaluation and Interpretability</h3>
-        <p>I work on making machine learning models more transparent and reliable.</p>
-        <span class="icon">💡</span>
-      </div>
-      <div class="intro-card" style="--accent-color: #6F42C1;">
-        <h3>Business Applications</h3>
-        <p>I integrate AI to enhance human-machine collaboration in business contexts.</p>
-        <span class="icon">📈</span>
+<main class="container">
+  <!-- HERO -->
+  <section class="hero card" id="about" data-anim>
+    <div>
+      <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
+      <h1>Antonio Serino</h1>
+      <p class="subtitle">Data Scientist &amp; PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      <div class="cta" role="group" aria-label="Primary actions">
+        <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
+        <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="/assets/cv/Antonio_Serino_CV.pdf" target="_blank" rel="noopener">Download CV</a>
       </div>
     </div>
-    <div class="intro-details">
-      <p>I am currently a PhD student in <strong>Big Data Analytics for Business</strong> at the University of Milano-Bicocca. My research focuses on <strong>Artificial Intelligence</strong> and <strong>Natural Language Processing</strong>, with particular attention to the <strong>evaluation</strong>, <strong>explanation</strong>, and <strong>interpretation</strong> of <strong>Machine Learning</strong> models, <strong>Transformers</strong>, and <strong>Large Language Models</strong>.</p>
-      <p>I tackle the challenge of smartly integrating these technologies into business environments to empower effective human-AI synergy. I believe in the value of multidisciplinary approaches, and my passion for knowledge is fueled by a cup of coffee (no sugar) ☕.</p>
+    <div style="display:flex;justify-content:center">
+      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="140" height="140" />
     </div>
-  </div>
+  </section>
 
-  <!-- Publications -->
-  <div class="content-section">
-    <h2>📚 Publications</h2>
-    <div id="publications-map" style="height:350px;width:100%;max-width:900px;margin:0 auto 20px auto;background:#eee;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  // Array di tutte le pubblicazioni con coordinate, sigla e titolo
-  var pubs = [
-    {
-      lat: 41.1621, lng: -8.6291,
-      sigla: "ECML-PKDD 25",
-      title: "Disce aut Deficere: Evaluating LLMs Proficiency on INVALSI",
-      city: "Porto, Portogallo"
-    },
-    {
-      lat: 45.5017, lng: -73.5673,
-      sigla: "IJCAI 25",
-      title: "Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs",
-      city: "Montreal, Canada"
-    },
-    {
-      lat: 37.5022, lng: 15.0873,
-      sigla: "ACM SAC 25",
-      title: "SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models",
-      city: "Catania, Italia"
-    },
-    {
-      lat: 42.8782, lng: -8.5449,
-      sigla: "ECAI 24",
-      title: "An approach to Evaluative AI through LLMs",
-      city: "Santiago de Compostela, Spagna"
-    },
-    {
-      lat: 35.9375, lng: 14.5001,
-      sigla: "XAI World 24",
-      title: "Augmenting XAI with LLMs",
-      city: "Malta, Malta"
-    },
-    {
-      lat: 41.9028, lng: 12.4964,
-      sigla: "AIxIA 23",
-      title: "Skills-Hunter: Adapting LLMs to Labour Market Skill Extraction",
-      city: "Roma, Italia"
-    }
-  ];
+  <!-- HIGHLIGHTS / LATEST -->
+  <section data-anim>
+    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Recent highlights</h2></div>
+    <div class="highlights">
+      <article class="card item" aria-labelledby="h0">
+        <div><span class="pill">2025</span> <span class="venue">EMNLP — Industry Track</span></div>
+        <h3 id="h0">SFAL: Semantic‑Functional Alignment Scores for Distributional Evaluation of Auto‑Interpretability in Sparse Autoencoders</h3>
+        <p class="subtitle">Suzhou, China.</p>
+      </article>
+      <article class="card item" aria-labelledby="h1">
+        <div><span class="pill">May 2025</span> <span class="venue">ECML‑PKDD</span></div>
+        <h3 id="h1">A Benchmark to Evaluate LLMs’ Proficiency on Italian Student Competencies</h3>
+        <p class="subtitle">With colleagues from University of Milano‑Bicocca. Porto, Portugal.</p>
+      </article>
+      <article class="card item" aria-labelledby="h2">
+        <div><span class="pill">Mar 2025</span> <span class="venue">IJCAI</span></div>
+        <h3 id="h2">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</h3>
+        <p class="subtitle">Montreal, Canada — TEAI/TRAI indices for AI exposure.</p>
+      </article>
+      <article class="card item" aria-labelledby="h3">
+        <div><span class="pill">Mar 2025</span> <span class="venue">ACM SAC</span></div>
+        <h3 id="h3">SkiLLMo: Normalized ESCO Skill Extraction</h3>
+        <p class="subtitle">Catania, Italy — standardizing skills with transformers.</p>
+      </article>
+    </div>
+  </section>
 
-    // Centra la mappa sul primo punto (puoi usare [45.4642,9.19] se vuoi Milano)
-    var map = L.map('publications-map').setView([41.1621, 12.5], 3.7);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Aggiungi i marker
-    pubs.forEach(function(pub) {
-      L.marker([pub.lat, pub.lng]).addTo(map)
-        .bindPopup('<strong>' + pub.sigla + '</strong><br/>' +
-                  pub.title + '<br/><i>' + pub.city + '</i>');
-    });
-
-    // Adatta la vista a tutti i marker
-    var group = new L.featureGroup(pubs.map(pub => L.marker([pub.lat, pub.lng])));
-    map.fitBounds(group.getBounds().pad(0.25));
-    });
-  </script>
-  </div>
-
-  <!-- Education spostata qui -->
-  <div class="content-section">
-    <h2>🎓 Education</h2>
-    <div class="timeline">
-      <ul>
+  <!-- PUBLICATIONS + MAP SIDE BY SIDE -->
+  <section id="pubs" class="grid-2" data-anim>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Publications</h2></div>
+      <ul class="list" aria-label="Selected publications">
         <li>
-          <div class="timeline-content">
-            <span class="timeline-date">2023 – Now</span>
-            <h3>PhD – Big Data & Analytics</h3>
-            <p>University of Milano-Bicocca</p>
-          </div>
+          <div class="left"><strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP Industry Track, Suzhou (China)</div>
+          <div class="right">2025</div>
         </li>
         <li>
-          <div class="timeline-content">
-            <span class="timeline-date">2021 – 2023</span>
-            <h3>MSc – Data Science</h3>
-            <p>University of Milano-Bicocca</p>
-          </div>
+          <div class="left"><strong>Disce aut Deficere</strong> — Evaluating LLMs on INVALSI (ECML‑PKDD 2025)</div>
+          <div class="right">2025</div>
         </li>
         <li>
-          <div class="timeline-content">
-            <span class="timeline-date">2018 – 2021</span>
-            <h3>BSc – Computer Science</h3>
-            <p>University of Bari</p>
-          </div>
+          <div class="left"><strong>Towards the Terminator Economy</strong> — TEAI/TRAI (IJCAI 2025)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left"><strong>SkiLLMo</strong> — Normalized ESCO Skill Extraction (ACM SAC 2025)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left">An approach to Evaluative AI through LLMs (ECAI 2024)</div>
+          <div class="right">2024</div>
+        </li>
+        <li>
+          <div class="left">Augmenting XAI with LLMs (XAI World 2024)</div>
+          <div class="right">2024</div>
+        </li>
+        <li>
+          <div class="left">Skills‑Hunter (AIxIA 2023)</div>
+          <div class="right">2023</div>
         </li>
       </ul>
     </div>
-  </div>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Where in the world</h2></div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div id="map" style="height:340px"></div>
+      </div>
+      <details class="card" style="margin-top:10px">
+        <summary>Show BibTeX / citation info</summary>
+        <pre style="white-space:pre-wrap;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)">{Add your BibTeX entries here}</pre>
+      </details>
+    </div>
+  </section>
 
-  <!-- Projects -->
-  <div class="content-section">
-    <h2>🚀 Projects</h2>
-    <ul>
-      <li><strong>MHEO Report</strong> – Labour market analysis on 100K+ Lombardy graduates</li>
-      <li><strong>TEAI & TRAI Indexes</strong> – Framework to assess AI exposure to job occupations </li>
-      <li><strong>Skills-Hunter & SkiLLMo</strong> – NLP pipelines for ESCO skill extraction and standardization</li>
-    </ul>
-  </div>
+  <!-- PROJECTS -->
+  <section id="projects" data-anim>
+    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Projects</h2></div>
+    <div class="projects">
+      <article class="card project">
+        <h3>MHEO Report</h3>
+        <p>Labour market analytics on 100K+ Lombardy graduates.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Econometrics</span><span class="tag">Dashboards</span></div>
+      </article>
+      <article class="card project">
+        <h3>TEAI &amp; TRAI</h3>
+        <p>Measuring AI exposure and replacement risk across occupations.</p>
+        <div class="tags"><span class="tag">LLMs</span><span class="tag">Policy</span><span class="tag">Causal</span></div>
+      </article>
+      <article class="card project">
+        <h3>Skills‑Hunter &amp; SkiLLMo</h3>
+        <p>Standardizing skill extraction with ESCO.</p>
+        <div class="tags"><span class="tag">NLP</span><span class="tag">Transformers</span><span class="tag">ETL</span></div>
+      </article>
+    </div>
+  </section>
 
-  <!-- Experience -->
-  <div class="content-section">
-    <h2>💼 Experience</h2>
-    <ul>
-      <li><strong>2024–2025</strong> – Research collaboration at Univ. of Milan – MHEO Report (Statale & Bicocca)</li>
-      <li><strong>2023–2024</strong> – NLP Researcher – Interuniversity Research Centre for Public Services</li>
-    </ul>
-  </div>
+  <!-- EXPERIENCE & SERVICE -->
+  <section id="experience" class="grid-2" data-anim>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Experience</h2></div>
+      <ul class="list">
+        <li>
+          <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
+          <div class="right">2024 – 2025</div>
+        </li>
+        <li>
+          <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
+          <div class="right">2023 – 2024</div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Review & Service</h2></div>
+      <ul class="list">
+        <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
+        <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
+        <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
+        <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
+      </ul>
+    </div>
+  </section>
 
-  <!-- Review Activities -->
-  <div class="content-section">
-    <h2>✍🏻 Review Activities</h2>
-    <ul>
-      <li><strong>ECML-PKDD 2024</strong> – Research Track</li>
-      <li><strong>COLING 2025</strong> – Industry Track</li>
-      <li><strong>Knowledge-Based Systems</strong> – Journal Q1</li>
-      <li><strong>International Journal of Information Technology & Decision Making</strong> - Journal Q2</li>
-    </ul>
-  </div>
+  <!-- EDUCATION -->
+  <section id="education" data-anim>
+    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Education</h2></div>
+    <div class="card timeline">
+      <div class="edu">
+        <div class="when">2023 – now</div>
+        <h3>PhD — Big Data &amp; Analytics</h3>
+        <div class="where">University of Milano‑Bicocca</div>
+      </div>
+      <div class="edu">
+        <div class="when">2021 – 2023</div>
+        <h3>MSc — Data Science</h3>
+        <div class="where">University of Milano‑Bicocca</div>
+      </div>
+      <div class="edu">
+        <div class="when">2018 – 2021</div>
+        <h3>BSc — Computer Science</h3>
+        <div class="where">University of Bari</div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Contact -->
-  <div class="content-section">
-    <h2>📫 Contact</h2>
-    <ul>
-      <li>📧 Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></li>
-      <li>🔗 GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener noreferrer">serino28</a></li>
-      <li>💼 LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener noreferrer">antonio-serino</a></li>
-    </ul>
-  </div>
-</div>
+  <!-- CONTACT -->
+  <section id="contact" data-anim>
+    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Contact</h2></div>
+    <div class="card">
+      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
+      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">serino28</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">antonio‑serino</a></p>
+      <details style="margin-top:10px">
+        <summary>Play the hidden dino 🦖</summary>
+        <canvas id="dino" width="820" height="150" style="width:100%;max-width:820px;border-radius:10px;border:1px solid var(--border);margin-top:10px"></canvas>
+        <p style="color:var(--muted);font-size:13px;margin-top:6px">Space = jump. It’s just for fun 🙂</p>
+      </details>
+    </div>
+  </section>
 
+  <footer class="container" role="contentinfo">
+    © <span id="y"></span> Antonio Serino — Built with love for clarity & impact.
+  </footer>
+</main>
 
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMMLjQi37JyJl1IBVWI/Km2yc4Ilv0nqhccecs0ZnFHjKjnoXtuyVcWRwGDC9QmPxaGxFKZxlIxBMwywJmQ==" crossorigin=""></script>
+<!-- Map + Dino + Theme JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+  // Respect system theme + allow manual toggle
+  (function(){
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const key='theme';
+    const saved = localStorage.getItem(key);
+    const isLight = saved ? saved==='light' : prefersLight;
+    if(isLight) document.documentElement.style.colorScheme='light';
+    else document.documentElement.style.colorScheme='dark';
 
-  // Theme Switcher Logic - INALTERATO
-  const nightModeBtn = document.getElementById('night-mode-btn');
-  const dayModeBtn = document.getElementById('day-mode-btn');
-  const body = document.body;
-
-  function setActiveButton(theme) {
-    if (theme === 'day') {
-        dayModeBtn.classList.add('active');
-        nightModeBtn.classList.remove('active');
-    } else {
-        nightModeBtn.classList.add('active');
-        dayModeBtn.classList.remove('active');
+    function setTheme(mode){
+      document.documentElement.style.colorScheme=mode;
+      localStorage.setItem(key, mode);
+      document.getElementById('theme-light').classList.toggle('active', mode==='light');
+      document.getElementById('theme-dark').classList.toggle('active', mode==='dark');
+      document.getElementById('theme-light').setAttribute('aria-pressed', mode==='light');
+      document.getElementById('theme-dark').setAttribute('aria-pressed', mode==='dark');
     }
-  }
+    window.addEventListener('DOMContentLoaded',()=>{
+      setTheme(isLight? 'light' : 'dark');
+      document.getElementById('theme-light').onclick=()=>setTheme('light');
+      document.getElementById('theme-dark').onclick=()=>setTheme('dark');
+      document.getElementById('y').textContent = new Date().getFullYear();
 
-  function applyTheme(theme) {
-    if (theme === 'day') {
-      body.classList.add('day-mode');
-    } else {
-      body.classList.remove('day-mode');
-    }
-    localStorage.setItem('site-theme', theme);
-    setActiveButton(theme);
-    document.dispatchEvent(new CustomEvent('themeChanged'));
-  }
-
-  nightModeBtn.addEventListener('click', () => applyTheme('night'));
-  dayModeBtn.addEventListener('click', () => applyTheme('day'));
-
-  const savedTheme = localStorage.getItem('site-theme') || 'night';
-  applyTheme(savedTheme);
-
-  // Dino game - INALTERATO
-  (function() {
-    const canvas = document.getElementById('dinoGame');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const gameMessageElement = document.getElementById('dino-score-text');
-
-    let cw = canvas.offsetWidth, ch = canvas.offsetHeight;
-    let dino = { x:30, y:0, vy:0, jumping:false, w:32, h:26 };
-    let ground, gravity=0.8, jumpForce=-13, speedMul=1.1;
-    let obstacles=[], frame=0, score=0, gameOver=false;
-    let rafId;
-
-    let dinoColor, obstacleColor, gameTextColor, gameGroundColor, dinoEyeColor, gameCanvasBg;
-
-    function getCssVariable(variableName) {
-      return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
-    }
-
-    function updateGameColors() {
-      dinoColor = getCssVariable('--dino-color');
-      obstacleColor = getCssVariable('--obstacle-color');
-      gameTextColor = getCssVariable('--game-text-color');
-      gameGroundColor = getCssVariable('--game-ground-color');
-      dinoEyeColor = getCssVariable('--dino-eye-color');
-      gameCanvasBg = getCssVariable('--game-canvas-bg');
-      canvas.style.backgroundColor = gameCanvasBg;
-    }
-
-    function resizeCanvas(){
-      cw = canvas.offsetWidth;
-      ch = canvas.height;
-      ground = ch - 40;
-      if(dino) dino.y = ground - dino.h;
-    }
-    window.addEventListener('resize', resizeCanvas);
-
-    function reset(){
-      updateGameColors();
-      resizeCanvas();
-      dino.y = ground - dino.h;
-      dino.vy = 0;
-      dino.jumping = false;
-      obstacles = [];
-      frame = 0;
-      score = 0;
-      gameOver = false;
-      if(gameMessageElement) gameMessageElement.innerText = "Jump over obstacles! (Spacebar or Button)";
-
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(update);
-    }
-
-    function drawDino(){
-      ctx.fillStyle = dinoColor;
-      ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-      ctx.fillStyle = dinoEyeColor;
-      ctx.fillRect(dino.x + dino.w - 9, dino.y + 6, 5, 5);
-    }
-
-    function drawObs(o){
-      ctx.fillStyle = obstacleColor;
-      if (o.type === 'cactus_small' || o.type === 'cactus_large') {
-        ctx.fillRect(o.x, ground - o.h + 1, o.w, o.h);
-        if (o.hasArm) {
-          const armWidth = o.w / 3;
-          const armHeight = o.h * 0.4;
-          const armY = ground - o.h * 0.7 + 1;
-          ctx.fillRect(o.x + (o.armSide === 'left' ? -armWidth + 2 : o.w - 2), armY, armWidth, armHeight);
-        }
-      } else if (o.type === 'bird') {
-        ctx.fillRect(o.x, o.yPos, o.w, o.h);
-        ctx.beginPath();
-        ctx.moveTo(o.x - o.w * 0.4, o.yPos + o.h / 2);
-        ctx.lineTo(o.x + o.w / 2, o.yPos - o.h * 0.3);
-        ctx.lineTo(o.x + o.w / 2, o.yPos + o.h * 1.3);
-        ctx.closePath(); ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(o.x + o.w + o.w * 0.4, o.yPos + o.h / 2);
-        ctx.lineTo(o.x + o.w / 2, o.yPos - o.h * 0.3);
-        ctx.lineTo(o.x + o.w / 2, o.yPos + o.h * 1.3);
-        ctx.closePath(); ctx.fill();
-      }
-    }
-
-    function update(){
-      if (gameOver) {
-        ctx.font = `bold 30px ${getCssVariable('--font-game')}`;
-        ctx.fillStyle = obstacleColor;
-        const text = "GAME OVER";
-        const textWidth = ctx.measureText(text).width;
-        ctx.fillText(text, (cw - textWidth) / 2, ch / 2 - 10);
-
-        ctx.font = `16px ${getCssVariable('--font-game')}`;
-        const scoreText = `Final Score: ${score}`;
-        const scoreTextWidth = ctx.measureText(scoreText).width;
-        ctx.fillText(scoreText, (cw - scoreTextWidth) / 2, ch / 2 + 20);
-
-        if(gameMessageElement) gameMessageElement.innerText = "Press Space or Restart";
-        rafId = null;
-        return;
-      }
-
-      ctx.clearRect(0, 0, cw, ch);
-
-      ctx.fillStyle = gameGroundColor;
-      ctx.fillRect(0, ground + (ch - ground - 5)/2 , cw, 5);
-
-      drawDino();
-
-      dino.y += dino.vy;
-      dino.vy += gravity;
-      if(dino.y >= ground - dino.h){
-        dino.y = ground - dino.h;
-        dino.vy = 0;
-        dino.jumping = false;
-      }
-
-      const obstacleFrequency = Math.max(30, 75 - Math.floor(score / 100));
-      if(frame % obstacleFrequency === 0) {
-        let type = (Math.random() < 0.45) ? 'cactus_small' : (Math.random() < 0.85 ? 'cactus_large' : 'bird');
-        let newObstacle = { x: cw, type: type };
-        if (type === 'cactus_small') {
-          newObstacle.w = 18 + Math.random() * 10; newObstacle.h = 30 + Math.random() * 15;
-        } else if (type === 'cactus_large') {
-          newObstacle.w = 25 + Math.random() * 15; newObstacle.h = 40 + Math.random() * 20;
-          if (Math.random() < 0.5) {newObstacle.hasArm = true; newObstacle.armSide = Math.random() < 0.5 ? 'left' : 'right';}
-        } else if (type === 'bird') {
-          newObstacle.w = 28 + Math.random() * 10; newObstacle.h = 18 + Math.random() * 8;
-          newObstacle.yPos = ground - (Math.random() < 0.4 ? dino.h*0.7 : dino.h + newObstacle.h + 5 + Math.random()*15) ;
-        }
-        obstacles.push(newObstacle);
-      }
-
-      const currentSpeed = Math.max(5, cw/220) * speedMul * (1 + score / 1500);
-      for (let i = obstacles.length - 1; i >= 0; i--) {
-        let o = obstacles[i];
-        o.x -= currentSpeed;
-        drawObs(o);
-        if (o.type === 'bird') {
-          if (dino.x < o.x + o.w && dino.x + dino.w > o.x && dino.y < o.yPos + o.h && dino.y + dino.h > o.yPos) gameOver = true;
-        } else {
-          if (dino.x < o.x + o.w && dino.x + dino.w > o.x && dino.y + dino.h > ground - o.h +1 ) gameOver = true;
-        }
-        if (o.x + o.w < 0) { obstacles.splice(i, 1); if (!gameOver) score++; }
-      }
-
-      ctx.font = `bold 20px ${getCssVariable('--font-game')}`;
-      ctx.fillStyle = gameTextColor;
-      ctx.textAlign = "right";
-      ctx.fillText(`Score: ${score}`, cw - 15, 30);
-      ctx.textAlign = "left";
-
-      frame++;
-      rafId = requestAnimationFrame(update);
-    }
-
-    function handleJump() { if (!gameOver && !dino.jumping){ dino.vy = jumpForce; dino.jumping = true; }}
-    function handleRestart() { if(gameOver) reset(); }
-
-    document.addEventListener('keydown', e => {
-      if(e.code === 'Space'){ e.preventDefault(); gameOver ? handleRestart() : handleJump(); }
+      // fade-in on scroll
+      const els=[...document.querySelectorAll('[data-anim]')];
+      const ro = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target);} });
+      },{threshold:.12});
+      els.forEach(el=>ro.observe(el));
     });
-    document.getElementById('jump-btn')?.addEventListener('click', handleJump);
-    document.getElementById('restart-btn')?.addEventListener('click', handleRestart);
-
-    document.addEventListener('themeChanged', () => {
-      updateGameColors();
-      if (!rafId && !gameOver) {
-         requestAnimationFrame(update);
-      } else if (gameOver) {
-          ctx.clearRect(0,0,cw,ch);
-          ctx.fillStyle = gameGroundColor; ctx.fillRect(0, ground + (ch - ground - 5)/2 , cw, 5);
-          drawDino(); obstacles.forEach(o => drawObs(o));
-          ctx.font = `bold 30px ${getCssVariable('--font-game')}`; ctx.fillStyle = obstacleColor;
-          const text = "GAME OVER"; const textWidth = ctx.measureText(text).width;
-          ctx.fillText(text, (cw - textWidth) / 2, ch / 2 - 10);
-          ctx.font = `16px ${getCssVariable('--font-game')}`;
-          const scoreText = `Final Score: ${score}`; const scoreTextWidth = ctx.measureText(scoreText).width;
-          ctx.fillText(scoreText, (cw - scoreTextWidth) / 2, ch / 2 + 20);
-      }
-    });
-
-    updateGameColors();
-    resizeCanvas();
-    reset();
   })();
 
-  // Publications Map Initialization
-  const mapDiv = document.getElementById('publications-map');
-  const publicationsList = document.getElementById('publications-list').querySelectorAll('li');
-
-  if (mapDiv && publicationsList.length > 0) {
-    const map = L.map('publications-map').setView([0, 0], 2);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    publicationsList.forEach(item => {
-      const lat = parseFloat(item.dataset.lat);
-      const lng = parseFloat(item.dataset.lng);
-      const sigla = item.dataset.sigla;
-      const title = item.dataset.title;
-
-      if (!isNaN(lat) && !isNaN(lng)) {
-        const markerDiv = document.createElement('div');
-        markerDiv.className = 'publication-marker';
-        markerDiv.innerHTML = `<span class="sigla">${sigla}</span><span class="publication-label">${title}</span>`;
-
-        const customIcon = L.divIcon({
-          className: 'custom-marker',
-          html: markerDiv.outerHTML,
-          iconSize: [20, 20],
-          iconAnchor: [10, 10]
-        });
-
-        L.marker([lat, lng], { icon: customIcon }).addTo(map);
+  // Simple Dino game (minimal footprint)
+  (function(){
+    function dinoInit(){
+      const c=document.getElementById('dino'); if(!c) return; const ctx=c.getContext('2d');
+      let w=c.width,h=c.height,ground=h-28;
+      let x=26,y=ground-26,vy=0,jumping=false,score=0,dead=false;
+      let obs=[]; const G=.8,J=-12;
+      function spawn(){
+        const small=Math.random()<.6; const w= small? 16+Math.random()*10 : 22+Math.random()*16; const hgt= small? 24+Math.random()*10 : 38+Math.random()*16;
+        obs.push({x:c.width+2,w:w,h:hgt});
       }
-    });
-
-    const bounds = new L.LatLngBounds();
-    publicationsList.forEach(item => {
-      const lat = parseFloat(item.dataset.lat);
-      const lng = parseFloat(item.dataset.lng);
-      if (!isNaN(lat) && !isNaN(lng)) {
-        bounds.extend([lat, lng]);
+      let f=0; function tick(){
+        ctx.clearRect(0,0,w,h);
+        // ground
+        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--border');
+        ctx.fillRect(0,ground+10,w,2);
+        // dino
+        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--brand');
+        ctx.fillRect(x,y,26,26);
+        // physics
+        y+=vy; vy+=G; if(y>ground-26){y=ground-26;vy=0;jumping=false}
+        // obstacles
+        if(!dead && f%70===0) spawn();
+        for(let i=obs.length-1;i>=0;i--){
+          const o=obs[i]; o.x-=4+Math.min(6,score/80);
+          ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--brand-2');
+          ctx.fillRect(o.x,ground-o.h,o.w,o.h);
+          if(x<o.x+o.w && x+26>o.x && y+26>ground-o.h){dead=true}
+          if(o.x+o.w<0){obs.splice(i,1); if(!dead) score++;}
+        }
+        // score
+        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');
+        ctx.font='12px "JetBrains Mono"'; ctx.fillText('Score: '+score, w-90, 16);
+        if(!dead){f++; requestAnimationFrame(tick);} else {ctx.font='bold 18px "JetBrains Mono"'; ctx.fillText('GAME OVER — press Space', w/2-120, h/2)}
       }
-    });
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [50, 50] });
+      function jump(){ if(!dead && !jumping){vy=J;jumping=true;} else if(dead){dead=false;score=0;obs=[];f=0;tick();} }
+      document.addEventListener('keydown',e=>{ if(e.code==='Space') { e.preventDefault(); jump(); }});
+      tick();
     }
-  }
+    window.addEventListener('DOMContentLoaded', dinoInit);
+  })();
 
-});
+  // Leaflet map of venues (kept lightweight)
+  window.addEventListener('load', function(){
+    const el = document.getElementById('map'); if(!el || !window.L) return;
+    const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+    const pubs = [
+      {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
+      {lat:41.1621,lng:-8.6291,label:'ECML‑PKDD 25 — Porto'},
+      {lat:45.5017,lng:-73.5673,label:'IJCAI 25 — Montreal'},
+      {lat:37.5022,lng:15.0873,label:'ACM SAC 25 — Catania'},
+      {lat:42.8782,lng:-8.5449,label:'ECAI 24 — Santiago de Compostela'},
+      {lat:35.9375,lng:14.5001,label:'XAI World 24 — Malta'},
+      {lat:41.9028,lng:12.4964,label:'AIxIA 23 — Rome'}
+    ];
+    const group=[]; pubs.forEach(p=>{ L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.label); group.push([p.lat,p.lng]); });
+    if(group.length){ map.fitBounds(group, {padding:[30,30]}); }
+  });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Antonio Serino",
+  "jobTitle": "Data Scientist, PhD Student",
+  "alumniOf": [
+    {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
+    {"@type":"CollegeOrUniversity","name":"University of Bari"}
+  ],
+  "email": "mailto:a.serino3@campus.unimib.it",
+  "image": "/assets/img/Antonio.jpeg",
+  "sameAs": [
+    "https://github.com/serino28",
+    "https://www.linkedin.com/in/antonio-serino-881799205"
+  ],
+  "url": "/"
+}
 </script>
