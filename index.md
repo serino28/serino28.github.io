@@ -4,13 +4,14 @@ title: "Antonio Serino"
 ---
 
 <!--
-  Revamped single‑file homepage
-  - Professional, clean aesthetic
-  - Accessible, responsive, and fast
-  - System dark/light with toggle + localStorage
-  - Subtle animations honoring prefers-reduced-motion
-  - Semantic HTML, improved typography
-  Updated: added EMNLP 2025 Industry Track (Suzhou, China)
+  Revamped homepage — Patch 2025-10-11
+  Changes:
+  - FIX: light mode now works via [data-theme] (no reliance on color-scheme only)
+  - REMOVE: CV download button, BibTeX citation section, Dino game
+  - ADD: Interactive "Live Corner" in hero — mini chat (left) + Spotify album of the day (right)
+  Notes:
+  - The mini chat is frontend-only by default (no API keys). It can call a backend if you configure BACKEND_URL.
+  - For a real model: use a serverless function (Netlify/Vercel) or a Hugging Face Space as a proxy.
 -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,12 +19,13 @@ title: "Antonio Serino"
 <meta property="og:title" content="Antonio Serino" />
 <meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta id="meta-theme-dark" name="theme-color" content="#0D1117">
+<meta id="meta-theme-light" name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+  /* THEME TOKENS (dark default) */
   :root{
     --bg: #0D1117;           /* GitHub dark */
     --panel: #0f1622;        /* card bg */
@@ -32,41 +34,28 @@ title: "Antonio Serino"
     --brand: #58A6FF;
     --brand-2: #7ee7ff;
     --border: #273043;
-    --ring: #2b6cb0;
-
-    --bg-light: #ffffff;
-    --panel-light: #f7fafc;
-    --text-light: #1f2937;
-    --muted-light: #475569;
-    --border-light: #e5e7eb;
-    --brand-light: #0B5FFF;
-
     --radius: 14px;
     --shadow: 0 10px 30px rgba(0,0,0,.25);
   }
-
-  @media (prefers-color-scheme: light){
-    :root{
-      --bg: var(--bg-light);
-      --panel: var(--panel-light);
-      --text: var(--text-light);
-      --muted: var(--muted-light);
-      --border: var(--border-light);
-      --brand: var(--brand-light);
-      --brand-2: #2ea6ff;
-    }
+  /* Light overrides */
+  :root[data-theme="light"]{
+    --bg: #ffffff;
+    --panel: #f7fafc;
+    --text: #1f2937;
+    --muted: #475569;
+    --border: #e5e7eb;
+    --brand: #0B5FFF;
+    --brand-2: #2ea6ff;
   }
 
   html,body{margin:0;padding:0}
   body{
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    background: radial-gradient(90vmax 90vmax at 100% -10%, #0a1120 0%, var(--bg) 45%, var(--bg) 100%);
+    background: radial-gradient(90vmax 90vmax at 100% -10%, rgba(10,17,32,.9) 0%, var(--bg) 45%, var(--bg) 100%);
     color: var(--text);
     line-height: 1.6;
   }
-  @media (prefers-color-scheme: light){
-    body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
-  }
+  :root[data-theme="light"] body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
 
   /* Layout */
   .container{max-width:1040px;margin:0 auto;padding:24px}
@@ -82,7 +71,7 @@ title: "Antonio Serino"
 
   /* Hero */
   .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:22px}
-  .avatar{width:140px;height:140px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
+  .avatar{width:120px;height:120px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
   .badge{display:inline-flex;align-items:center;gap:8px;color:white;background:linear-gradient(135deg,var(--brand),var(--brand-2));padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.3px}
   .hero h1{font-size:clamp(28px,4vw,44px);margin:.4rem 0 .6rem}
   .subtitle{color:var(--muted);font-size:clamp(15px,2vw,18px)}
@@ -137,6 +126,20 @@ title: "Antonio Serino"
   /* Animations */
   [data-anim]{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .6s ease}
   [data-anim].in{opacity:1;transform:translateY(0)}
+
+  /* Live Corner components */
+  .live{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  .chat{display:flex;flex-direction:column;gap:10px}
+  .chat-log{height:220px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--panel)}
+  .bubble{max-width:82%;padding:10px 12px;border-radius:12px;margin:6px 0}
+  .me{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;align-self:flex-end}
+  .bot{background:#0b1524;border:1px solid var(--border)}
+  :root[data-theme="light"] .bot{background:#ffffff}
+  .chat-input{display:flex;gap:8px}
+  .chat-input input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:transparent;color:var(--text)}
+  .chat-input button{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--text);font-weight:700}
+  .player{height:220px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+
 </style>
 
 <header class="container" aria-label="Site header">
@@ -165,11 +168,29 @@ title: "Antonio Serino"
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
         <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="/assets/cv/Antonio_Serino_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+      </div>
+
+      <!-- LIVE CORNER: mini chat (left) + album of the day (right) -->
+      <div class="live" aria-label="Live corner">
+        <div class="chat">
+          <strong>Ask a quick question</strong>
+          <div id="chat-log" class="chat-log" aria-live="polite"></div>
+          <div class="chat-input">
+            <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
+            <button id="chat-send">Send</button>
+          </div>
+          <small class="subtitle">This is a demo widget. For a real model, add a backend proxy (see code comments).</small>
+        </div>
+        <div>
+          <strong>Album of the day</strong>
+          <div class="player" id="album-wrap">
+            <!-- Spotify embed inserted by JS -->
+          </div>
+        </div>
       </div>
     </div>
     <div style="display:flex;justify-content:center">
-      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="140" height="140" />
+      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="120" height="120" />
     </div>
   </section>
 
@@ -240,10 +261,6 @@ title: "Antonio Serino"
       <div class="card" style="padding:0;overflow:hidden">
         <div id="map" style="height:340px"></div>
       </div>
-      <details class="card" style="margin-top:10px">
-        <summary>Show BibTeX / citation info</summary>
-        <pre style="white-space:pre-wrap;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)">{Add your BibTeX entries here}</pre>
-      </details>
     </div>
   </section>
 
@@ -323,11 +340,6 @@ title: "Antonio Serino"
     <div class="card">
       <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
       <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">serino28</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">antonio‑serino</a></p>
-      <details style="margin-top:10px">
-        <summary>Play the hidden dino 🦖</summary>
-        <canvas id="dino" width="820" height="150" style="width:100%;max-width:820px;border-radius:10px;border:1px solid var(--border);margin-top:10px"></canvas>
-        <p style="color:var(--muted);font-size:13px;margin-top:6px">Space = jump. It’s just for fun 🙂</p>
-      </details>
     </div>
   </section>
 
@@ -336,29 +348,30 @@ title: "Antonio Serino"
   </footer>
 </main>
 
-<!-- Map + Dino + Theme JS -->
+<!-- Leaflet CSS/JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 <script>
-  // Respect system theme + allow manual toggle
+  // ===== THEME HANDLER =====
   (function(){
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     const key='theme';
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     const saved = localStorage.getItem(key);
-    const isLight = saved ? saved==='light' : prefersLight;
-    if(isLight) document.documentElement.style.colorScheme='light';
-    else document.documentElement.style.colorScheme='dark';
+    const initial = saved || (prefersLight ? 'light' : 'dark');
+    const root = document.documentElement;
 
     function setTheme(mode){
-      document.documentElement.style.colorScheme=mode;
+      root.setAttribute('data-theme', mode);
       localStorage.setItem(key, mode);
       document.getElementById('theme-light').classList.toggle('active', mode==='light');
       document.getElementById('theme-dark').classList.toggle('active', mode==='dark');
-      document.getElementById('theme-light').setAttribute('aria-pressed', mode==='light');
-      document.getElementById('theme-dark').setAttribute('aria-pressed', mode==='dark');
+      // Update meta theme color
+      document.getElementById('meta-theme-dark').setAttribute('content', mode==='dark' ? '#0D1117' : '#0D1117');
+      document.getElementById('meta-theme-light').setAttribute('content', mode==='light' ? '#ffffff' : '#ffffff');
     }
+
     window.addEventListener('DOMContentLoaded',()=>{
-      setTheme(isLight? 'light' : 'dark');
+      setTheme(initial);
       document.getElementById('theme-light').onclick=()=>setTheme('light');
       document.getElementById('theme-dark').onclick=()=>setTheme('dark');
       document.getElementById('y').textContent = new Date().getFullYear();
@@ -372,49 +385,69 @@ title: "Antonio Serino"
     });
   })();
 
-  // Simple Dino game (minimal footprint)
-  (function(){
-    function dinoInit(){
-      const c=document.getElementById('dino'); if(!c) return; const ctx=c.getContext('2d');
-      let w=c.width,h=c.height,ground=h-28;
-      let x=26,y=ground-26,vy=0,jumping=false,score=0,dead=false;
-      let obs=[]; const G=.8,J=-12;
-      function spawn(){
-        const small=Math.random()<.6; const w= small? 16+Math.random()*10 : 22+Math.random()*16; const hgt= small? 24+Math.random()*10 : 38+Math.random()*16;
-        obs.push({x:c.width+2,w:w,h:hgt});
-      }
-      let f=0; function tick(){
-        ctx.clearRect(0,0,w,h);
-        // ground
-        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--border');
-        ctx.fillRect(0,ground+10,w,2);
-        // dino
-        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--brand');
-        ctx.fillRect(x,y,26,26);
-        // physics
-        y+=vy; vy+=G; if(y>ground-26){y=ground-26;vy=0;jumping=false}
-        // obstacles
-        if(!dead && f%70===0) spawn();
-        for(let i=obs.length-1;i>=0;i--){
-          const o=obs[i]; o.x-=4+Math.min(6,score/80);
-          ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--brand-2');
-          ctx.fillRect(o.x,ground-o.h,o.w,o.h);
-          if(x<o.x+o.w && x+26>o.x && y+26>ground-o.h){dead=true}
-          if(o.x+o.w<0){obs.splice(i,1); if(!dead) score++;}
-        }
-        // score
-        ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');
-        ctx.font='12px "JetBrains Mono"'; ctx.fillText('Score: '+score, w-90, 16);
-        if(!dead){f++; requestAnimationFrame(tick);} else {ctx.font='bold 18px "JetBrains Mono"'; ctx.fillText('GAME OVER — press Space', w/2-120, h/2)}
-      }
-      function jump(){ if(!dead && !jumping){vy=J;jumping=true;} else if(dead){dead=false;score=0;obs=[];f=0;tick();} }
-      document.addEventListener('keydown',e=>{ if(e.code==='Space') { e.preventDefault(); jump(); }});
-      tick();
-    }
-    window.addEventListener('DOMContentLoaded', dinoInit);
-  })();
+  // ===== MINI CHAT (frontend demo) =====
+  // Configure a backend to enable real inference: set BACKEND_URL to your proxy (Netlify/Vercel/HF Space).
+  // The proxy should accept POST {message:string} and return {reply:string}.
+  const BACKEND_URL = null; // e.g., 'https://your-func.netlify.app/chat'
 
-  // Leaflet map of venues (kept lightweight)
+  function appendBubble(side, text){
+    const log=document.getElementById('chat-log');
+    const b=document.createElement('div'); b.className='bubble '+(side==='me'?'me':'bot'); b.textContent=text; log.appendChild(b); log.scrollTop=log.scrollHeight;
+  }
+  async function sendMsg(){
+    const inp=document.getElementById('chat-input');
+    const msg=inp.value.trim(); if(!msg) return; inp.value='';
+    appendBubble('me', msg);
+    if(BACKEND_URL){
+      try{
+        const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})});
+        const data=await r.json(); appendBubble('bot', data.reply||'Sorry, no reply');
+      }catch(e){ appendBubble('bot','Backend error. Check console.'); console.error(e); }
+    }else{
+      // Fallback demo: simple scripted replies
+      const canned = (
+        msg.toLowerCase().includes('paper') ? 'Latest: SFAL @ EMNLP 2025 (Industry, Suzhou).' :
+        msg.toLowerCase().includes('teai') ? 'TEAI/TRAI assess job exposure and replacement risks to AI.' :
+        msg.toLowerCase().includes('contact') ? 'You can reach me at a.serino3@campus.unimib.it' :
+        'Thanks! This is a demo. Hook a backend to answer with a real model.'
+      );
+      await new Promise(r=>setTimeout(r, 400));
+      appendBubble('bot', canned);
+    }
+  }
+  window.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('chat-send').addEventListener('click', sendMsg);
+    document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
+    // Seed a greeting
+    appendBubble('bot', 'Hi! Ask me about my work, papers, or TEAI/TRAI.');
+  });
+
+  // ===== SPOTIFY ALBUM OF THE DAY =====
+  // Provide your own album list (IDs) for higher control. The widget selects a deterministic album per day.
+  const ALBUMS = [
+    // Example album IDs; replace with your curated list
+    '4yP0hdKOZPNshxUOjY0cZj', // The Weeknd — After Hours
+    '6YlDIxqEj0Sq7ZJ0H3B6BS', // Daft Punk — Random Access Memories
+    '382ObEPsp2rxGrnsizN5TX', // Kendrick Lamar — DAMN.
+    '2noRn2Aes5aoNVsU6iWThc', // Eminem — The Marshall Mathers LP
+    '0p8Ai7fVGX4r6Dh8P3Ze1x', // Ludovico Einaudi — Divenire
+    '0S0KGZnfBGSIssfF54WSJh'  // Travis Scott — ASTROWORLD
+  ];
+  function dailyIndex(n){
+    const d=new Date();
+    const seed = d.getFullYear()*1000 + (d.getMonth()+1)*50 + d.getDate();
+    return seed % n;
+  }
+  function mountAlbum(){
+    const idx=dailyIndex(ALBUMS.length);
+    const id=ALBUMS[idx];
+    const iframe = `<iframe style="border:0;width:100%;height:100%" src="https://open.spotify.com/embed/album/${id}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    const wrap=document.getElementById('album-wrap');
+    wrap.innerHTML=iframe;
+  }
+  window.addEventListener('DOMContentLoaded', mountAlbum);
+
+  // ===== Leaflet map =====
   window.addEventListener('load', function(){
     const el = document.getElementById('map'); if(!el || !window.L) return;
     const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
