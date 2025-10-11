@@ -4,14 +4,12 @@ title: "Antonio Serino"
 ---
 
 <!--
-  Revamped homepage — Patch 2025-10-11
-  Changes:
-  - FIX: light mode now works via [data-theme] (no reliance on color-scheme only)
-  - REMOVE: CV download button, BibTeX citation section, Dino game
-  - ADD: Interactive "Live Corner" in hero — mini chat (left) + Spotify album of the day (right)
-  Notes:
-  - The mini chat is frontend-only by default (no API keys). It can call a backend if you configure BACKEND_URL.
-  - For a real model: use a serverless function (Netlify/Vercel) or a Hugging Face Space as a proxy.
+  Revamped homepage — Patch 2025-10-11 (v2)
+  Changes in this patch:
+  1) Wider content: container width increased, tighter margins.
+  2) New hero layout (3 columns): left=mini chat, center=intro, right=album widget.
+  3) Hook for model: google/gemma-3-270m via BACKEND_URL (serverless proxy recommended).
+  4) Album of the day uses your curated list (names). If IDs not provided, it renders smart links to Spotify/Apple Music.
 -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,55 +56,56 @@ title: "Antonio Serino"
   :root[data-theme="light"] body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
 
   /* Layout */
-  .container{max-width:1040px;margin:0 auto;padding:24px}
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-  nav{display:flex;gap:18px;flex-wrap:wrap}
-  nav a{color:var(--muted);text-decoration:none;font-weight:600;border:1px solid transparent;padding:8px 12px;border-radius:10px}
+  .container{max-width:1320px;margin:0 auto;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+  nav{display:flex;gap:16px;flex-wrap:wrap}
+  nav a{color:var(--muted);text-decoration:none;font-weight:600;border:1px solid transparent;padding:6px 10px;border-radius:10px}
   nav a:hover{border-color:var(--border)}
 
   /* Theme toggle */
-  .toggle{display:inline-flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px}
+  .toggle{display:inline-flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:4px}
   .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);padding:6px 10px;border-radius:999px;font:600 14px/1 Inter;cursor:pointer}
   .toggle button.active{background:var(--brand);color:white}
 
-  /* Hero */
-  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:22px}
-  .avatar{width:120px;height:120px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
+  /* Hero (3 columns) */
+  .hero{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:18px;align-items:stretch;margin-top:18px}
+  .hero-col{display:flex;flex-direction:column;gap:12px}
+  .avatar{width:110px;height:110px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
   .badge{display:inline-flex;align-items:center;gap:8px;color:white;background:linear-gradient(135deg,var(--brand),var(--brand-2));padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.3px}
   .hero h1{font-size:clamp(28px,4vw,44px);margin:.4rem 0 .6rem}
   .subtitle{color:var(--muted);font-size:clamp(15px,2vw,18px)}
-  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;border-radius:12px;border:1px solid var(--border);padding:10px 14px;color:var(--text);background:var(--panel)}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;border-radius:12px;border:1px solid var(--border);padding:8px 12px;color:var(--text);background:var(--panel)}
   .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;border-color:transparent}
   .btn:hover{box-shadow:0 8px 24px rgba(80,80,120,.15)}
 
   /* Section */
-  section{margin:42px 0}
-  .section-title{display:flex;align-items:center;gap:10px;margin:0 0 16px}
+  section{margin:36px 0}
+  .section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
   .section-title .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 
   /* Highlights */
-  .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
   .highlights .item{position:relative}
   .pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);margin-right:8px}
   .item h3{margin:.4rem 0 .2rem;font-size:18px}
   .item .venue{font:600 12px/1 Inter;color:var(--brand)}
 
   /* Two-column grid section */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media (max-width:860px){.hero{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:1060px){.hero{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
 
   /* Lists */
   .list{list-style:none;padding:0;margin:0}
-  .list li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--border)}
+  .list li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border)}
   .list li:last-child{border-bottom:none}
   .left{max-width:70%}
   .right{white-space:nowrap;color:var(--muted)}
 
   /* Projects cards */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-  .project{display:flex;flex-direction:column;gap:10px}
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .project{display:flex;flex-direction:column;gap:8px}
   .project h3{margin:.2rem 0 .1rem}
   .project p{margin:0;color:var(--muted)}
   .project .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
@@ -115,22 +114,21 @@ title: "Antonio Serino"
   /* Education timeline */
   .timeline{position:relative}
   .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--brand),transparent);border-radius:2px}
-  .edu{position:relative;padding-left:28px;margin:18px 0}
+  .edu{position:relative;padding-left:28px;margin:16px 0}
   .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--brand)}
   .edu h3{margin:.1rem 0}
   .edu .where{color:var(--muted);font-size:14px}
 
   /* Footer */
-  footer{margin:48px 0 16px;color:var(--muted);font-size:14px}
+  footer{margin:42px 0 14px;color:var(--muted);font-size:14px}
 
   /* Animations */
   [data-anim]{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .6s ease}
   [data-anim].in{opacity:1;transform:translateY(0)}
 
   /* Live Corner components */
-  .live{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
   .chat{display:flex;flex-direction:column;gap:10px}
-  .chat-log{height:220px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--panel)}
+  .chat-log{height:240px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--panel)}
   .bubble{max-width:82%;padding:10px 12px;border-radius:12px;margin:6px 0}
   .me{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;align-self:flex-end}
   .bot{background:#0b1524;border:1px solid var(--border)}
@@ -138,7 +136,7 @@ title: "Antonio Serino"
   .chat-input{display:flex;gap:8px}
   .chat-input input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:transparent;color:var(--text)}
   .chat-input button{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--text);font-weight:700}
-  .player{height:220px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .player{height:240px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
 
 </style>
 
@@ -158,9 +156,21 @@ title: "Antonio Serino"
 </header>
 
 <main class="container">
-  <!-- HERO -->
-  <section class="hero card" id="about" data-anim>
-    <div>
+  <!-- HERO (3 columns: left chat, center intro, right album) -->
+  <section class="hero" id="about" data-anim>
+    <!-- LEFT: Chat -->
+    <div class="hero-col card">
+      <strong>Ask a quick question</strong>
+      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <div class="chat-input">
+        <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
+        <button id="chat-send">Send</button>
+      </div>
+      <small class="subtitle">Powered (via proxy) by <code>google/gemma-3-270m</code>. On GitHub Pages, use a serverless proxy (see code).</small>
+    </div>
+
+    <!-- CENTER: Intro -->
+    <div class="hero-col card" style="align-items:flex-start">
       <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
       <h1>Antonio Serino</h1>
       <p class="subtitle">Data Scientist &amp; PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
@@ -169,28 +179,19 @@ title: "Antonio Serino"
         <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-
-      <!-- LIVE CORNER: mini chat (left) + album of the day (right) -->
-      <div class="live" aria-label="Live corner">
-        <div class="chat">
-          <strong>Ask a quick question</strong>
-          <div id="chat-log" class="chat-log" aria-live="polite"></div>
-          <div class="chat-input">
-            <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
-            <button id="chat-send">Send</button>
-          </div>
-          <small class="subtitle">This is a demo widget. For a real model, add a backend proxy (see code comments).</small>
-        </div>
-        <div>
-          <strong>Album of the day</strong>
-          <div class="player" id="album-wrap">
-            <!-- Spotify embed inserted by JS -->
-          </div>
-        </div>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="110" height="110" />
+        <div class="subtitle">EMNLP 2025 (Industry) — SFAL, Suzhou · IJCAI 2025 — TEAI/TRAI · ECML‑PKDD 2025 — Disce aut Deficere</div>
       </div>
     </div>
-    <div style="display:flex;justify-content:center">
-      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="120" height="120" />
+
+    <!-- RIGHT: Album of the day -->
+    <div class="hero-col card">
+      <strong>Album of the day</strong>
+      <div class="player" id="album-wrap">
+        <!-- Embed or smart links inserted by JS -->
+      </div>
+      <small class="subtitle">From your curated list. Add Spotify IDs to enable direct embeds.</small>
     </div>
   </section>
 
@@ -385,10 +386,11 @@ title: "Antonio Serino"
     });
   })();
 
-  // ===== MINI CHAT (frontend demo) =====
-  // Configure a backend to enable real inference: set BACKEND_URL to your proxy (Netlify/Vercel/HF Space).
-  // The proxy should accept POST {message:string} and return {reply:string}.
-  const BACKEND_URL = null; // e.g., 'https://your-func.netlify.app/chat'
+  // ===== MINI CHAT (Gemma 3 270M via proxy) =====
+  // Configure your serverless proxy URL here; it should call the model `google/gemma-3-270m` and return JSON {reply}
+  // Example implementations: Netlify Function (/netlify/functions/chat) or Vercel (/api/chat)
+  // IMPORTANT: Do not call Hugging Face API directly from the browser with a secret token.
+  const BACKEND_URL = null; // e.g., 'https://your-vercel-app.vercel.app/api/chat'
 
   function appendBubble(side, text){
     const log=document.getElementById('chat-log');
@@ -400,50 +402,87 @@ title: "Antonio Serino"
     appendBubble('me', msg);
     if(BACKEND_URL){
       try{
-        const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})});
-        const data=await r.json(); appendBubble('bot', data.reply||'Sorry, no reply');
-      }catch(e){ appendBubble('bot','Backend error. Check console.'); console.error(e); }
+        const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg, model:'google/gemma-3-270m'})});
+        const data=await r.json(); appendBubble('bot', data.reply||'No reply');
+      }catch(e){ appendBubble('bot','Proxy error. Check console.'); console.error(e); }
     }else{
-      // Fallback demo: simple scripted replies
+      // Fallback scripted replies
       const canned = (
         msg.toLowerCase().includes('paper') ? 'Latest: SFAL @ EMNLP 2025 (Industry, Suzhou).' :
         msg.toLowerCase().includes('teai') ? 'TEAI/TRAI assess job exposure and replacement risks to AI.' :
-        msg.toLowerCase().includes('contact') ? 'You can reach me at a.serino3@campus.unimib.it' :
-        'Thanks! This is a demo. Hook a backend to answer with a real model.'
+        msg.toLowerCase().includes('contact') ? 'Reach me at a.serino3@campus.unimib.it' :
+        'Demo mode. Add BACKEND_URL to answer with Gemma 3 270M.'
       );
-      await new Promise(r=>setTimeout(r, 400));
+      await new Promise(r=>setTimeout(r, 350));
       appendBubble('bot', canned);
     }
   }
   window.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('chat-send').addEventListener('click', sendMsg);
     document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
-    // Seed a greeting
     appendBubble('bot', 'Hi! Ask me about my work, papers, or TEAI/TRAI.');
   });
 
-  // ===== SPOTIFY ALBUM OF THE DAY =====
-  // Provide your own album list (IDs) for higher control. The widget selects a deterministic album per day.
+  // ===== ALBUM OF THE DAY (names + smart links; embed if IDs provided) =====
   const ALBUMS = [
-    // Example album IDs; replace with your curated list
-    '4yP0hdKOZPNshxUOjY0cZj', // The Weeknd — After Hours
-    '6YlDIxqEj0Sq7ZJ0H3B6BS', // Daft Punk — Random Access Memories
-    '382ObEPsp2rxGrnsizN5TX', // Kendrick Lamar — DAMN.
-    '2noRn2Aes5aoNVsU6iWThc', // Eminem — The Marshall Mathers LP
-    '0p8Ai7fVGX4r6Dh8P3Ze1x', // Ludovico Einaudi — Divenire
-    '0S0KGZnfBGSIssfF54WSJh'  // Travis Scott — ASTROWORLD
+    'Nothing was the same — Drake',
+    'Honestly, Nevermind — Drake',
+    'More Life — Drake',
+    'The College Dropout — Kanye West',
+    'Graduation — Kanye West',
+    'Watch the Throne — Kanye West',
+    'Reggatta de Blanc — The Police',
+    'Bad — Michael Jackson',
+    'Thriller — Michael Jackson',
+    'Off the Wall — Michael Jackson',
+    'Kiss Land — The Weeknd',
+    'Starboy — The Weeknd',
+    'My Dear Melancholy, — The Weeknd',
+    'After Hours — The Weeknd',
+    'Dawn FM — The Weeknd',
+    'Hurry Up Tomorrow — The Weeknd',
+    'CHROMAKOPIA — Tyler, The Creator',
+    'IGOR — Tyler, The Creator',
+    'ASTROWORLD — Travis Scott',
+    'UTOPIA — Travis Scott',
+    'HARDSTONE PSYCHO — Don Toliver',
+    'Radical Optimism — Dua Lipa',
+    'Future Nostalgia — Dua Lipa',
+    'SOS — SZA',
+    'Blonde — Frank Ocean',
+    'Alone at Prom — Tory Lanez'
   ];
+
+  // Optional mapping for direct Spotify embeds when you have IDs (fill later):
+  // const SPOTIFY_IDS = { 'After Hours — The Weeknd': '4yP0hdKOZPNshxUOjY0cZj', ... };
+  const SPOTIFY_IDS = {};
+
   function dailyIndex(n){
     const d=new Date();
     const seed = d.getFullYear()*1000 + (d.getMonth()+1)*50 + d.getDate();
     return seed % n;
   }
+  function smartLinks(title){
+    const q = encodeURIComponent(title);
+    const spotify = `https://open.spotify.com/search/${q}`;
+    const apple = `https://music.apple.com/us/search?term=${q}`;
+    return `<div style="display:flex;gap:8px;height:100%;align-items:center;justify-content:center;flex-direction:column">
+      <div class="subtitle" style="text-align:center;padding:0 8px">${title}</div>
+      <div style="display:flex;gap:8px">
+        <a class="btn" href="${spotify}" target="_blank" rel="noopener">Open in Spotify</a>
+        <a class="btn" href="${apple}" target="_blank" rel="noopener">Open in Apple Music</a>
+      </div>
+    </div>`;
+  }
   function mountAlbum(){
     const idx=dailyIndex(ALBUMS.length);
-    const id=ALBUMS[idx];
-    const iframe = `<iframe style="border:0;width:100%;height:100%" src="https://open.spotify.com/embed/album/${id}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    const title=ALBUMS[idx];
     const wrap=document.getElementById('album-wrap');
-    wrap.innerHTML=iframe;
+    if(SPOTIFY_IDS[title]){
+      wrap.innerHTML = `<iframe style="border:0;width:100%;height:100%" src="https://open.spotify.com/embed/album/${SPOTIFY_IDS[title]}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    }else{
+      wrap.innerHTML = smartLinks(title);
+    }
   }
   window.addEventListener('DOMContentLoaded', mountAlbum);
 
