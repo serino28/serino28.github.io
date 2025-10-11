@@ -56,7 +56,7 @@ title: "Antonio Serino"
   :root[data-theme="light"] body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
 
   /* Layout */
-  .container{max-width:1320px;margin:0 auto;padding:16px}
+  .container{max-width:2640px;margin:0 auto;padding:16px}
   header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
   nav{display:flex;gap:16px;flex-wrap:wrap}
   nav a{color:var(--muted);text-decoration:none;font-weight:600;border:1px solid transparent;padding:6px 10px;border-radius:10px}
