@@ -1,10 +1,10 @@
 ---
 layout: default
-title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
+title: "Antonio Serino"
 ---
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
+<meta name="description" content="Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist." />
 <meta property="og:title" content="Antonio Serino | PhD in AI & NLP" />
 <meta property="og:description" content="PhD in AI & NLP, AI Scientist, Data Scientist." />
 <meta property="og:type" content="website" />
@@ -326,6 +326,10 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
 </style>
 
 <header class="container site-header" aria-label="Site header">
+  <div class="site-title">
+    ANTONIO SERINO | PHD IN AI & NLP, AI SCIENTIST, DATA SCIENTIST
+  </div>
+
   <div id="ticker-wrap" aria-label="Recent highlights">
     <div id="ticker"></div>
   </div>
@@ -336,20 +340,7 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
   
   <section class="hero" id="about" data-anim>
 
-    <div class="hero-col-main">
-      <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-      <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
-
-      <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
-      
-      <div class="cta" role="group" aria-label="Primary actions">
-        <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
-        <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-
-    <div class="hero-col-side">
+    <div class="hero-col-side"> 
       <div class="avatar-card" data-anim>
         <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
       </div>
@@ -369,7 +360,19 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
         </div>
       </div>
     </div>
-  </section>
+    <div class="hero-col-main">
+      <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
+      <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
+
+      <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      
+      <div class="cta" role="group" aria-label="Primary actions">
+        <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
+        <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    </section>
 
   <section id="pubs" data-anim>
     <div class="section-title"><span class="dot"></span><h2>"Publications"</h2></div>
@@ -544,21 +547,21 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
       artist: 'Tyler, The Creator', 
       img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$1',
-      appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
+      appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
     },
     { 
       title: 'Graduation', 
       artist: 'Kanye West', 
       img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$2',
-      appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
+      appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
     },
     { 
       title: 'Blonde', 
       artist: 'Frank Ocean', 
       img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$3',
-      appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
+      appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
     },
   ];
 
