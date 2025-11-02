@@ -4,9 +4,9 @@ title: "Antonio Serino"
 ---
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Antonio Serino — Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies for business and society." />
-<meta property="og:title" content="Antonio Serino" />
-<meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
+<meta name="description" content="Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist." />
+<meta property="og:title" content="Antonio Serino | PhD in AI & NLP" />
+<meta property="og:description" content="PhD in AI & NLP, AI Scientist, Data Scientist." />
 <meta property="og:type" content="website" />
 <meta name="theme-color" content="#F4F4F4">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,13 +51,18 @@ title: "Antonio Serino"
     padding:16px
   }
   
-  /* Header (Container for Ticker + Nav) */
-  header{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the nav */
-    padding: 10px 0;
-    gap: 10px; /* Space between ticker and nav */
+  /* ----- NEW SITE HEADER (Title + Ticker) ----- */
+  .site-header {
+    padding: 16px 0 0; /* Padding sopra, no padding sotto */
+  }
+  .site-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 16px; /* Spazio tra titolo e ticker */
   }
   
   /* ----- HEADER TICKER ----- */
@@ -88,24 +93,6 @@ title: "Antonio Serino"
   @keyframes ticker-scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
-  }
-
-  /* ----- NAVIGATION ----- */
-  nav{display:flex;gap:4px;flex-wrap:wrap; justify-content: center;}
-  nav a{
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 600;
-    font-size: 13px;
-    text-transform: uppercase;
-    color: var(--brand-text); /* <<< ECCO LA CORREZIONE */
-    text-decoration: none;
-    border: 1px solid transparent;
-    padding: 8px 12px;
-  }
-  nav a:hover{
-    border-color: var(--border);
-    background: var(--panel);
-    color: var(--text); /* Al passaggio del mouse, torna nero */
   }
 
   /*
@@ -292,6 +279,7 @@ title: "Antonio Serino"
     .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
     .hero-col-side { order: -1; } /* Avatar/Album first on mobile */
     .grid-2{ grid-template-columns: 1fr }
+    .site-title { font-size: 12px; padding: 0 16px; }
   }
 
   /* Lists */
@@ -337,18 +325,16 @@ title: "Antonio Serino"
 
 </style>
 
-<header class="container" aria-label="Site header">
+<header class="container site-header" aria-label="Site header">
+  <div class="site-title">
+    ANTONIO SERINO | PHD IN AI & NLP, AI SCIENTIST, DATA SCIENTIST
+  </div>
+
   <div id="ticker-wrap" aria-label="Recent highlights">
     <div id="ticker"></div>
   </div>
   
-  <nav aria-label="Primary">
-    <a href="#about">About</a>
-    <a href="#pubs">Publications</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-  </nav>
-</header>
+  </header>
 
 <main class="container">
   
@@ -629,7 +615,7 @@ title: "Antonio Serino"
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Antonio Serino",
-  "jobTitle": "Data Scientist, PhD Student",
+  "jobTitle": "PhD in AI & NLP, AI Scientist, Data Scientist",
   "alumniOf": [
     {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
     {"@type":"CollegeOrUniversity","name":"University of Bari"}
