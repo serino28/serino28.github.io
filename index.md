@@ -326,10 +326,6 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
 </style>
 
 <header class="container site-header" aria-label="Site header">
-  <div class="site-title">
-    ANTONIO SERINO | PHD IN AI & NLP, AI SCIENTIST, DATA SCIENTIST
-  </div>
-
   <div id="ticker-wrap" aria-label="Recent highlights">
     <div id="ticker"></div>
   </div>
