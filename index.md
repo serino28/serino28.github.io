@@ -44,9 +44,9 @@ title: "Antonio Serino"
     color: var(--brand-text);
   }
   
-  /* Layout (Container) */
+  /* Layout (Container) - MARGINI RIDOTTI */
   .container{
-    max-width: 1280px;
+    max-width: 1280px; /* <<< MODIFICA: Riportato a 1280px per margini più stretti */
     margin:0 auto;
     padding:16px
   }
@@ -96,12 +96,12 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (NUOVO LAYOUT A 2 COLONNE: [FOTO+TESTO] | [ALBUM]) 
+    HERO (Layout 1:1) 
   */
   .hero{
     display: grid;
-    /* 2-column layout: Intro(1.8fr) | Album(1fr) */
-    grid-template-columns: 1.8fr 1fr;
+    /* 2-column layout: Intro(1fr) | Album(1fr) */
+    grid-template-columns: 1fr 1fr; /* Colonne di pari larghezza */
     gap: 24px;
     align-items: flex-start; /* Align to top */
     margin-top: 48px;
@@ -135,7 +135,7 @@ title: "Antonio Serino"
   .hero-title-stack {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-start; /* Allinea a sinistra il badge e h1 */
     gap: 8px;
   }
   
