@@ -46,7 +46,7 @@ title: "Antonio Serino"
   
   /* Layout (Container) - MARGINI RIDOTTI */
   .container{
-    max-width: 1280px; /* <<< MODIFICA: Riportato a 1280px per margini più stretti */
+    max-width: 1280px; /* <<< MODIFICA: Contenuto più largo */
     margin:0 auto;
     padding:16px
   }
@@ -96,12 +96,12 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (Layout 1:1) 
+    HERO (Layout 2:1) 
   */
   .hero{
     display: grid;
-    /* 2-column layout: Intro(1fr) | Album(1fr) */
-    grid-template-columns: 1fr 1fr; /* Colonne di pari larghezza */
+    /* 2-column layout: Intro(2fr) | Album(1fr) */
+    grid-template-columns: 2fr 1fr; /* <<< MODIFICA: Intro 2x Album */
     gap: 24px;
     align-items: flex-start; /* Align to top */
     margin-top: 48px;
