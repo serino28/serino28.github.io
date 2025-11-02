@@ -115,14 +115,14 @@ title: "Antonio Serino"
   }
   
   .hero-col-avatar {
-    flex: 0 0 240px; /* <<< MODIFICA: Foto più grande (da 120px) */
+    flex: 0 0 280px; /* <<< MODIFICA: Foto più grande (da 120px) */
   }
   .hero-col-title {
     flex: 1 1 auto; /* Cresci e stringi per riempire lo spazio */
   }
   .hero-col-album {
-    flex: 0 0 160px; /* <<< MODIFICA: Album più piccolo (da 280px) */
-    max-width: 160px; 
+    flex: 0 0 120px; /* <<< MODIFICA: Album più piccolo (da 280px) */
+    max-width: 120px; 
   }
   
   /* Riga 2: [Bio] (sotto tutto) */
@@ -131,8 +131,8 @@ title: "Antonio Serino"
   }
   
   .avatar{
-    width: 240px;  /* <<< MODIFICA */
-    height: 240px; /* <<< MODIFICA */
+    width: 280px;  /* <<< MODIFICA */
+    height: 280px; /* <<< MODIFICA */
     aspect-ratio: 1 / 1;
     border-radius: var(--radius); /* SQUARE AVATAR */
     border: 1px solid var(--border);
