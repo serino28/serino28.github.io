@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "A"
+title: "Antonio Serino"
 ---
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,8 +39,8 @@ title: "A"
     font-weight: 400;
   }
   
-  /* Make *specific* text links use the dark brown color */
-  #contact a, .card a {
+  /* Link generici (es. contatto, card) */
+  a {
     color: var(--brand-text);
   }
   
@@ -97,7 +97,7 @@ title: "A"
     font-weight: 600;
     font-size: 13px;
     text-transform: uppercase;
-    color: var(--brand-text); /* <<< QUI LA CORREZIONE */
+    color: var(--brand-text); /* <<< ECCO LA CORREZIONE */
     text-decoration: none;
     border: 1px solid transparent;
     padding: 8px 12px;
@@ -337,312 +337,309 @@ title: "A"
 
 </style>
 
-<body>
+<header class="container" aria-label="Site header">
+  <div id="ticker-wrap" aria-label="Recent highlights">
+    <div id="ticker"></div>
+  </div>
+  
+  <nav aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#pubs">Publications</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+  </nav>
+</header>
 
-  <header class="container" aria-label="Site header">
-    <div id="ticker-wrap" aria-label="Recent highlights">
-      <div id="ticker"></div>
+<main class="container">
+  
+  <section class="hero" id="about" data-anim>
+
+    <div class="hero-col-main">
+      <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
+      <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
+
+      <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      
+      <div class="cta" role="group" aria-label="Primary actions">
+        <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
+        <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </div>
-    
-    <nav aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#pubs">Publications</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    
-    <section class="hero" id="about" data-anim>
-
-      <div class="hero-col-main">
-        <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-        <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
-
-        <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
-        
-        <div class="cta" role="group" aria-label="Primary actions">
-          <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
-          <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
+    <div class="hero-col-side">
+      <div class="avatar-card" data-anim>
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
       </div>
-
-      <div class="hero-col-side">
-        <div class="avatar-card" data-anim>
-          <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
-        </div>
-        
-        <div id="album-widget" data-anim>
-          <h3>"ALBUM OF THE DAY"</h3>
-          <div id="album-cover-wrap">
-            <img id="album-cover-img" src="" alt="" loading="lazy"/>
-            <div id="album-overlay">
-              <h4 id="album-title"></h4>
-              <p id="album-artist"></p>
-            </div>
-          </div>
-          <div id="album-links">
-            <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
-            <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+      
+      <div id="album-widget" data-anim>
+        <h3>"ALBUM OF THE DAY"</h3>
+        <div id="album-cover-wrap">
+          <img id="album-cover-img" src="" alt="" loading="lazy"/>
+          <div id="album-overlay">
+            <h4 id="album-title"></h4>
+            <p id="album-artist"></p>
           </div>
         </div>
+        <div id="album-links">
+          <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+          <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="pubs" data-anim>
-      <div class="section-title"><span class="dot"></span><h2>"Publications"</h2></div>
+  <section id="pubs" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Publications"</h2></div>
+    <div class="card">
+      <ul class="list" aria-label="Selected publications">
+        <li>
+          <div class="left"><strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP Industry Track, Suzhou (China)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left"><strong>Disce aut Deficere</strong> — Evaluating LLMs on INVALSI (ECML‑PKDD 2025)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left"><strong>Towards the Terminator Economy</strong> — TEAI/TRAI (IJCAI 2025)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left"><strong>SkiLLMo</strong> — Normalized ESCO Skill Extraction (ACM SAC 2025)</div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left">An approach to Evaluative AI through LLMs (ECAI 2024)</div>
+          <div class="right">2024</div>
+        </li>
+        <li>
+          <div class="left">Augmenting XAI with LLMs (XAI World 2024)</div>
+          <div class="right">2024</div>
+        </li>
+        <li>
+          <div class="left">Skills‑Hunter (AIxIA 2023)</div>
+          <div class="right">2023</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="map-section" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Where in the world"</h2></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="map" style="height:400px"></div>
+    </div>
+  </section>
+
+  <section id="projects" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Projects"</h2></div>
+    <div class="projects">
+      <article class="card project">
+        <h3>MHEO Report</h3>
+        <p>Labour market analytics on 100K+ Lombardy graduates.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Econometrics</span><span class="tag">Dashboards</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience" class="grid-2" data-anim>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2>"Experience"</h2></div>
       <div class="card">
-        <ul class="list" aria-label="Selected publications">
+        <ul class="list">
           <li>
-            <div class="left"><strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP Industry Track, Suzhou (China)</div>
-            <div class="right">2025</div>
+            <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
+            <div class="right">2024 – 25</div>
           </li>
           <li>
-            <div class="left"><strong>Disce aut Deficere</strong> — Evaluating LLMs on INVALSI (ECML‑PKDD 2025)</div>
-            <div class="right">2025</div>
-          </li>
-          <li>
-            <div class="left"><strong>Towards the Terminator Economy</strong> — TEAI/TRAI (IJCAI 2025)</div>
-            <div class="right">2025</div>
-          </li>
-          <li>
-            <div class="left"><strong>SkiLLMo</strong> — Normalized ESCO Skill Extraction (ACM SAC 2025)</div>
-            <div class="right">2025</div>
-          </li>
-          <li>
-            <div class="left">An approach to Evaluative AI through LLMs (ECAI 2024)</div>
-            <div class="right">2024</div>
-          </li>
-          <li>
-            <div class="left">Augmenting XAI with LLMs (XAI World 2024)</div>
-            <div class="right">2024</div>
-          </li>
-          <li>
-            <div class="left">Skills‑Hunter (AIxIA 2023)</div>
-            <div class="right">2023</div>
+            <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
+            <div class="right">2023 – 24</div>
           </li>
         </ul>
       </div>
-    </section>
-
-    <section id="map-section" data-anim>
-      <div class="section-title"><span class="dot"></span><h2>"Where in the world"</h2></div>
-      <div class="card" style="padding:0;overflow:hidden">
-        <div id="map" style="height:400px"></div>
-      </div>
-    </section>
-
-    <section id="projects" data-anim>
-      <div class="section-title"><span class="dot"></span><h2>"Projects"</h2></div>
-      <div class="projects">
-        <article class="card project">
-          <h3>MHEO Report</h3>
-          <p>Labour market analytics on 100K+ Lombardy graduates.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Econometrics</span><span class="tag">Dashboards</span></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="experience" class="grid-2" data-anim>
-      <div>
-        <div class="section-title"><span class="dot"></span><h2>"Experience"</h2></div>
-        <div class="card">
-          <ul class="list">
-            <li>
-              <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
-              <div class="right">2024 – 25</div>
-            </li>
-            <li>
-              <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
-              <div class="right">2023 – 24</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="section-title"><span class="dot"></span><h2>"Review & Service"</h2></div>
-        <div class="card">
-          <ul class="list">
-            <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
-            <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
-            <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
-            <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="education" data-anim>
-      <div class="section-title"><span class="dot"></span><h2>"Education"</h2></div>
-      <div class="card timeline">
-        <div class="edu">
-          <div class="when">2023 – now</div>
-          <h3>PhD — Big Data & Analytics</h3>
-          <div class="where">University of Milano‑Bicocca</div>
-        </div>
-        <div class="edu">
-          <div class="when">2021 – 2023</div>
-          <h3>MSc — Data Science</h3>
-          <div class="where">University of Milano‑Bicocca</div>
-        </div>
-        <div class="edu">
-          <div class="when">2018 – 2021</div>
-          <h3>BSc — Computer Science</h3>
-          <div class="where">University of Bari</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" data-anim>
-      <div class="section-title"><span class="dot"></span><h2>"Contact"</h2></div>
+    </div>
+    <div>
+      <div class="section-title"><span class="dot"></span><h2>"Review & Service"</h2></div>
       <div class="card">
-        <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
-        <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a></p>
+        <ul class="list">
+          <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
+          <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
+          <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
+          <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
+        </ul>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="container" role="contentinfo">
-      © <span id="y"></span> Antonio Serino — "BUILT WITH LOVE FOR CLARITY & IMPACT"
-    </footer>
-  </main>
+  <section id="education" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Education"</h2></div>
+    <div class="card timeline">
+      <div class="edu">
+        <div class="when">2023 – now</div>
+        <h3>PhD — Big Data & Analytics</h3>
+        <div class="where">University of Milano‑Bicocca</div>
+      </div>
+      <div class="edu">
+        <div class="when">2021 – 2023</div>
+        <h3>MSc — Data Science</h3>
+        <div class="where">University of Milano‑Bicocca</div>
+      </div>
+      <div class="edu">
+        <div class="when">2018 – 2021</div>
+        <h3>BSc — Computer Science</h3>
+        <div class="where">University of Bari</div>
+      </div>
+    </div>
+  </section>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script>
-    // ===== SIMPLE LOAD HANDLERS =====
-    window.addEventListener('DOMContentLoaded',()=>{
-      document.getElementById('y').textContent = new Date().getFullYear();
+  <section id="contact" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Contact"</h2></div>
+    <div class="card">
+      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
+      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a></p>
+    </div>
+  </section>
 
-      // fade-in on scroll
-      const els=[...document.querySelectorAll('[data-anim]')];
-      const ro = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target);} });
-      },{threshold:.12});
-      els.forEach(el=>ro.observe(el));
-    });
+  <footer class="container" role="contentinfo">
+    © <span id="y"></span> Antonio Serino — "BUILT WITH LOVE FOR CLARITY & IMPACT"
+  </footer>
+</main>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+<script>
+  // ===== SIMPLE LOAD HANDLERS =====
+  window.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ===== HIGHLIGHTS TICKER =====
-    // 1. Definisci i tuoi highlight qui
-    const HIGHLIGHTS = [
-      { emoji: "📰", title: "SFAL", venue: "EMNLP 2025 (Industry)" },
-      { emoji: "📈", title: "TEAI/TRAI", venue: "IJCAI 2025" },
-      { emoji: "🎓", title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
-      { emoji: "🛠️", title: "SkiLLMo", venue: "ACM SAC 2025" }
-    ];
-
-    function mountTicker(){
-      const ticker = document.getElementById('ticker');
-      if(!ticker) return;
-      
-      const items = [...HIGHLIGHTS, ...HIGHLIGHTS, ...HIGHLIGHTS]; // Triplica per sicurezza
-      
-      items.forEach(item => {
-        const el = document.createElement('div');
-        el.className = 'tick-item';
-        // Nuovo formato: Emoji + "Titolo" accepted at "Venue"
-        el.innerHTML = `${item.emoji} <strong>"${item.title}"</strong> accepted at ${item.venue}`;
-        ticker.appendChild(el);
-      });
-    }
-    window.addEventListener('DOMContentLoaded', mountTicker);
+    // fade-in on scroll
+    const els=[...document.querySelectorAll('[data-anim]')];
+    const ro = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target);} });
+    },{threshold:.12});
+    els.forEach(el=>ro.observe(el));
+  });
 
 
-    // ===== ALBUM OF THE DAY (con copertine) =====
-    const ALBUMS = [
-      { 
-        title: 'After Hours', 
-        artist: 'The Weeknd', 
-        img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
-        spotifyUrl: 'https://open.spotify.com/embed/album/$0',
-        appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
-      },
-      { 
-        title: 'IGOR', 
-        artist: 'Tyler, The Creator', 
-        img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
-        spotifyUrl: 'https://open.spotify.com/embed/album/$1',
-        appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
-      },
-      { 
-        title: 'Graduation', 
-        artist: 'Kanye West', 
-        img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
-        spotifyUrl: 'https://open.spotify.com/embed/album/$2',
-        appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
-      },
-      { 
-        title: 'Blonde', 
-        artist: 'Frank Ocean', 
-        img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
-        spotifyUrl: 'https://open.spotify.com/embed/album/$3',
-        appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
-      },
-    ];
+  // ===== HIGHLIGHTS TICKER =====
+  // 1. Definisci i tuoi highlight qui
+  const HIGHLIGHTS = [
+    { emoji: "📰", title: "SFAL", venue: "EMNLP 2025 (Industry)" },
+    { emoji: "📈", title: "TEAI/TRAI", venue: "IJCAI 2025" },
+    { emoji: "🎓", title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
+    { emoji: "🛠️", title: "SkiLLMo", venue: "ACM SAC 2025" }
+  ];
 
-    function dailyIndex(n){
-      const d=new Date();
-      const seed = d.getFullYear()*1000 + (d.getMonth()+1)*50 + d.getDate();
-      return seed % n;
-    }
+  function mountTicker(){
+    const ticker = document.getElementById('ticker');
+    if(!ticker) return;
     
-    function mountAlbum(){
-      const idx = dailyIndex(ALBUMS.length);
-      const album = ALBUMS[idx];
-      
-      const imgEl = document.getElementById('album-cover-img');
-      const titleEl = document.getElementById('album-title');
-      const artistEl = document.getElementById('album-artist');
-      const spotifyEl = document.getElementById('album-spotify');
-      const appleEl = document.getElementById('album-apple');
-      
-      if(imgEl) imgEl.src = album.img;
-      if(imgEl) imgEl.alt = `Cover of ${album.title} by ${album.artist}`;
-      if(titleEl) titleEl.textContent = album.title;
-      if(artistEl) artistEl.textContent = album.artist;
-      if(spotifyEl) spotifyEl.href = album.spotifyUrl;
-      if(appleEl) appleEl.href = album.appleUrl;
-    }
-    window.addEventListener('DOMContentLoaded', mountAlbum);
-
-    // ===== Leaflet map =====
-    window.addEventListener('load', function(){
-      const el = document.getElementById('map'); if(!el || !window.L) return;
-      const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-      const pubs = [
-        {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
-        {lat:41.1621,lng:-8.621,label:'ECML‑PKDD 25 — Porto'},
-        {lat:45.5017,lng:-73.5673,label:'IJCAI 25 — Montreal'},
-        {lat:37.5022,lng:15.0873,label:'ACM SAC 25 — Catania'},
-        {lat:42.8782,lng:-8.5449,label:'ECAI 24 — Santiago de Compostela'},
-        {lat:35.9375,lng:14.5001,label:'XAI World 24 — Malta'},
-        {lat:41.9028,lng:12.4964,label:'AIxIA 23 — Rome'}
-      ];
-      const group=[]; pubs.forEach(p=>{ L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.label); group.push([p.lat,p.lng]); });
-      if(group.length){ map.fitBounds(group, {padding:[30,30]}); }
+    const items = [...HIGHLIGHTS, ...HIGHLIGHTS, ...HIGHLIGHTS]; // Triplica per sicurezza
+    
+    items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'tick-item';
+      // Nuovo formato: Emoji + "Titolo" accepted at "Venue"
+      el.innerHTML = `${item.emoji} <strong>"${item.title}"</strong> accepted at ${item.venue}`;
+      ticker.appendChild(el);
     });
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Antonio Serino",
-    "jobTitle": "Data Scientist, PhD Student",
-    "alumniOf": [
-      {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
-      {"@type":"CollegeOrUniversity","name":"University of Bari"}
-    ],
-    "email": "mailto:a.serino3@campus.unimib.it",
-    "image": "/assets/img/Antonio.jpeg",
-    "sameAs": [
-      "httpsS://github.com/serino28",
-      "https://www.linkedin.com/in/antonio-serino-881799205"
-    ],
-    "url": "/"
   }
-  </script>
-</body>
+  window.addEventListener('DOMContentLoaded', mountTicker);
+
+
+  // ===== ALBUM OF THE DAY (con copertine) =====
+  const ALBUMS = [
+    { 
+      title: 'After Hours', 
+      artist: 'The Weeknd', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
+      spotifyUrl: 'https://open.spotify.com/embed/album/$0',
+      appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
+    },
+    { 
+      title: 'IGOR', 
+      artist: 'Tyler, The Creator', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
+      spotifyUrl: 'https://open.spotify.com/embed/album/$1',
+      appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
+    },
+    { 
+      title: 'Graduation', 
+      artist: 'Kanye West', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
+      spotifyUrl: 'https://open.spotify.com/embed/album/$2',
+      appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
+    },
+    { 
+      title: 'Blonde', 
+      artist: 'Frank Ocean', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
+      spotifyUrl: 'https://open.spotify.com/embed/album/$3',
+      appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
+    },
+  ];
+
+  function dailyIndex(n){
+    const d=new Date();
+    const seed = d.getFullYear()*1000 + (d.getMonth()+1)*50 + d.getDate();
+    return seed % n;
+  }
+  
+  function mountAlbum(){
+    const idx = dailyIndex(ALBUMS.length);
+    const album = ALBUMS[idx];
+    
+    const imgEl = document.getElementById('album-cover-img');
+    const titleEl = document.getElementById('album-title');
+    const artistEl = document.getElementById('album-artist');
+    const spotifyEl = document.getElementById('album-spotify');
+    const appleEl = document.getElementById('album-apple');
+    
+    if(imgEl) imgEl.src = album.img;
+    if(imgEl) imgEl.alt = `Cover of ${album.title} by ${album.artist}`;
+    if(titleEl) titleEl.textContent = album.title;
+    if(artistEl) artistEl.textContent = album.artist;
+    if(spotifyEl) spotifyEl.href = album.spotifyUrl;
+    if(appleEl) appleEl.href = album.appleUrl;
+  }
+  window.addEventListener('DOMContentLoaded', mountAlbum);
+
+  // ===== Leaflet map =====
+  window.addEventListener('load', function(){
+    const el = document.getElementById('map'); if(!el || !window.L) return;
+    const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+    const pubs = [
+      {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
+      {lat:41.1621,lng:-8.6291,label:'ECML‑PKDD 25 — Porto'},
+      {lat:45.5017,lng:-73.5673,label:'IJCAI 25 — Montreal'},
+      {lat:37.5022,lng:15.0873,label:'ACM SAC 25 — Catania'},
+      {lat:42.8782,lng:-8.5449,label:'ECAI 24 — Santiago de Compostela'},
+      {lat:35.9375,lng:14.5001,label:'XAI World 24 — Malta'},
+      {lat:41.9028,lng:12.4964,label:'AIxIA 23 — Rome'}
+    ];
+    const group=[]; pubs.forEach(p=>{ L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.label); group.push([p.lat,p.lng]); });
+    if(group.length){ map.fitBounds(group, {padding:[30,30]}); }
+  });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Antonio Serino",
+  "jobTitle": "Data Scientist, PhD Student",
+  "alumniOf": [
+    {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
+    {"@type":"CollegeOrUniversity","name":"University of Bari"}
+  ],
+  "email": "mailto:a.serino3@campus.unimib.it",
+  "image": "/assets/img/Antonio.jpeg",
+  "sameAs": [
+    "https://github.com/serino28",
+    "https://www.linkedin.com/in/antonio-serino-881799205"
+  ],
+  "url": "/"
+}
+</script>
