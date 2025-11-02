@@ -554,7 +554,7 @@ title: "Antonio Serino"
         artist: 'The Weeknd', 
         img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
         spotifyUrl: 'https://open.spotify.com/embed/album/$0',
-        appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
+        appleUrl: 'https://music.apple.com/us/album/after-hours/1499378108'
       },
       { 
         title: 'IGOR', 
