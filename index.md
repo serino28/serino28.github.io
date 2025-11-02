@@ -96,11 +96,15 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (2 columns: Intro + [Avatar + Album]) 
+    HERO (2 columns: [Avatar + Album] + Intro) 
   */
   .hero{
     display: grid;
-    grid-template-columns: 1.8fr 1fr; /* Main content vs Side */
+    /* LA CORREZIONE È QUI:
+      1fr alla colonna sinistra (foto/album)
+      1.8fr alla colonna destra (testo intro)
+    */
+    grid-template-columns: 1fr 1.8fr; 
     gap: 24px;
     align-items: flex-start; /* Align to top */
     margin-top: 48px;
@@ -277,7 +281,7 @@ title: "Antonio Serino"
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width: 1060px){
     .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
-    .hero-col-side { order: -1; } /* Avatar/Album first on mobile */
+    .hero-col-main { order: -1; } /* Su mobile, sposta l'intro SOTTO foto/album */
     .grid-2{ grid-template-columns: 1fr }
     .site-title { font-size: 12px; padding: 0 16px; }
   }
@@ -334,7 +338,7 @@ title: "Antonio Serino"
     <div id="ticker"></div>
   </div>
   
-  </header>
+</header>
 
 <main class="container">
   
@@ -360,9 +364,11 @@ title: "Antonio Serino"
         </div>
       </div>
     </div>
+    
     <div class="hero-col-main">
       <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-      <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
+      <h1>Antonio Serino</h1> 
+      <p class="motto">Create like a child, edit like a scientist.</p>
 
       <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
       
@@ -372,7 +378,8 @@ title: "Antonio Serino"
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
-    </section>
+    
+  </section>
 
   <section id="pubs" data-anim>
     <div class="section-title"><span class="dot"></span><h2>"Publications"</h2></div>
@@ -547,21 +554,21 @@ title: "Antonio Serino"
       artist: 'Tyler, The Creator', 
       img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$1',
-      appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
+      appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
     },
     { 
       title: 'Graduation', 
       artist: 'Kanye West', 
       img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$2',
-      appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
+      appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
     },
     { 
       title: 'Blonde', 
       artist: 'Frank Ocean', 
       img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$3',
-      appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
+      appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
     },
   ];
 
