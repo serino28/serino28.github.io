@@ -363,6 +363,15 @@ title: "Antonio Serino"
   .list li:last-child{border-bottom:none}
   .left{max-width:70%}
   .right{white-space:nowrap;color:var(--muted); font-family: "JetBrains Mono", monospace; font-size: 14px;}
+  
+  /* NUOVA CLASSE per descrizioni in lista */
+  .pub-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 4px 0 0 0;
+    padding: 0;
+    line-height: 1.5;
+  }
 
   /* Projects cards (now handles 1 item better) */
   .projects{
@@ -388,7 +397,7 @@ title: "Antonio Serino"
   .edu{position:relative;padding-left:28px;margin:16px 0}
   .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:0;background:var(--brand-bg); border: 1px solid var(--border);}
   .edu h3{font-family: Inter; text-transform: none; font-size: 18px; margin:.1rem 0} /* Override card h3 */
-  .edu .where{color:var(--muted);font-size:14px}
+  .edu .where{color:var(--muted);font-size:14px; line-height: 1.5;} /* Aggiornato per leggibilità */
   .edu .when{font-family: "JetBrains Mono", monospace; font-size: 14px;}
 
   /* Footer */
@@ -456,7 +465,7 @@ title: "Antonio Serino"
     
     <div class="hero-bottom-bio">
       <p class="motto">Create like a child, edit like a scientist.</p>
-      <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      <p class="subtitle">Data Scientist & PhD Student in AI & NLP. My research focuses on <strong>evaluation</strong>, <strong>computational linguistics</strong>, and the <strong>interpretability</strong> of Large Language Models, aiming to make them transparent, trustworthy, and ready for real-world applications. </p>
       
       <div class="cta" role="group" aria-label="Primary actions">
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
@@ -472,31 +481,65 @@ title: "Antonio Serino"
     <div class="card">
       <ul class="list" aria-label="Selected publications">
         <li>
-          <div class="left"><strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP Industry Track, Suzhou (China)</div>
+          <div class="left">
+            <strong>Terminator Economy: Assessing jobs and tasks exposure to AI</strong> — AAAI (Demo Track), Singapore
+          </div>
+          <div class="right">2026</div>
+        </li>
+        <li>
+          <div class="left">
+            <strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> [cite: 126] — EMNLP (Industry) [cite: 127]
+            <p class="pub-desc">Proposing SFAL, a fast and cost-effective evaluation strategy for auto-interpretability in Sparse Autoencoders. [cite: 131, 132]</p>
+          </div>
           <div class="right">2025</div>
         </li>
         <li>
-          <div class="left"><strong>Disce aut Deficere</strong> — Evaluating LLMs on INVALSI (ECML‑PKDD 2025)</div>
+          <div class="left">
+            <strong>We Don't Trust You: CAV-based LLMs Guardrail with Application in Real Banking Scenario</strong> [cite: 115] — EMNLP (Industry) [cite: 116]
+            <p class="pub-desc">Introducing CAVGuard, a low-resource method using Concept Activation Vectors (CAVs) for interpretable input filtering in LLMs. [cite: 118, 119]</p>
+          </div>
           <div class="right">2025</div>
         </li>
         <li>
-          <div class="left"><strong>Towards the Terminator Economy</strong> — TEAI/TRAI (IJCAI 2025)</div>
+          <div class="left">
+            <strong>Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian Benchmark</strong> [cite: 107] — ECML-PKDD [cite: 108]
+            <p class="pub-desc">A structured benchmark using INVALSI tests to evaluate the linguistic versatility of LLMs in non-English languages. [cite: 112]</p>
+          </div>
           <div class="right">2025</div>
         </li>
         <li>
-          <div class="left"><strong>SkiLLMo</strong> — Normalized ESCO Skill Extraction (ACM SAC 2025)</div>
+          <div class="left">
+            <strong>Towards the Terminator Economy: Assessing Job Exposure to Al through LLMs</strong> [cite: 93] — IJCAI [cite: 97]
+            <p class="pub-desc">A data-driven framework using LLMs to assess AI exposure in U.S. employment, formalising the TEAI index. [cite: 98]</p>
+          </div>
           <div class="right">2025</div>
         </li>
         <li>
-          <div class="left">An approach to Evaluative AI through LLMs (ECAI 2024)</div>
+          <div class="left">
+            <strong>SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</strong> [cite: 99] — ACM SAC [cite: 99]
+            <p class="pub-desc">A pipeline leveraging Transformers and LLMs to extract, filter, and standardize skills from job ads to the ESCO taxonomy. [cite: 100, 101, 102, 105]</p>
+          </div>
+          <div class="right">2025</div>
+        </li>
+        <li>
+          <div class="left">
+            <strong>An approach to Evaluative Al through Large Language Models</strong> [cite: 87] — ECAI [cite: 88]
+            <p class="pub-desc">Introducing EADS, a framework integrating Evaluative AI with conversational explanations (pros/cons) to enhance decision-making. [cite: 89, 90]</p>
+          </div>
           <div class="right">2024</div>
         </li>
         <li>
-          <div class="left">Augmenting XAI with LLMs (XAI World 2024)</div>
+          <div class="left">
+            <strong>Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation</strong> [cite: 82] — XAI-IJCAI24 [cite: 83]
+            <p class="pub-desc">Using Generative AI to create natural language explanations for recommender systems, replacing manual expert labor. [cite: 84, 85]</p>
+          </div>
           <div class="right">2024</div>
         </li>
         <li>
-          <div class="left">Skills‑Hunter (AIxIA 2023)</div>
+          <div class="left">
+            <strong>Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction</strong> [cite: 78] — AIxIA [cite: 79]
+            <p class="pub-desc">An automated approach using LLMs to overcome the data labelling problem for skill extraction in job ads. [cite: 80]</p>
+          </div>
           <div class="right">2023</div>
         </li>
       </ul>
@@ -527,11 +570,17 @@ title: "Antonio Serino"
       <div class="card">
         <ul class="list">
           <li>
-            <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
+            <div class="left">
+              <strong>Research collaboration</strong> — University of Milan (MHEO Report) [cite: 26, 29]
+              <p class="pub-desc">Analyzing occupational trajectories and education-to-employment transitions for 100,000+ Lombardy graduates. [cite: 34, 35]</p>
+            </div>
             <div class="right">2024 – 25</div>
           </li>
           <li>
-            <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
+            <div class="left">
+              <strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre [cite: 13, 21]
+              <p class="pub-desc">Developing methodologies for skill extraction and standardization from job ads based on the ESCO taxonomy. </p>
+            </div>
             <div class="right">2023 – 24</div>
           </li>
         </ul>
@@ -541,10 +590,10 @@ title: "Antonio Serino"
       <div class="section-title"><span class="dot"></span><h2>"Review & Service"</h2></div>
       <div class="card">
         <ul class="list">
-          <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
-          <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
-          <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
-          <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
+          <li><div class="left">ECML-PKDD — Research Track [cite: 140, 141]</div><div class="right">2024</div></li>
+          <li><div class="left">COLING — Industry Track [cite: 149, 152]</div><div class="right">2025</div></li>
+          <li><div class="left">Knowledge-Based Systems (Q1) [cite: 153]</div><div class="right">–</div></li>
+          <li><div class="left">Intl. Journal of IT & Decision Making (Q2) [cite: 156]</div><div class="right">–</div></li>
         </ul>
       </div>
     </div>
@@ -556,26 +605,41 @@ title: "Antonio Serino"
       <div class="edu">
         <div class="when">2023 – now</div>
         <h3>PhD — Big Data & Analytics</h3>
-        <div class="where">University of Milano‑Bicocca</div>
+        <div class="where">University of Milano-Bicocca. [cite: 45] Researching NLP, LLM Evaluation, and XAI. </div>
       </div>
       <div class="edu">
         <div class="when">2021 – 2023</div>
         <h3>MSc — Data Science</h3>
-        <div class="where">University of Milano‑Bicocca</div>
+        <div class="where">University of Milano-Bicocca. [cite: 52] Skills in Python, Machine Learning, Deep Learning, and NLP. [cite: 58, 59, 60]</div>
       </div>
       <div class="edu">
         <div class="when">2018 – 2021</div>
         <h3>BSc — Computer Science</h3>
-        <div class="where">University of Bari</div>
+        <div class="where">University of Bari. [cite: 72] Skills in C, C++, Java, Algorithms, and Data Structures. [cite: 72, 73]</div>
       </div>
+    </div>
+  </section>
+  
+  <section id="awards" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Awards"</h2></div>
+    <div class="card">
+      <ul class="list">
+        <li>
+          <div class="left">
+            <strong>Best Presentation Award</strong> [cite: 137]
+            <p class="pub-desc">Per "Augmenting XAI with LLMs" [cite: 135] at 2nd World Conference on Explainable AI. [cite: 136]</p>
+          </div>
+          <div class="right">Jul 2024</div>
+        </li>
+      </ul>
     </div>
   </section>
 
   <section id="contact" data-anim>
     <div class="section-title"><span class="dot"></span><h2>"Contact"</h2></div>
     <div class="card">
-      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
-      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a></p>
+      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a> [cite: 1]</p>
+      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> [cite: 8] · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a> [cite: 7]</p>
     </div>
   </section>
 
@@ -702,7 +766,9 @@ title: "Antonio Serino"
     const el = document.getElementById('map'); if(!el || !window.L) return;
     const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+    
     const pubs = [
+      {lat:1.3521, lng:103.8198, label:'AAAI 2026 (Demo) — Singapore'},
       {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
       {lat:41.1621,lng:-8.6291,label:'ECML‑PKDD 25 — Porto'},
       {lat:45.5017,lng:-73.5673,label:'IJCAI 25 — Montreal'},
