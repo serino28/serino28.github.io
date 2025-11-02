@@ -3,105 +3,230 @@ layout: default
 title: "Antonio Serino"
 ---
 
-<!--
-  Revamped homepage — Patch 2025-10-11 (v2)
-  Changes in this patch:
-  1) Wider content: container width increased, tighter margins.
-  2) New hero layout (3 columns): left=mini chat, center=intro, right=album widget.
-  3) Hook for model: google/gemma-3-270m via BACKEND_URL (serverless proxy recommended).
-  4) Album of the day uses your curated list (names). If IDs not provided, it renders smart links to Spotify/Apple Music.
--->
-
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Antonio Serino — Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies for business and society." />
 <meta property="og:title" content="Antonio Serino" />
 <meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
 <meta property="og:type" content="website" />
 <meta id="meta-theme-dark" name="theme-color" content="#0D1117">
-<meta id="meta-theme-light" name="theme-color" content="#ffffff">
+<meta id="meta-theme-light" name="theme-color" content="#F4F4F4">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* THEME TOKENS (dark default) */
+  /* THEME: TYPOGRAPHIC BRUTALISM
+    (Owens: raw palette, hard lines. Abloh: meta-typography, "quotes")
+  */
   :root{
-    --bg: #0D1117;           /* GitHub dark */
-    --panel: #0f1622;        /* card bg */
+    /* Dark theme (GitHub) remains the same */
+    --bg: #0D1117;
+    --panel: #0f1622;
     --text: #d1d6de;
     --muted: #94a3b8;
     --brand: #58A6FF;
-    --brand-2: #7ee7ff;
     --border: #273043;
-    --radius: 14px;
-    --shadow: 0 10px 30px rgba(0,0,0,.25);
+    --radius: 0px; /* NO ROUNDED CORNERS */
+    --shadow: none; /* NO SHADOWS */
   }
-  /* Light overrides */
+  /* Light overrides (Owens/Abloh "Raw" Theme) */
   :root[data-theme="light"]{
-    --bg: #ffffff;
-    --panel: #f7fafc;
-    --text: #1f2937;
-    --muted: #475569;
-    --border: #e5e7eb;
-    --brand: #0B5FFF;
-    --brand-2: #2ea6ff;
+    --bg: #F4F4F4;        /* Raw concrete / "Pearl" */
+    --panel: #ffffff;     /* Stark white panel */
+    --text: #0A0A0A;      /* Stark black text */
+    --muted: #555555;      /* Strong grey */
+    --border: #CFCFCF;    /* Visible border */
+    --brand: #0B5FFF;      /* Abloh "Blue" */
   }
 
   html,body{margin:0;padding:0}
   body{
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    background: radial-gradient(90vmax 90vmax at 100% -10%, rgba(10,17,32,.9) 0%, var(--bg) 45%, var(--bg) 100%);
+    font-family: Inter, Arial, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, "Apple Color Emoji", "Segoe UI Emoji";
+    background: var(--bg);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 16px;
+    font-weight: 400;
   }
-  :root[data-theme="light"] body{background: radial-gradient(90vmax 90vmax at 100% -10%, #f2f7ff 0%, var(--bg) 50%, var(--bg) 100%);}  
+  :root[data-theme="light"] body{ background: var(--bg); }  
 
-  /* Layout */
-  .container{max-width:2640px;margin:0 auto;padding:16px}
+  /* Layout (Tighter Container) */
+  .container{
+    max-width: 1280px; /* Tighter container */
+    margin:0 auto;
+    padding:16px
+  }
   header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
-  nav{display:flex;gap:16px;flex-wrap:wrap}
-  nav a{color:var(--muted);text-decoration:none;font-weight:600;border:1px solid transparent;padding:6px 10px;border-radius:10px}
-  nav a:hover{border-color:var(--border)}
+  nav{display:flex;gap:4px;flex-wrap:wrap}
+  nav a{
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 8px 12px;
+  }
+  nav a:hover{
+    border-color: var(--border);
+    background: var(--panel);
+    color: var(--text);
+  }
 
   /* Theme toggle */
-  .toggle{display:inline-flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:4px}
-  .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);padding:6px 10px;border-radius:999px;font:600 14px/1 Inter;cursor:pointer}
-  .toggle button.active{background:var(--brand);color:white}
+  .toggle{display:inline-flex;gap:0px;align-items:center;background:var(--panel);border:1px solid var(--border)}
+  .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);padding:8px 12px;cursor:pointer;font:600 14px/1 "JetBrains Mono"}
+  .toggle button.active{
+    background: var(--text);
+    color: var(--bg);
+  }
 
-  /* Hero (3 columns) */
-  .hero{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:18px;align-items:stretch;margin-top:18px}
-  .hero-col{display:flex;flex-direction:column;gap:12px}
-  .avatar{width:110px;height:110px;border-radius:50%;box-shadow:var(--shadow);border:2px solid var(--border);object-fit:cover}
-  .badge{display:inline-flex;align-items:center;gap:8px;color:white;background:linear-gradient(135deg,var(--brand),var(--brand-2));padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.3px}
-  .hero h1{font-size:clamp(28px,4vw,44px);margin:.4rem 0 .6rem}
-  .subtitle{color:var(--muted);font-size:clamp(15px,2vw,18px)}
-  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;border-radius:12px;border:1px solid var(--border);padding:8px 12px;color:var(--text);background:var(--panel)}
-  .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;border-color:transparent}
-  .btn:hover{box-shadow:0 8px 24px rgba(80,80,120,.15)}
+  /*
+    NEW HERO (2 columns: Intro + Avatar) 
+  */
+  .hero{
+    display: grid;
+    grid-template-columns: 1.8fr 1fr; /* Main content vs Avatar */
+    gap: 24px;
+    align-items: center;
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+  .hero-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .hero-col-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    padding: 24px;
+  }
+  .avatar{
+    width: 100%; /* Fill the column */
+    max-width: 180px; /* But not *too* big */
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius); /* SQUARE AVATAR */
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    object-fit: cover;
+  }
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    background: var(--brand); /* Solid accent color */
+    padding: 8px 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .hero h1{
+    font-size: clamp(38px, 5vw, 54px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  /* "THE MOTTO" (Abloh-style) */
+  .motto {
+    font-size: clamp(18px, 2.5vw, 20px);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text);
+    margin: 10px 0;
+    padding-left: 14px;
+    border-left: 3px solid var(--brand);
+  }
+  .motto:before { content: "“"; }
+  .motto:after { content: "”"; }
+
+  .subtitle{
+    color: var(--muted);
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 400;
+  }
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    color: var(--text);
+    background: var(--panel);
+  }
+  .btn.primary{
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+  .btn:hover{
+    box-shadow: var(--shadow); /* noop, kept for structure */
+    background: var(--bg);
+  }
+  .btn.primary:hover {
+    background: #094fc2; /* Darker blue */
+    border-color: #094fc2;
+  }
 
   /* Section */
-  section{margin:36px 0}
+  section{margin: 48px 0} /* More whitespace */
   .section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-  .section-title .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .section-title .dot{width:10px;height:10px;border-radius:var(--radius);background:var(--brand)}
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
 
   /* Highlights */
   .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
   .highlights .item{position:relative}
-  .pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);margin-right:8px}
+  .pill{
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px 8px;
+    font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+  }
   .item h3{margin:.4rem 0 .2rem;font-size:18px}
-  .item .venue{font:600 12px/1 Inter;color:var(--brand)}
+  .item .venue{font:600 12px/1 "JetBrains Mono";color:var(--brand)}
 
   /* Two-column grid section */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media (max-width:1060px){.hero{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+  @media (max-width: 1060px){
+    .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
+    .hero-col-side { order: -1; align-items: center; } /* Avatar first on mobile */
+    .avatar { max-width: 140px; }
+    .grid-2{ grid-template-columns: 1fr }
+  }
 
   /* Lists */
   .list{list-style:none;padding:0;margin:0}
-  .list li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border)}
+  .list li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--border)}
   .list li:last-child{border-bottom:none}
   .left{max-width:70%}
-  .right{white-space:nowrap;color:var(--muted)}
+  .right{white-space:nowrap;color:var(--muted); font-family: "JetBrains Mono", monospace; font-size: 14px;}
 
   /* Projects cards */
   .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
@@ -109,15 +234,23 @@ title: "Antonio Serino"
   .project h3{margin:.2rem 0 .1rem}
   .project p{margin:0;color:var(--muted)}
   .project .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
-  .tag{font:600 11px/1 Inter;border:1px solid var(--border);border-radius:999px;padding:6px 10px;color:var(--muted)}
+  .tag{
+    font: 600 11px/1 "JetBrains Mono";
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
 
   /* Education timeline */
   .timeline{position:relative}
-  .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--brand),transparent);border-radius:2px}
+  .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:var(--brand);border-radius:0}
   .edu{position:relative;padding-left:28px;margin:16px 0}
-  .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--brand)}
+  .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:0;background:var(--brand); border: 1px solid var(--border);}
   .edu h3{margin:.1rem 0}
   .edu .where{color:var(--muted);font-size:14px}
+  .edu .when{font-family: "JetBrains Mono", monospace; font-size: 14px;}
 
   /* Footer */
   footer{margin:42px 0 14px;color:var(--muted);font-size:14px}
@@ -126,17 +259,26 @@ title: "Antonio Serino"
   [data-anim]{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .6s ease}
   [data-anim].in{opacity:1;transform:translateY(0)}
 
-  /* Live Corner components */
+  /* Live Corner components (now styled as brutalist cards) */
   .chat{display:flex;flex-direction:column;gap:10px}
-  .chat-log{height:240px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--panel)}
-  .bubble{max-width:82%;padding:10px 12px;border-radius:12px;margin:6px 0}
-  .me{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#061224;align-self:flex-end}
-  .bot{background:#0b1524;border:1px solid var(--border)}
+  .chat-log{height:240px;overflow:auto;border:1px solid var(--border);border-radius:var(--radius);padding:10px;background:var(--panel)}
+  .bubble{max-width:82%;padding:10px 12px;border-radius:var(--radius);margin:6px 0}
+  .me{background:var(--brand);color:white;align-self:flex-end}
+  .bot{background:var(--panel);border:1px solid var(--border)}
   :root[data-theme="light"] .bot{background:#ffffff}
   .chat-input{display:flex;gap:8px}
-  .chat-input input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:transparent;color:var(--text)}
-  .chat-input button{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--text);font-weight:700}
-  .player{height:240px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .chat-input input{flex:1;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;background:transparent;color:var(--text); font-family: Inter;}
+  .chat-input button{
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    background: var(--panel);
+    color: var(--text);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+  }
+  .player{height:240px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .player .btn { font-size: 12px; } /* Smaller buttons for album links */
 
 </style>
 
@@ -146,8 +288,6 @@ title: "Antonio Serino"
     <a href="#pubs">Publications</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
   </nav>
   <div class="toggle" aria-label="Color scheme toggle">
     <button id="theme-dark" aria-pressed="false" title="Dark">🌙</button>
@@ -156,46 +296,52 @@ title: "Antonio Serino"
 </header>
 
 <main class="container">
-  <!-- HERO (3 columns: left chat, center intro, right album) -->
+  
   <section class="hero" id="about" data-anim>
-    <!-- LEFT: Chat -->
-    <div class="hero-col card">
-      <strong>Ask a quick question</strong>
-      <div id="chat-log" class="chat-log" aria-live="polite"></div>
-      <div class="chat-input">
-        <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
-        <button id="chat-send">Send</button>
-      </div>
-      <small class="subtitle">Powered (via proxy) by <code>google/gemma-3-270m</code>. On GitHub Pages, use a serverless proxy (see code).</small>
-    </div>
 
-    <!-- CENTER: Intro -->
-    <div class="hero-col card" style="align-items:flex-start">
+    <div class="hero-col-main">
       <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
       <h1>Antonio Serino</h1>
-      <p class="subtitle">Data Scientist &amp; PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      
+      <p class="motto">Create like a child, edit like a scientist.</p>
+
+      <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
+      
       <div class="cta" role="group" aria-label="Primary actions">
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
         <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-      <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
-        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="110" height="110" />
-        <div class="subtitle">EMNLP 2025 (Industry) — SFAL, Suzhou · IJCAI 2025 — TEAI/TRAI · ECML‑PKDD 2025 — Disce aut Deficere</div>
-      </div>
     </div>
 
-    <!-- RIGHT: Album of the day -->
-    <div class="hero-col card">
-      <strong>Album of the day</strong>
-      <div class="player" id="album-wrap">
-        <!-- Embed or smart links inserted by JS -->
+    <div class="hero-col-side">
+      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
+      <div class="subtitle" style="margin-top: 16px; font-size: 13px; line-height: 1.5;">
+        <strong>"CONFERENCES"</strong><br/>
+        EMNLP 2025 (Industry) — SFAL, Suzhou · IJCAI 2025 — TEAI/TRAI · ECML‑PKDD 2025 — Disce aut Deficere
       </div>
-      <small class="subtitle">From your curated list. Add Spotify IDs to enable direct embeds.</small>
     </div>
   </section>
 
-  <!-- HIGHLIGHTS / LATEST -->
+  <section class="grid-2" data-anim>
+    <div class="card">
+      <strong>"ASK A QUESTION"</strong>
+      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <div class="chat-input">
+        <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
+        <button id="chat-send">Send</button>
+      </div>
+      <small class="subtitle" style="font-size: 12px; margin-top: 8px;">Powered (via proxy) by <code>google/gemma-3-270m</code></small>
+    </div>
+
+    <div class="card">
+      <strong>"ALBUM OF THE DAY"</strong>
+      <div class="player" id="album-wrap">
+        </div>
+      <small class="subtitle" style="font-size: 12px; margin-top: 8px;">From your curated list.</small>
+    </div>
+  </section>
+
   <section data-anim>
     <div class="section-title"><span class="dot"></span><h2 style="margin:0">Recent highlights</h2></div>
     <div class="highlights">
@@ -222,7 +368,6 @@ title: "Antonio Serino"
     </div>
   </section>
 
-  <!-- PUBLICATIONS + MAP SIDE BY SIDE -->
   <section id="pubs" class="grid-2" data-anim>
     <div>
       <div class="section-title"><span class="dot"></span><h2 style="margin:0">Publications</h2></div>
@@ -265,7 +410,6 @@ title: "Antonio Serino"
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects" data-anim>
     <div class="section-title"><span class="dot"></span><h2 style="margin:0">Projects</h2></div>
     <div class="projects">
@@ -275,30 +419,29 @@ title: "Antonio Serino"
         <div class="tags"><span class="tag">Python</span><span class="tag">Econometrics</span><span class="tag">Dashboards</span></div>
       </article>
       <article class="card project">
-        <h3>TEAI &amp; TRAI</h3>
+        <h3>TEAI & TRAI</h3>
         <p>Measuring AI exposure and replacement risk across occupations.</p>
         <div class="tags"><span class="tag">LLMs</span><span class="tag">Policy</span><span class="tag">Causal</span></div>
       </article>
       <article class="card project">
-        <h3>Skills‑Hunter &amp; SkiLLMo</h3>
+        <h3>Skills‑Hunter & SkiLLMo</h3>
         <p>Standardizing skill extraction with ESCO.</p>
         <div class="tags"><span class="tag">NLP</span><span class="tag">Transformers</span><span class="tag">ETL</span></div>
       </article>
     </div>
   </section>
 
-  <!-- EXPERIENCE & SERVICE -->
   <section id="experience" class="grid-2" data-anim>
     <div>
       <div class="section-title"><span class="dot"></span><h2 style="margin:0">Experience</h2></div>
       <ul class="list">
         <li>
           <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
-          <div class="right">2024 – 2025</div>
+          <div class="right">2024 – 25</div>
         </li>
         <li>
           <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
-          <div class="right">2023 – 2024</div>
+          <div class="right">2023 – 24</div>
         </li>
       </ul>
     </div>
@@ -313,13 +456,12 @@ title: "Antonio Serino"
     </div>
   </section>
 
-  <!-- EDUCATION -->
   <section id="education" data-anim>
     <div class="section-title"><span class="dot"></span><h2 style="margin:0">Education</h2></div>
     <div class="card timeline">
       <div class="edu">
         <div class="when">2023 – now</div>
-        <h3>PhD — Big Data &amp; Analytics</h3>
+        <h3>PhD — Big Data & Analytics</h3>
         <div class="where">University of Milano‑Bicocca</div>
       </div>
       <div class="edu">
@@ -335,21 +477,19 @@ title: "Antonio Serino"
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" data-anim>
     <div class="section-title"><span class="dot"></span><h2 style="margin:0">Contact</h2></div>
     <div class="card">
-      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
-      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">serino28</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">antonio‑serino</a></p>
+      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></Jekyll-s-email-and-link-checker-is-weird-sometimes></p>
+      <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a></p>
     </div>
   </section>
 
   <footer class="container" role="contentinfo">
-    © <span id="y"></span> Antonio Serino — Built with love for clarity & impact.
+    © <span id="y"></span> Antonio Serino — "BUILT WITH LOVE FOR CLARITY & IMPACT"
   </footer>
 </main>
 
-<!-- Leaflet CSS/JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 <script>
@@ -368,7 +508,7 @@ title: "Antonio Serino"
       document.getElementById('theme-dark').classList.toggle('active', mode==='dark');
       // Update meta theme color
       document.getElementById('meta-theme-dark').setAttribute('content', mode==='dark' ? '#0D1117' : '#0D1117');
-      document.getElementById('meta-theme-light').setAttribute('content', mode==='light' ? '#ffffff' : '#ffffff');
+      document.getElementById('meta-theme-light').setAttribute('content', mode==='light' ? '#F4F4F4' : '#F4F4F4');
     }
 
     window.addEventListener('DOMContentLoaded',()=>{
@@ -469,8 +609,8 @@ title: "Antonio Serino"
     return `<div style="display:flex;gap:8px;height:100%;align-items:center;justify-content:center;flex-direction:column">
       <div class="subtitle" style="text-align:center;padding:0 8px">${title}</div>
       <div style="display:flex;gap:8px">
-        <a class="btn" href="${spotify}" target="_blank" rel="noopener">Open in Spotify</a>
-        <a class="btn" href="${apple}" target="_blank" rel="noopener">Open in Apple Music</a>
+        <a class="btn" href="${spotify}" target="_blank" rel="noopener">Spotify</a>
+        <a class="btn" href="${apple}" target="_blank" rel="noopener">Apple</a>
       </div>
     </div>`;
   }
