@@ -15,15 +15,15 @@ title: "Antonio Serino"
 <style>
   /* THEME: "RAW CONCRETE" + "EARTH" ACCENT (SINGLE THEME) */
   :root{
-    --bg: #F4F4F4;        /* Raw concrete bg */
-    --panel: #ffffff;     /* Pure white panel */
-    --text: #0A0A0A;      /* Stark black text */
-    --muted: #555555;      /* Strong grey */
-    --border: #BBBBBB;    /* Hard, visible border */
+    --bg: #F4F4F4;
+    --panel: #ffffff;
+    --text: #0A0A0A;
+    --muted: #555555;
+    --border: #BBBBBB;
     
-    /* New "Beige/Brown" Palette */
-    --brand-bg: #8A7B68;   /* Stone/Khaki Brown for backgrounds (ticker, badge, button) */
-    --brand-text: #5D4037; /* Dark Earth Brown for text links (accessibility) */
+    /* "Beige/Brown" Palette */
+    --brand-bg: #8A7B68;   /* Stone/Khaki Brown (per sfondi: ticker, badge) */
+    --brand-text: #5D4037; /* Dark Earth Brown (per testo: nav, link) */
 
     --radius: 0px;
     --shadow: none;
@@ -39,8 +39,8 @@ title: "Antonio Serino"
     font-weight: 400;
   }
   
-  /* Make text links use the dark brown color */
-  a {
+  /* Make *specific* text links use the dark brown color */
+  #contact a, .card a {
     color: var(--brand-text);
   }
   
@@ -60,7 +60,7 @@ title: "Antonio Serino"
     gap: 10px; /* Space between ticker and nav */
   }
   
-  /* ----- NEW: HEADER TICKER ----- */
+  /* ----- HEADER TICKER ----- */
   #ticker-wrap {
     width: 100%; /* Full width *of the container* */
     overflow: hidden;
@@ -90,13 +90,14 @@ title: "Antonio Serino"
     100% { transform: translateX(-50%); }
   }
 
+  /* ----- NAVIGATION ----- */
   nav{display:flex;gap:4px;flex-wrap:wrap; justify-content: center;}
   nav a{
     font-family: "JetBrains Mono", monospace;
     font-weight: 600;
     font-size: 13px;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--brand-text); /* <<< QUI LA CORREZIONE */
     text-decoration: none;
     border: 1px solid transparent;
     padding: 8px 12px;
@@ -104,11 +105,11 @@ title: "Antonio Serino"
   nav a:hover{
     border-color: var(--border);
     background: var(--panel);
-    color: var(--text);
+    color: var(--text); /* Al passaggio del mouse, torna nero */
   }
 
   /*
-    NEW HERO (2 columns: Intro + [Avatar + Album]) 
+    HERO (2 columns: Intro + [Avatar + Album]) 
   */
   .hero{
     display: grid;
@@ -199,6 +200,10 @@ title: "Antonio Serino"
     background: var(--brand-bg);
     color: white;
     border-color: var(--brand-bg);
+  }
+  .btn.primary:hover {
+    background: var(--brand-text); /* Scurisce al hover */
+    border-color: var(--brand-text);
   }
 
   /* ----- ALBUM WIDGET ----- */
@@ -345,7 +350,7 @@ title: "Antonio Serino"
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
     </nav>
-    </header>
+  </header>
 
   <main class="container">
     
@@ -353,9 +358,7 @@ title: "Antonio Serino"
 
       <div class="hero-col-main">
         <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-        <h1>Antonio Serino</h1>
-        
-        <p class="motto">Create like a child, edit like a scientist.</p>
+        <h1>Antonio Serino</h1> <p class="motto">Create like a child, edit like a scientist.</p>
 
         <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
         
@@ -554,7 +557,7 @@ title: "Antonio Serino"
         artist: 'The Weeknd', 
         img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
         spotifyUrl: 'https://open.spotify.com/embed/album/$0',
-        appleUrl: 'https://music.apple.com/us/album/after-hours/1499378108'
+        appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
       },
       { 
         title: 'IGOR', 
@@ -611,7 +614,7 @@ title: "Antonio Serino"
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
       const pubs = [
         {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
-        {lat:41.1621,lng:-8.6291,label:'ECML‑PKDD 25 — Porto'},
+        {lat:41.1621,lng:-8.621,label:'ECML‑PKDD 25 — Porto'},
         {lat:45.5017,lng:-73.5673,label:'IJCAI 25 — Montreal'},
         {lat:37.5022,lng:15.0873,label:'ACM SAC 25 — Catania'},
         {lat:42.8782,lng:-8.5449,label:'ECAI 24 — Santiago de Compostela'},
@@ -636,7 +639,7 @@ title: "Antonio Serino"
     "email": "mailto:a.serino3@campus.unimib.it",
     "image": "/assets/img/Antonio.jpeg",
     "sameAs": [
-      "https://github.com/serino28",
+      "httpsS://github.com/serino28",
       "https://www.linkedin.com/in/antonio-serino-881799205"
     ],
     "url": "/"
