@@ -8,18 +8,23 @@ title: "Antonio Serino"
 <meta property="og:title" content="Antonio Serino" />
 <meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#F4F4F4"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#F4F4F4">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* THEME: "RAW CONCRETE" BRUTALISM (SINGLE THEME) */
+  /* THEME: "RAW CONCRETE" + "EARTH" ACCENT (SINGLE THEME) */
   :root{
     --bg: #F4F4F4;        /* Raw concrete bg */
     --panel: #ffffff;     /* Pure white panel */
     --text: #0A0A0A;      /* Stark black text */
     --muted: #555555;      /* Strong grey */
     --border: #BBBBBB;    /* Hard, visible border */
-    --brand: #0B5FFF;      /* Single accent color */
+    
+    /* New "Beige/Brown" Palette */
+    --brand-bg: #8A7B68;   /* Stone/Khaki Brown for backgrounds (ticker, badge, button) */
+    --brand-text: #5D4037; /* Dark Earth Brown for text links (accessibility) */
+
     --radius: 0px;
     --shadow: none;
   }
@@ -32,19 +37,35 @@ title: "Antonio Serino"
     line-height: 1.7;
     font-size: 16px;
     font-weight: 400;
-    /* Offset for the sticky ticker */
-    padding-top: 41px; 
   }
   
-  /* ----- NEW: STICKY BRAND TICKER ----- */
+  /* Make text links use the dark brown color */
+  a {
+    color: var(--brand-text);
+  }
+  
+  /* Layout (Container) */
+  .container{
+    max-width: 1280px;
+    margin:0 auto;
+    padding:16px
+  }
+  
+  /* Header (Container for Ticker + Nav) */
+  header{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the nav */
+    padding: 10px 0;
+    gap: 10px; /* Space between ticker and nav */
+  }
+  
+  /* ----- NEW: HEADER TICKER ----- */
   #ticker-wrap {
-    position: sticky; /* L'elemento chiave */
-    top: 0;
-    z-index: 1000;
-    width: 100%;
+    width: 100%; /* Full width *of the container* */
     overflow: hidden;
-    background: var(--brand); /* Brand color! */
-    border-bottom: 1px solid var(--border);
+    background: var(--brand-bg); /* New Brand Brown! */
+    border: 1px solid var(--border);
     padding: 10px 0;
   }
   #ticker {
@@ -56,7 +77,7 @@ title: "Antonio Serino"
     font-family: "JetBrains Mono", monospace;
     font-size: 13px;
     font-weight: 600;
-    color: #FFFFFF; /* White text on blue */
+    color: #FFFFFF; /* White text on brown */
     padding: 0 24px;
     text-transform: uppercase;
   }
@@ -69,21 +90,7 @@ title: "Antonio Serino"
     100% { transform: translateX(-50%); }
   }
 
-  /* Layout (Container) */
-  .container{
-    max-width: 1280px;
-    margin:0 auto;
-    padding:16px
-  }
-  
-  /* Header (Centered Nav) */
-  header{
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the nav */
-    padding: 10px 0;
-  }
-  nav{display:flex;gap:4px;flex-wrap:wrap}
+  nav{display:flex;gap:4px;flex-wrap:wrap; justify-content: center;}
   nav a{
     font-family: "JetBrains Mono", monospace;
     font-weight: 600;
@@ -144,7 +151,7 @@ title: "Antonio Serino"
     align-items: center;
     gap: 8px;
     color: white;
-    background: var(--brand); /* Solid accent color */
+    background: var(--brand-bg); /* Solid accent color */
     padding: 8px 12px;
     font-family: "JetBrains Mono", monospace;
     font-size: 13px;
@@ -165,7 +172,7 @@ title: "Antonio Serino"
     color: var(--text);
     margin: 10px 0;
     padding-left: 14px;
-    border-left: 3px solid var(--brand);
+    border-left: 3px solid var(--brand-bg);
   }
   .motto:before { content: "“"; }
   .motto:after { content: "”"; }
@@ -189,9 +196,9 @@ title: "Antonio Serino"
     background: var(--panel);
   }
   .btn.primary{
-    background: var(--brand);
+    background: var(--brand-bg);
     color: white;
-    border-color: var(--brand);
+    border-color: var(--brand-bg);
   }
 
   /* ----- ALBUM WIDGET ----- */
@@ -248,12 +255,16 @@ title: "Antonio Serino"
     color: var(--text);
     background: var(--panel);
     padding: 6px 10px;
+    border: 1px solid var(--border);
+  }
+  #album-links a:hover {
+    background: var(--bg);
   }
 
   /* Section */
   section{margin: 64px 0} /* More whitespace */
   .section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-  .section-title .dot{width:10px;height:10px;border-radius:var(--radius);background:var(--brand)}
+  .section-title .dot{width:10px;height:10px;border-radius:var(--radius);background:var(--brand-bg)}
   .section-title h2 { margin: 0; font-weight: 800; letter-spacing: -0.5px; }
   .card{
     background: var(--panel);
@@ -273,7 +284,6 @@ title: "Antonio Serino"
   /* Two-column grid section (still used for Experience/Service) */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width: 1060px){
-    body { padding-top: 41px; } /* Ensure padding is consistent on mobile */
     .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
     .hero-col-side { order: -1; } /* Avatar/Album first on mobile */
     .grid-2{ grid-template-columns: 1fr }
@@ -306,9 +316,9 @@ title: "Antonio Serino"
 
   /* Education timeline */
   .timeline{position:relative}
-  .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:var(--brand);border-radius:0}
+  .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:var(--brand-bg);border-radius:0}
   .edu{position:relative;padding-left:28px;margin:16px 0}
-  .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:0;background:var(--brand); border: 1px solid var(--border);}
+  .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:0;background:var(--brand-bg); border: 1px solid var(--border);}
   .edu h3{font-family: Inter; text-transform: none; font-size: 18px; margin:.1rem 0} /* Override card h3 */
   .edu .where{color:var(--muted);font-size:14px}
   .edu .when{font-family: "JetBrains Mono", monospace; font-size: 14px;}
@@ -323,11 +333,12 @@ title: "Antonio Serino"
 </style>
 
 <body>
-  <div id="ticker-wrap" aria-label="Recent highlights">
-    <div id="ticker"></div>
-  </div>
 
   <header class="container" aria-label="Site header">
+    <div id="ticker-wrap" aria-label="Recent highlights">
+      <div id="ticker"></div>
+    </div>
+    
     <nav aria-label="Primary">
       <a href="#about">About</a>
       <a href="#pubs">Publications</a>
@@ -497,9 +508,6 @@ title: "Antonio Serino"
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script>
-    // ===== THEME HANDLER (REMOVED) =====
-    // No longer needed. We have one theme.
-
     // ===== SIMPLE LOAD HANDLERS =====
     window.addEventListener('DOMContentLoaded',()=>{
       document.getElementById('y').textContent = new Date().getFullYear();
@@ -516,23 +524,23 @@ title: "Antonio Serino"
     // ===== HIGHLIGHTS TICKER =====
     // 1. Definisci i tuoi highlight qui
     const HIGHLIGHTS = [
-      { title: "SFAL", venue: "EMNLP 2025 (Industry)" },
-      { title: "TEAI/TRAI", venue: "IJCAI 2025" },
-      { title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
-      { title: "SkiLLMo", venue: "ACM SAC 2025" }
+      { emoji: "📰", title: "SFAL", venue: "EMNLP 2025 (Industry)" },
+      { emoji: "📈", title: "TEAI/TRAI", venue: "IJCAI 2025" },
+      { emoji: "🎓", title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
+      { emoji: "🛠️", title: "SkiLLMo", venue: "ACM SAC 2025" }
     ];
 
     function mountTicker(){
       const ticker = document.getElementById('ticker');
       if(!ticker) return;
       
-      // Duplica la lista per l'effetto loop infinito
-      const items = [...HIGHLIGHTS, ...HIGHLIGHTS, ...HIGHLIGHTS]; // Triplica per sicurezza su schermi larghi
+      const items = [...HIGHLIGHTS, ...HIGHLIGHTS, ...HIGHLIGHTS]; // Triplica per sicurezza
       
       items.forEach(item => {
         const el = document.createElement('div');
         el.className = 'tick-item';
-        el.innerHTML = `<strong>${item.title}</strong> @ ${item.venue}`;
+        // Nuovo formato: Emoji + "Titolo" accepted at "Venue"
+        el.innerHTML = `${item.emoji} <strong>"${item.title}"</strong> accepted at ${item.venue}`;
         ticker.appendChild(el);
       });
     }
@@ -540,38 +548,35 @@ title: "Antonio Serino"
 
 
     // ===== ALBUM OF THE DAY (con copertine) =====
-    // 1. Definisci i tuoi album qui
-    // 2. Trova un URL per la copertina
     const ALBUMS = [
       { 
         title: 'After Hours', 
         artist: 'The Weeknd', 
         img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
-        spotifyUrl: 'http://googleusercontent.com/spotify.com/6',
+        spotifyUrl: 'https://open.spotify.com/embed/album/$0',
         appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
       },
       { 
         title: 'IGOR', 
         artist: 'Tyler, The Creator', 
         img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
-        spotifyUrl: 'http://googleusercontent.com/spotify.com/7',
-        appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
+        spotifyUrl: 'https://open.spotify.com/embed/album/$1',
+        appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
       },
       { 
         title: 'Graduation', 
         artist: 'Kanye West', 
         img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
-        spotifyUrl: 'http://googleusercontent.com/spotify.com/8',
-        appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
+        spotifyUrl: 'https://open.spotify.com/embed/album/$2',
+        appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
       },
       { 
         title: 'Blonde', 
         artist: 'Frank Ocean', 
         img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
-        spotifyUrl: 'http://googleusercontent.com/spotify.com/9',
-        appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
+        spotifyUrl: 'https://open.spotify.com/embed/album/$3',
+        appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
       },
-      // Aggiungi altri album...
     ];
 
     function dailyIndex(n){
@@ -603,7 +608,7 @@ title: "Antonio Serino"
     window.addEventListener('load', function(){
       const el = document.getElementById('map'); if(!el || !window.L) return;
       const map = L.map('map',{zoomControl:false, scrollWheelZoom:false, dragging:true}).setView([41.1621,12.5], 4);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y.png',{attribution:'© OpenStreetMap'}).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
       const pubs = [
         {lat:31.2989,lng:120.5853,label:'EMNLP 25 — Suzhou'},
         {lat:41.1621,lng:-8.6291,label:'ECML‑PKDD 25 — Porto'},
@@ -626,7 +631,7 @@ title: "Antonio Serino"
     "jobTitle": "Data Scientist, PhD Student",
     "alumniOf": [
       {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
-      {"@type":"CollegeOrGUniversity","name":"University of Bari"}
+      {"@type":"CollegeOrUniversity","name":"University of Bari"}
     ],
     "email": "mailto:a.serino3@campus.unimib.it",
     "image": "/assets/img/Antonio.jpeg",
