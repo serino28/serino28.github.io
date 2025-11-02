@@ -115,14 +115,14 @@ title: "Antonio Serino"
   }
   
   .hero-col-avatar {
-    flex: 0 0 120px; /* Non crescere, non stringere, base 120px */
+    flex: 0 0 160px; /* <<< MODIFICA: Foto più grande (da 120px) */
   }
   .hero-col-title {
     flex: 1 1 auto; /* Cresci e stringi per riempire lo spazio */
   }
   .hero-col-album {
-    flex: 0 0 280px; /* Non crescere, non stringere, base 280px */
-    max-width: 280px; /* Album "piccolo" */
+    flex: 0 0 240px; /* <<< MODIFICA: Album più piccolo (da 280px) */
+    max-width: 240px; 
   }
   
   /* Riga 2: [Bio] (sotto tutto) */
@@ -131,8 +131,8 @@ title: "Antonio Serino"
   }
   
   .avatar{
-    width: 120px;
-    height: 120px;
+    width: 160px;  /* <<< MODIFICA */
+    height: 160px; /* <<< MODIFICA */
     aspect-ratio: 1 / 1;
     border-radius: var(--radius); /* SQUARE AVATAR */
     border: 1px solid var(--border);
@@ -355,7 +355,7 @@ title: "Antonio Serino"
     <div class="hero-top-line">
       
       <div class="hero-col-avatar">
-        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="120" height="120" />
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="160" height="160" />
       </div>
       
       <div class="hero-col-title">
@@ -568,21 +568,21 @@ title: "Antonio Serino"
       artist: 'Tyler, The Creator', 
       img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$1',
-      appleUrl: 'https.music.apple.com/us/album/igor/1463409338'
+      appleUrl: 'https: music.apple.com/us/album/igor/1463409338'
     },
     { 
       title: 'Graduation', 
       artist: 'Kanye West', 
       img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$2',
-      appleUrl: 'https.music.apple.com/us/album/graduation/1440838389'
+      appleUrl: 'https: music.apple.com/us/album/graduation/1440838389'
     },
     { 
       title: 'Blonde', 
       artist: 'Frank Ocean', 
       img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
       spotifyUrl: 'https://open.spotify.com/embed/album/$3',
-      appleUrl: 'https.music.apple.com/us/album/blond/1146195596'
+      appleUrl: 'https: music.apple.com/us/album/blond/1146195596'
     },
   ];
 
