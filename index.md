@@ -27,7 +27,6 @@ title: "Antonio Serino"
     
     /* Nuovi colori per i pulsanti */
     --spotify-green: #1DB954;
-    /* --apple-music-red: #FA233B; -- Rimosso */
 
     --radius: 0px;
     --shadow: none;
@@ -442,7 +441,9 @@ title: "Antonio Serino"
             </div>
             <div id="album-links">
               <a id="album-spotify" class="btn-spotify" href="#" target="_blank" rel="noopener">
-                <svg viewBox="0 0 167.6 167.6" xmlns="http://www.w3.org/2000/svg"><path d="M83.8 0C37.5 0 0 37.5 0 83.8c0 46.3 37.5 83.8 83.8 83.8 46.3 0 83.8-37.5 83.8-83.8S130.1 0 83.8 0zM122 120.8c-1.4.5-2.7.9-4.1.9-2.7 0-5.3-1-7.2-2.9-22-21.6-54-20.7-76.4-1.9-1.9 1.7-4.5 2.6-7.2 2.6-1.4 0-2.8-.4-4.2-.9-3.2-1.1-5-4.5-3.9-7.7 24.7-75.7 101.9-80.1 106.6-80.1 1.6 0 3.2.1 4.7.4 3.2 1.1 5 4.5 3.9 7.7-2.6 7.9-23.7 77.2-39.2 110.1zM110.3 98.7c-1.2.4-2.4.7-3.6.7-2.4 0-4.7-.9-6.3-2.5-17.5-17-43.2-16.5-60.8-1.7-1.7 1.6-4.1 2.4-6.3 2.4-1.2 0-2.4-.3-3.6-.7-3-1-4.7-4.1-3.7-7.1C35.2 60 74.5 59.8 78 59.8c1.3 0 2.6.1 3.9.4 2.9.9 4.7 4 3.8 6.9-1.7 5-15.7 47.9-25.7 66.8zM97.6 77.7c-1.1.4-2.1.6-3.2.6-2.1 0-4.1-.8-5.5-2.2-13.4-13-33-12.7-46.3-.9-1.5 1.5-3.6 2.2-5.5 2.2-1 0-2-.3-3-.7-2.7-1-4.2-3.6-3.3-6.4C36.8 48.6 70.9 48.4 74 48.4c1.2 0 2.4.1 3.5.3 2.6.9 4.1 3.6 3.2 6.4-1.4 3.9-11.9 36.3-20.9 53.6z"/></svg>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.464 17.54c-.2.28-.58.38-.88.18-2.4-1.46-5.4-1.78-8.96-.98-.34.08-.66-.16-.76-.5s.16-.66.5-.76c3.84-.86 7.12-.5 9.8 1.12.3.18.4.56.2.84zm1.44-3.18c-.26.34-.7.44-1.04.18-2.68-1.64-6.76-2.1-9.96-1.14-.42.12-.86-.12-1-.54s.12-.86.54-1c3.6-1.06 8.06-.54 11.12 1.3.34.2.44.64.18 1zm1.5-3.3c-.3.42-.84.56-1.26.26-3.24-1.98-8.5-2.42-11.82-1.32-.5.16-1.02-.16-1.18-.66-.16-.5.16-1.02.66-1.18 3.74-1.2 9.42-.72 13.06 1.5.42.26.56.8.26 1.26z"/>
+                </svg>
                 Spotify
               </a>
             </div>
@@ -675,14 +676,12 @@ title: "Antonio Serino"
     const titleEl = document.getElementById('album-title');
     const artistEl = document.getElementById('album-artist');
     const spotifyEl = document.getElementById('album-spotify');
-    // const appleEl = document.getElementById('album-apple'); -- Rimosso
     
     if(imgEl) imgEl.src = album.img;
     if(imgEl) imgEl.alt = `Cover of ${album.title} by ${album.artist}`;
     if(titleEl) titleEl.textContent = album.title;
     if(artistEl) artistEl.textContent = album.artist;
     if(spotifyEl) spotifyEl.href = album.spotifyUrl;
-    // if(appleEl) appleEl.href = album.appleUrl; -- Rimosso
   }
   window.addEventListener('DOMContentLoaded', mountAlbum);
 
