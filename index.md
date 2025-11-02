@@ -24,6 +24,10 @@ title: "Antonio Serino"
     /* "Beige/Brown" Palette */
     --brand-bg: #8A7B68;   /* Stone/Khaki Brown (per sfondi: ticker, badge) */
     --brand-text: #5D4037; /* Dark Earth Brown (per testo: nav, link) */
+    
+    /* Nuovi colori per i pulsanti */
+    --spotify-green: #1DB954;
+    --apple-music-red: #FA233B;
 
     --radius: 0px;
     --shadow: none;
@@ -115,14 +119,15 @@ title: "Antonio Serino"
   }
   
   .hero-col-avatar {
-    flex: 0 0 280px; /* <<< MODIFICA: Foto più grande (da 120px) */
+    flex: 0 0 280px; /* <<< MODIFICA: Foto più grande */
   }
   .hero-col-title {
     flex: 1 1 auto; /* Cresci e stringi per riempire lo spazio */
+    padding-top: 12px; /* Allinea visivamente il badge con la foto */
   }
   .hero-col-album {
-    flex: 0 0 120px; /* <<< MODIFICA: Album più piccolo (da 280px) */
-    max-width: 120px; 
+    flex: 0 0 152px; /* <<< MODIFICA: 120px cover + 32px padding */
+    max-width: 152px; 
   }
   
   /* Riga 2: [Bio] (sotto tutto) */
@@ -208,12 +213,16 @@ title: "Antonio Serino"
   }
   #album-widget h3 {
     margin-top: 0;
+    font-family: "JetBrains Mono", monospace; /* <<< MODIFICA */
+    text-transform: uppercase;             /* <<< MODIFICA */
+    font-size: 12px;                       /* <<< MODIFICA */
   }
   #album-cover-wrap {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
     background: #333; /* Fallback */
+    margin-bottom: 12px; /* Spazio prima dei bottoni */
   }
   #album-cover-img {
     width: 100%;
@@ -225,23 +234,27 @@ title: "Antonio Serino"
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 16px;
+    padding: 10px; /* Padding più piccolo */
     background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
   }
   #album-title {
-    font-size: 18px;
+    font-size: 14px; /* Più piccolo */
     font-weight: 700;
     color: white;
     margin: 0;
+    text-transform: uppercase; /* <<< MODIFICA */
   }
   #album-artist {
-    font-size: 14px;
+    font-size: 11px; /* Più piccolo */
     font-weight: 500;
     color: #E0E0E0;
     margin: 0;
+    text-transform: uppercase; /* <<< MODIFICA */
   }
   #album-links {
     display: flex;
+    flex-direction: column; /* <<< MODIFICA: Pulsanti impilati */
+    align-items: stretch;   /* <<< MODIFICA: Pulsanti a larghezza piena */
     gap: 8px;
     margin-top: 12px;
   }
@@ -253,11 +266,23 @@ title: "Antonio Serino"
     text-decoration: none;
     color: var(--text);
     background: var(--panel);
-    padding: 6px 10px;
+    padding: 8px 10px; /* Padding aggiornato */
     border: 1px solid var(--border);
+    text-align: center; /* <<< MODIFICA */
   }
   #album-links a:hover {
     background: var(--bg);
+  }
+  /* Pulsanti a tema */
+  .btn-spotify {
+    background: var(--spotify-green) !important;
+    border-color: var(--spotify-green) !important;
+    color: white !important;
+  }
+  .btn-apple {
+    background: var(--apple-music-red) !important;
+    border-color: var(--apple-music-red) !important;
+    color: white !important;
   }
 
   /* Section */
@@ -288,7 +313,11 @@ title: "Antonio Serino"
     .hero-top-line { flex-direction: column; } 
     .hero-col-avatar { order: -3; } /* Avatar in cima */
     .hero-col-title { order: -2; }
-    .hero-col-album { order: -1; max-width: 100%; } /* Album sotto il nome */
+    .hero-col-album { 
+      order: -1; 
+      max-width: 100%; /* Album a larghezza piena su mobile */
+      flex-basis: auto;
+    }
     
     .grid-2{ grid-template-columns: 1fr }
     .site-title { font-size: 12px; padding: 0 16px; }
@@ -355,7 +384,7 @@ title: "Antonio Serino"
     <div class="hero-top-line">
       
       <div class="hero-col-avatar">
-        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="160" height="160" />
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="280" height="280" />
       </div>
       
       <div class="hero-col-title">
@@ -374,8 +403,8 @@ title: "Antonio Serino"
             </div>
           </div>
           <div id="album-links">
-            <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
-            <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+            <a id="album-spotify" class="btn-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+            <a id="album-apple" class="btn-apple" href="#" target="_blank" rel="noopener">Apple</a>
           </div>
         </div>
       </div>
@@ -555,34 +584,35 @@ title: "Antonio Serino"
 
 
   // ===== ALBUM OF THE DAY (con copertine) =====
+  // HO CORRETTO I LINK
   const ALBUMS = [
     { 
       title: 'After Hours', 
       artist: 'The Weeknd', 
       img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
-      spotifyUrl: 'https://open.spotify.com/embed/album/$0',
-      appleUrl: 'https: music.apple.com/us/album/after-hours/1503387848'
+      spotifyUrl: 'https://open.spotify.com/album/4yP0hdKOZPNshxUOjY0cZj',
+      appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
     },
     { 
       title: 'IGOR', 
       artist: 'Tyler, The Creator', 
       img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
-      spotifyUrl: 'https://open.spotify.com/embed/album/$1',
-      appleUrl: 'https: music.apple.com/us/album/igor/1463409338'
+      spotifyUrl: 'https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE',
+      appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
     },
     { 
       title: 'Graduation', 
       artist: 'Kanye West', 
       img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
-      spotifyUrl: 'https://open.spotify.com/embed/album/$2',
-      appleUrl: 'https: music.apple.com/us/album/graduation/1440838389'
+      spotifyUrl: 'https://open.spotify.com/album/5fPglEDz9LWWmPMLYmg4RY',
+      appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
     },
     { 
       title: 'Blonde', 
       artist: 'Frank Ocean', 
       img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
-      spotifyUrl: 'https://open.spotify.com/embed/album/$3',
-      appleUrl: 'https: music.apple.com/us/album/blond/1146195596'
+      spotifyUrl: 'https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf',
+      appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
     },
   ];
 
