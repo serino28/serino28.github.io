@@ -119,14 +119,14 @@ title: "Antonio Serino"
   }
   
   .hero-col-avatar {
-    flex: 0 0 280px; /* <<< MODIFICA: Foto più grande */
+    flex: 0 0 280px; /* Foto grande */
   }
   .hero-col-title {
     flex: 1 1 auto; /* Cresci e stringi per riempire lo spazio */
     padding-top: 12px; /* Allinea visivamente il badge con la foto */
   }
   .hero-col-album {
-    flex: 0 0 152px; /* <<< MODIFICA: 120px cover + 32px padding */
+    flex: 0 0 152px; /* Album piccolo (120px + 32px padding) */
     max-width: 152px; 
   }
   
@@ -136,8 +136,8 @@ title: "Antonio Serino"
   }
   
   .avatar{
-    width: 280px;  /* <<< MODIFICA */
-    height: 280px; /* <<< MODIFICA */
+    width: 280px;
+    height: 280px;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius); /* SQUARE AVATAR */
     border: 1px solid var(--border);
@@ -204,19 +204,50 @@ title: "Antonio Serino"
     border-color: var(--brand-text);
   }
 
-  /* ----- ALBUM WIDGET ----- */
+  /* ----- ALBUM WIDGET (TENDINA) ----- */
   #album-widget {
     background: var(--panel);
     border: 1px solid var(--border);
-    padding: 16px;
     width: 100%; /* Si adatta al genitore .hero-col-album */
   }
-  #album-widget h3 {
-    margin-top: 0;
+  #album-trigger {
     font-family: "JetBrains Mono", monospace; /* <<< MODIFICA */
     text-transform: uppercase;             /* <<< MODIFICA */
     font-size: 12px;                       /* <<< MODIFICA */
+    margin: 0;
+    padding: 16px;
+    position: relative;
+    cursor: pointer;
   }
+  /* Indicatore + / X */
+  #album-trigger::after {
+    content: '+';
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    line-height: 1;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.3s ease;
+    color: var(--muted);
+  }
+  .album-open #album-trigger::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  
+  /* Contenuto collassabile */
+  #album-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    padding: 0 16px; /* Padding laterale */
+  }
+  .album-open #album-content {
+    max-height: 600px; /* Valore alto per permettere l'apertura */
+    padding-bottom: 16px; /* Padding sotto quando aperto */
+  }
+  
   #album-cover-wrap {
     position: relative;
     width: 100%;
@@ -242,19 +273,19 @@ title: "Antonio Serino"
     font-weight: 700;
     color: white;
     margin: 0;
-    text-transform: uppercase; /* <<< MODIFICA */
+    text-transform: uppercase;
   }
   #album-artist {
     font-size: 11px; /* Più piccolo */
     font-weight: 500;
     color: #E0E0E0;
     margin: 0;
-    text-transform: uppercase; /* <<< MODIFICA */
+    text-transform: uppercase;
   }
   #album-links {
     display: flex;
-    flex-direction: column; /* <<< MODIFICA: Pulsanti impilati */
-    align-items: stretch;   /* <<< MODIFICA: Pulsanti a larghezza piena */
+    flex-direction: column; /* Pulsanti impilati */
+    align-items: stretch;   /* Pulsanti a larghezza piena */
     gap: 8px;
     margin-top: 12px;
   }
@@ -268,7 +299,7 @@ title: "Antonio Serino"
     background: var(--panel);
     padding: 8px 10px; /* Padding aggiornato */
     border: 1px solid var(--border);
-    text-align: center; /* <<< MODIFICA */
+    text-align: center;
   }
   #album-links a:hover {
     background: var(--bg);
@@ -393,20 +424,25 @@ title: "Antonio Serino"
       </div>
       
       <div class="hero-col-album">
+        
         <div id="album-widget" data-anim>
-          <h3>"ALBUM OF THE DAY"</h3>
-          <div id="album-cover-wrap">
-            <img id="album-cover-img" src="" alt="" loading="lazy"/>
-            <div id="album-overlay">
-              <h4 id="album-title"></h4>
-              <p id="album-artist"></p>
+          <h3 id="album-trigger">"ALBUM OF THE DAY"</h3>
+          
+          <div id="album-content">
+            <div id="album-cover-wrap">
+              <img id="album-cover-img" src="" alt="" loading="lazy"/>
+              <div id="album-overlay">
+                <h4 id="album-title"></h4>
+                <p id="album-artist"></p>
+              </div>
+            </div>
+            <div id="album-links">
+              <a id="album-spotify" class="btn-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+              <a id="album-apple" class="btn-apple" href="#" target="_blank" rel="noopener">Apple</a>
             </div>
           </div>
-          <div id="album-links">
-            <a id="album-spotify" class="btn-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
-            <a id="album-apple" class="btn-apple" href="#" target="_blank" rel="noopener">Apple</a>
-          </div>
         </div>
+        
       </div>
       
     </div>
@@ -554,6 +590,9 @@ title: "Antonio Serino"
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target);} });
     },{threshold:.12});
     els.forEach(el=>ro.observe(el));
+    
+    // Configura la tendina dell'album
+    setupAlbumToggle();
   });
 
 
@@ -598,21 +637,21 @@ title: "Antonio Serino"
       artist: 'Tyler, The Creator', 
       img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
       spotifyUrl: 'https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE',
-      appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
+      appleUrl: 'https: music.apple.com/us/album/igor/1463409338'
     },
     { 
       title: 'Graduation', 
       artist: 'Kanye West', 
       img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
-      spotifyUrl: 'https://open.spotify.com/album/5fPglEDz9LWWmPMLYmg4RY',
-      appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
+      spotifyUrl: 'https://open.spotify.com/album/5fPglEDz9YEwRgbLRvhCZy',
+      appleUrl: 'https: music.apple.com/us/album/graduation/1440838389'
     },
     { 
       title: 'Blonde', 
       artist: 'Frank Ocean', 
       img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
       spotifyUrl: 'https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf',
-      appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
+      appleUrl: 'https: music.apple.com/us/album/blond/1146195596'
     },
   ];
 
@@ -641,6 +680,18 @@ title: "Antonio Serino"
   }
   window.addEventListener('DOMContentLoaded', mountAlbum);
 
+  // ===== NUOVA FUNZIONE PER LA TENDINA =====
+  function setupAlbumToggle(){
+    const trigger = document.getElementById('album-trigger');
+    const widget = document.getElementById('album-widget');
+    if(!trigger || !widget) return;
+    
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault(); // Impedisce salti di pagina
+      widget.classList.toggle('album-open');
+    });
+  }
+  
   // ===== Leaflet map =====
   window.addEventListener('load', function(){
     const el = document.getElementById('map'); if(!el || !window.L) return;
