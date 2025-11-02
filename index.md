@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Antonio Serino"
+title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
 ---
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
