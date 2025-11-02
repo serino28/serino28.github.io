@@ -96,12 +96,12 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (NUOVO LAYOUT A 3 COLONNE) 
+    HERO (NUOVO LAYOUT A 2 COLONNE: [FOTO+TESTO] | [ALBUM]) 
   */
   .hero{
     display: grid;
-    /* 3-column layout: Foto(1fr) | Testo(1.8fr) | Album(1fr) */
-    grid-template-columns: 1fr 1.8fr 1fr;
+    /* 2-column layout: Intro(1.8fr) | Album(1fr) */
+    grid-template-columns: 1.8fr 1fr;
     gap: 24px;
     align-items: flex-start; /* Align to top */
     margin-top: 48px;
@@ -110,30 +110,35 @@ title: "Antonio Serino"
   .hero-col-main {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
+    gap: 12px; /* Spazio tra hero-top e il motto/bio */
   }
-  /* Contenitori per colonna 1 e 3 */
-  .hero-col-avatar { /* Col 1 */ }
-  .hero-col-album { /* Col 3 */ }
-
-  .avatar-card {
-    border: 1px solid var(--border);
-    background: var(--panel);
-    padding: 24px;
+  .hero-col-album {
+    /* Colonna per l'album */
+  }
+  
+  /* Blocco "Foto + Nome" inline */
+  .hero-top {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Allinea foto e blocco nome verticalmente */
+    gap: 24px;
+    margin-bottom: 16px; /* Spazio tra questo blocco e il motto sotto */
   }
   .avatar{
-    width: 100%;
-    max-width: 180px;
-    height: auto;
+    width: 120px;
+    height: 120px;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius); /* SQUARE AVATAR */
     border: 1px solid var(--border);
     object-fit: cover;
+    flex-shrink: 0; /* Impedisce all'avatar di rimpicciolirsi */
   }
+  .hero-title-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
   .badge{
     display: inline-flex;
     align-items: center;
@@ -277,10 +282,11 @@ title: "Antonio Serino"
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   
   @media (max-width: 1060px){
-    /* Su mobile, le 3 colonne della hero diventano 1 */
+    /* Su mobile, le 2 colonne della hero diventano 1 */
     .hero{ grid-template-columns: 1fr } 
-    .hero-col-avatar { order: -1; } /* Avatar in cima */
-    .hero-col-album { order: -1; }  /* Album subito dopo avatar */
+    .hero-col-album { order: -1; } /* Album in cima */
+    .hero-top { flex-direction: column; align-items: flex-start; } /* Stack avatar e nome */
+    
     .grid-2{ grid-template-columns: 1fr }
     .site-title { font-size: 12px; padding: 0 16px; }
   }
@@ -343,17 +349,17 @@ title: "Antonio Serino"
   
   <section class="hero" id="about" data-anim>
 
-    <div class="hero-col-avatar">
-      <div class="avatar-card" data-anim>
-        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
-      </div>
-    </div>
-    
     <div class="hero-col-main">
-      <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-      <h1>Antonio Serino</h1> 
+      
+      <div class="hero-top">
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="120" height="120" />
+        <div class="hero-title-stack">
+          <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
+          <h1>Antonio Serino</h1>
+        </div>
+      </div>
+      
       <p class="motto">Create like a child, edit like a scientist.</p>
-
       <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
       
       <div class="cta" role="group" aria-label="Primary actions">
