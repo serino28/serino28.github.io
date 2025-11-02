@@ -96,15 +96,12 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (2 columns: [Avatar + Album] + Intro) 
+    HERO (NUOVO LAYOUT A 3 COLONNE) 
   */
   .hero{
     display: grid;
-    /* LA CORREZIONE È QUI:
-      1fr alla colonna sinistra (foto/album)
-      1.8fr alla colonna destra (testo intro)
-    */
-    grid-template-columns: 1fr 1.8fr; 
+    /* 3-column layout: Foto(1fr) | Testo(1.8fr) | Album(1fr) */
+    grid-template-columns: 1fr 1.8fr 1fr;
     gap: 24px;
     align-items: flex-start; /* Align to top */
     margin-top: 48px;
@@ -116,11 +113,10 @@ title: "Antonio Serino"
     gap: 12px;
     align-items: flex-start;
   }
-  .hero-col-side {
-    display: flex;
-    flex-direction: column; /* Stack Avatar and Album vertically */
-    gap: 24px; /* Space between avatar and album */
-  }
+  /* Contenitori per colonna 1 e 3 */
+  .hero-col-avatar { /* Col 1 */ }
+  .hero-col-album { /* Col 3 */ }
+
   .avatar-card {
     border: 1px solid var(--border);
     background: var(--panel);
@@ -279,9 +275,12 @@ title: "Antonio Serino"
 
   /* Two-column grid section (still used for Experience/Service) */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  
   @media (max-width: 1060px){
-    .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
-    .hero-col-main { order: -1; } /* Su mobile, sposta l'intro SOTTO foto/album */
+    /* Su mobile, le 3 colonne della hero diventano 1 */
+    .hero{ grid-template-columns: 1fr } 
+    .hero-col-avatar { order: -1; } /* Avatar in cima */
+    .hero-col-album { order: -1; }  /* Album subito dopo avatar */
     .grid-2{ grid-template-columns: 1fr }
     .site-title { font-size: 12px; padding: 0 16px; }
   }
@@ -344,24 +343,9 @@ title: "Antonio Serino"
   
   <section class="hero" id="about" data-anim>
 
-    <div class="hero-col-side"> 
+    <div class="hero-col-avatar">
       <div class="avatar-card" data-anim>
         <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
-      </div>
-      
-      <div id="album-widget" data-anim>
-        <h3>"ALBUM OF THE DAY"</h3>
-        <div id="album-cover-wrap">
-          <img id="album-cover-img" src="" alt="" loading="lazy"/>
-          <div id="album-overlay">
-            <h4 id="album-title"></h4>
-            <p id="album-artist"></p>
-          </div>
-        </div>
-        <div id="album-links">
-          <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
-          <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
-        </div>
       </div>
     </div>
     
@@ -376,6 +360,23 @@ title: "Antonio Serino"
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
         <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    
+    <div class="hero-col-album">
+      <div id="album-widget" data-anim>
+        <h3>"ALBUM OF THE DAY"</h3>
+        <div id="album-cover-wrap">
+          <img id="album-cover-img" src="" alt="" loading="lazy"/>
+          <div id="album-overlay">
+            <h4 id="album-title"></h4>
+            <p id="album-artist"></p>
+          </div>
+        </div>
+        <div id="album-links">
+          <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+          <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+        </div>
       </div>
     </div>
     
