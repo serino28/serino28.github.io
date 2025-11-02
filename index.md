@@ -4,7 +4,7 @@ title: "Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist."
 ---
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Antonio Serino — PhD in AI & NLP, AI Scientist, Data Scientist." />
+<meta name="description" content="" />
 <meta property="og:title" content="Antonio Serino | PhD in AI & NLP" />
 <meta property="og:description" content="PhD in AI & NLP, AI Scientist, Data Scientist." />
 <meta property="og:type" content="website" />
