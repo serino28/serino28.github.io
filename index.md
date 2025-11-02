@@ -46,7 +46,7 @@ title: "Antonio Serino"
   
   /* Layout (Container) - MARGINI RIDOTTI */
   .container{
-    max-width: 1280px; /* <<< MODIFICA: Contenuto più largo */
+    max-width: 1280px; /* Contenuto più largo */
     margin:0 auto;
     padding:16px
   }
@@ -96,33 +96,40 @@ title: "Antonio Serino"
   }
 
   /*
-    HERO (Layout 2:1) 
+    HERO (NUOVO LAYOUT FLESSIBILE) 
   */
   .hero{
-    display: grid;
-    /* 2-column layout: Intro(2fr) | Album(1fr) */
-    grid-template-columns: 2fr 1fr; /* <<< MODIFICA: Intro 2x Album */
+    display: flex; /* Non più grid */
+    flex-direction: column;
     gap: 24px;
-    align-items: flex-start; /* Align to top */
     margin-top: 48px;
     margin-bottom: 48px;
   }
-  .hero-col-main {
+  
+  /* Riga 1: [Avatar] [Nome] [Album] */
+  .hero-top-line {
     display: flex;
-    flex-direction: column;
-    gap: 12px; /* Spazio tra hero-top e il motto/bio */
-  }
-  .hero-col-album {
-    /* Colonna per l'album */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
   }
   
-  /* Blocco "Foto + Nome" inline */
-  .hero-top {
-    display: flex;
-    align-items: center; /* Allinea foto e blocco nome verticalmente */
-    gap: 24px;
-    margin-bottom: 16px; /* Spazio tra questo blocco e il motto sotto */
+  .hero-col-avatar {
+    flex: 0 0 120px; /* Non crescere, non stringere, base 120px */
   }
+  .hero-col-title {
+    flex: 1 1 auto; /* Cresci e stringi per riempire lo spazio */
+  }
+  .hero-col-album {
+    flex: 0 0 280px; /* Non crescere, non stringere, base 280px */
+    max-width: 280px; /* Album "piccolo" */
+  }
+  
+  /* Riga 2: [Bio] (sotto tutto) */
+  .hero-bottom-bio {
+    /* Si estende in orizzontale per natura */
+  }
+  
   .avatar{
     width: 120px;
     height: 120px;
@@ -130,13 +137,6 @@ title: "Antonio Serino"
     border-radius: var(--radius); /* SQUARE AVATAR */
     border: 1px solid var(--border);
     object-fit: cover;
-    flex-shrink: 0; /* Impedisce all'avatar di rimpicciolirsi */
-  }
-  .hero-title-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Allinea a sinistra il badge e h1 */
-    gap: 8px;
   }
   
   .badge{
@@ -150,6 +150,7 @@ title: "Antonio Serino"
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
+    margin-bottom: 8px; /* Spazio tra badge e h1 */
   }
   .hero h1{
     font-size: clamp(38px, 5vw, 54px);
@@ -203,6 +204,7 @@ title: "Antonio Serino"
     background: var(--panel);
     border: 1px solid var(--border);
     padding: 16px;
+    width: 100%; /* Si adatta al genitore .hero-col-album */
   }
   #album-widget h3 {
     margin-top: 0;
@@ -282,10 +284,11 @@ title: "Antonio Serino"
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   
   @media (max-width: 1060px){
-    /* Su mobile, le 2 colonne della hero diventano 1 */
-    .hero{ grid-template-columns: 1fr } 
-    .hero-col-album { order: -1; } /* Album in cima */
-    .hero-top { flex-direction: column; align-items: flex-start; } /* Stack avatar e nome */
+    /* Su mobile, la "linea" hero diventa una colonna */
+    .hero-top-line { flex-direction: column; } 
+    .hero-col-avatar { order: -3; } /* Avatar in cima */
+    .hero-col-title { order: -2; }
+    .hero-col-album { order: -1; max-width: 100%; } /* Album sotto il nome */
     
     .grid-2{ grid-template-columns: 1fr }
     .site-title { font-size: 12px; padding: 0 16px; }
@@ -349,16 +352,37 @@ title: "Antonio Serino"
   
   <section class="hero" id="about" data-anim>
 
-    <div class="hero-col-main">
+    <div class="hero-top-line">
       
-      <div class="hero-top">
+      <div class="hero-col-avatar">
         <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="120" height="120" />
-        <div class="hero-title-stack">
-          <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
-          <h1>Antonio Serino</h1>
+      </div>
+      
+      <div class="hero-col-title">
+        <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
+        <h1>Antonio Serino</h1>
+      </div>
+      
+      <div class="hero-col-album">
+        <div id="album-widget" data-anim>
+          <h3>"ALBUM OF THE DAY"</h3>
+          <div id="album-cover-wrap">
+            <img id="album-cover-img" src="" alt="" loading="lazy"/>
+            <div id="album-overlay">
+              <h4 id="album-title"></h4>
+              <p id="album-artist"></p>
+            </div>
+          </div>
+          <div id="album-links">
+            <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+            <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+          </div>
         </div>
       </div>
       
+    </div>
+    
+    <div class="hero-bottom-bio">
       <p class="motto">Create like a child, edit like a scientist.</p>
       <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
       
@@ -366,23 +390,6 @@ title: "Antonio Serino"
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
         <a class="btn" href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-    
-    <div class="hero-col-album">
-      <div id="album-widget" data-anim>
-        <h3>"ALBUM OF THE DAY"</h3>
-        <div id="album-cover-wrap">
-          <img id="album-cover-img" src="" alt="" loading="lazy"/>
-          <div id="album-overlay">
-            <h4 id="album-title"></h4>
-            <p id="album-artist"></p>
-          </div>
-        </div>
-        <div id="album-links">
-          <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
-          <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
-        </div>
       </div>
     </div>
     
@@ -554,7 +561,7 @@ title: "Antonio Serino"
       artist: 'The Weeknd', 
       img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
       spotifyUrl: 'https://open.spotify.com/embed/album/$0',
-      appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
+      appleUrl: 'https: music.apple.com/us/album/after-hours/1503387848'
     },
     { 
       title: 'IGOR', 
