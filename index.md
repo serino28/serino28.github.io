@@ -8,34 +8,34 @@ title: "Antonio Serino"
 <meta property="og:title" content="Antonio Serino" />
 <meta property="og:description" content="Data Scientist & PhD in NLP. AI evaluation, interpretability, and language technologies." />
 <meta property="og:type" content="website" />
-<meta id="meta-theme-dark" name="theme-color" content="#0D1117">
-<meta id="meta-theme-light" name="theme-color" content="#F4F4F4">
+<meta id="meta-theme-dark" name="theme-color" content="#0A0A0A">
+<meta id="meta-theme-light" name="theme-color" content="#F9F9F9">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* THEME: TYPOGRAPHIC BRUTALISM
-    (Owens: raw palette, hard lines. Abloh: meta-typography, "quotes")
+  /* THEME: EDITORIAL MINIMALISM
+    Palette: Raw (Pearl/White/Black), strong type, motion.
   */
   :root{
-    /* Dark theme (GitHub) remains the same */
-    --bg: #0D1117;
-    --panel: #0f1622;
-    --text: #d1d6de;
-    --muted: #94a3b8;
+    /* Dark theme (Monochrome) */
+    --bg: #0A0A0A;
+    --panel: #111111;
+    --text: #EAEAEA;
+    --muted: #888888;
     --brand: #58A6FF;
-    --border: #273043;
-    --radius: 0px; /* NO ROUNDED CORNERS */
-    --shadow: none; /* NO SHADOWS */
+    --border: #272727;
+    --radius: 0px;
+    --shadow: none;
   }
-  /* Light overrides (Owens/Abloh "Raw" Theme) */
+  /* Light overrides (Raw Theme) */
   :root[data-theme="light"]{
-    --bg: #F4F4F4;        /* Raw concrete / "Pearl" */
-    --panel: #ffffff;     /* Stark white panel */
+    --bg: #F9F9F9;        /* Pearl / Off-white bg */
+    --panel: #ffffff;     /* Pure white panel */
     --text: #0A0A0A;      /* Stark black text */
     --muted: #555555;      /* Strong grey */
-    --border: #CFCFCF;    /* Visible border */
-    --brand: #0B5FFF;      /* Abloh "Blue" */
+    --border: #E0E0E0;    /* Light, visible border */
+    --brand: #0B5FFF;
   }
 
   html,body{margin:0;padding:0}
@@ -49,9 +49,9 @@ title: "Antonio Serino"
   }
   :root[data-theme="light"] body{ background: var(--bg); }  
 
-  /* Layout (Tighter Container) */
+  /* Layout (Container) */
   .container{
-    max-width: 1280px; /* Tighter container */
+    max-width: 1280px;
     margin:0 auto;
     padding:16px
   }
@@ -82,13 +82,13 @@ title: "Antonio Serino"
   }
 
   /*
-    NEW HERO (2 columns: Intro + Avatar) 
+    NEW HERO (2 columns: Intro + [Avatar + Album]) 
   */
   .hero{
     display: grid;
-    grid-template-columns: 1.8fr 1fr; /* Main content vs Avatar */
+    grid-template-columns: 1.8fr 1fr; /* Main content vs Side */
     gap: 24px;
-    align-items: center;
+    align-items: flex-start; /* Align to top */
     margin-top: 48px;
     margin-bottom: 48px;
   }
@@ -100,20 +100,23 @@ title: "Antonio Serino"
   }
   .hero-col-side {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    flex-direction: column; /* Stack Avatar and Album vertically */
+    gap: 24px; /* Space between avatar and album */
+  }
+  .avatar-card {
     border: 1px solid var(--border);
     background: var(--panel);
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .avatar{
-    width: 100%; /* Fill the column */
-    max-width: 180px; /* But not *too* big */
+    width: 100%;
+    max-width: 180px;
     height: auto;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius); /* SQUARE AVATAR */
-    box-shadow: var(--shadow);
     border: 1px solid var(--border);
     object-fit: cover;
   }
@@ -135,7 +138,7 @@ title: "Antonio Serino"
     letter-spacing: -0.03em;
     margin: 0;
   }
-  /* "THE MOTTO" (Abloh-style) */
+  /* "THE MOTTO" */
   .motto {
     font-size: clamp(18px, 2.5vw, 20px);
     font-weight: 500;
@@ -155,9 +158,6 @@ title: "Antonio Serino"
   }
   .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
   .btn{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-family: "JetBrains Mono", monospace;
     font-weight: 700;
     font-size: 14px;
@@ -174,64 +174,136 @@ title: "Antonio Serino"
     color: white;
     border-color: var(--brand);
   }
-  .btn:hover{
-    box-shadow: var(--shadow); /* noop, kept for structure */
-    background: var(--bg);
+
+  /* ----- NEW: HIGHLIGHTS TICKER ----- */
+  #ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 12px 0;
+    margin-top: 10px;
   }
-  .btn.primary:hover {
-    background: #094fc2; /* Darker blue */
-    border-color: #094fc2;
+  #ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-scroll 30s linear infinite;
+  }
+  #ticker .tick-item {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 0 24px;
+    text-transform: uppercase;
+  }
+  #ticker .tick-item strong {
+    color: var(--text);
+    margin-right: 8px;
+  }
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Assumes list is duplicated */
+  }
+
+  /* ----- NEW: ALBUM WIDGET ----- */
+  #album-widget {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+  #album-widget h3 {
+    margin-top: 0;
+  }
+  #album-cover-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #333; /* Fallback */
+  }
+  #album-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #album-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  }
+  #album-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+  }
+  #album-artist {
+    font-size: 14px;
+    font-weight: 500;
+    color: #E0E0E0;
+    margin: 0;
+  }
+  #album-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  #album-links a {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--panel);
+    padding: 6px 10px;
   }
 
   /* Section */
-  section{margin: 48px 0} /* More whitespace */
+  section{margin: 64px 0} /* More whitespace */
   .section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px}
   .section-title .dot{width:10px;height:10px;border-radius:var(--radius);background:var(--brand)}
+  .section-title h2 { margin: 0; font-weight: 800; letter-spacing: -0.5px; }
   .card{
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow);
+    padding: 24px;
   }
-
-  /* Highlights */
-  .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-  .highlights .item{position:relative}
-  .pill{
-    display: inline-block;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 4px 8px;
-    font-size: 11px;
+  /* Card titles */
+  .card h3 {
     font-family: "JetBrains Mono", monospace;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-right: 8px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 0;
   }
-  .item h3{margin:.4rem 0 .2rem;font-size:18px}
-  .item .venue{font:600 12px/1 "JetBrains Mono";color:var(--brand)}
 
-  /* Two-column grid section */
+  /* Two-column grid section (still used for Experience/Service) */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width: 1060px){
     .hero{ grid-template-columns: 1fr } /* Stack hero on mobile */
-    .hero-col-side { order: -1; align-items: center; } /* Avatar first on mobile */
-    .avatar { max-width: 140px; }
+    .hero-col-side { order: -1; } /* Avatar/Album first on mobile */
     .grid-2{ grid-template-columns: 1fr }
   }
 
   /* Lists */
   .list{list-style:none;padding:0;margin:0}
-  .list li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--border)}
+  .list li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
   .list li:last-child{border-bottom:none}
   .left{max-width:70%}
   .right{white-space:nowrap;color:var(--muted); font-family: "JetBrains Mono", monospace; font-size: 14px;}
 
-  /* Projects cards */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  /* Projects cards (now handles 1 item better) */
+  .projects{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px;
+  }
   .project{display:flex;flex-direction:column;gap:8px}
-  .project h3{margin:.2rem 0 .1rem}
   .project p{margin:0;color:var(--muted)}
   .project .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
   .tag{
@@ -248,37 +320,16 @@ title: "Antonio Serino"
   .timeline:before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:var(--brand);border-radius:0}
   .edu{position:relative;padding-left:28px;margin:16px 0}
   .edu:before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:0;background:var(--brand); border: 1px solid var(--border);}
-  .edu h3{margin:.1rem 0}
+  .edu h3{font-family: Inter; text-transform: none; font-size: 18px; margin:.1rem 0} /* Override card h3 */
   .edu .where{color:var(--muted);font-size:14px}
   .edu .when{font-family: "JetBrains Mono", monospace; font-size: 14px;}
 
   /* Footer */
-  footer{margin:42px 0 14px;color:var(--muted);font-size:14px}
+  footer{margin:42px 0 14px;color:var(--muted);font-size:14px; text-align: center;}
 
   /* Animations */
   [data-anim]{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .6s ease}
   [data-anim].in{opacity:1;transform:translateY(0)}
-
-  /* Live Corner components (now styled as brutalist cards) */
-  .chat{display:flex;flex-direction:column;gap:10px}
-  .chat-log{height:240px;overflow:auto;border:1px solid var(--border);border-radius:var(--radius);padding:10px;background:var(--panel)}
-  .bubble{max-width:82%;padding:10px 12px;border-radius:var(--radius);margin:6px 0}
-  .me{background:var(--brand);color:white;align-self:flex-end}
-  .bot{background:var(--panel);border:1px solid var(--border)}
-  :root[data-theme="light"] .bot{background:#ffffff}
-  .chat-input{display:flex;gap:8px}
-  .chat-input input{flex:1;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;background:transparent;color:var(--text); font-family: Inter;}
-  .chat-input button{
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 10px 12px;
-    background: var(--panel);
-    color: var(--text);
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-  }
-  .player{height:240px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-  .player .btn { font-size: 12px; } /* Smaller buttons for album links */
 
 </style>
 
@@ -303,6 +354,10 @@ title: "Antonio Serino"
       <span class="badge" aria-label="Role">AI • NLP • Interpretability</span>
       <h1>Antonio Serino</h1>
       
+      <div id="ticker-wrap" aria-label="Recent highlights">
+        <div id="ticker"></div>
+      </div>
+      
       <p class="motto">Create like a child, edit like a scientist.</p>
 
       <p class="subtitle">Data Scientist & PhD Student (NLP). I work on <strong>evaluation</strong> and <strong>interpretability</strong> of ML systems—bringing language technologies into real‑world products with reliability and clarity.</p>
@@ -315,62 +370,30 @@ title: "Antonio Serino"
     </div>
 
     <div class="hero-col-side">
-      <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
-      <div class="subtitle" style="margin-top: 16px; font-size: 13px; line-height: 1.5;">
-        <strong>"CONFERENCES"</strong><br/>
-        EMNLP 2025 (Industry) — SFAL, Suzhou · IJCAI 2025 — TEAI/TRAI · ECML‑PKDD 2025 — Disce aut Deficere
+      <div class="avatar-card" data-anim>
+        <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager" width="180" height="180" />
       </div>
-    </div>
-  </section>
-
-  <section class="grid-2" data-anim>
-    <div class="card">
-      <strong>"ASK A QUESTION"</strong>
-      <div id="chat-log" class="chat-log" aria-live="polite"></div>
-      <div class="chat-input">
-        <input id="chat-input" type="text" placeholder="Ask about my work…" aria-label="Chat message"/>
-        <button id="chat-send">Send</button>
-      </div>
-      <small class="subtitle" style="font-size: 12px; margin-top: 8px;">Powered (via proxy) by <code>google/gemma-3-270m</code></small>
-    </div>
-
-    <div class="card">
-      <strong>"ALBUM OF THE DAY"</strong>
-      <div class="player" id="album-wrap">
+      
+      <div id="album-widget" data-anim>
+        <h3>"ALBUM OF THE DAY"</h3>
+        <div id="album-cover-wrap">
+          <img id="album-cover-img" src="" alt="" loading="lazy"/>
+          <div id="album-overlay">
+            <h4 id="album-title"></h4>
+            <p id="album-artist"></p>
+          </div>
         </div>
-      <small class="subtitle" style="font-size: 12px; margin-top: 8px;">From your curated list.</small>
+        <div id="album-links">
+          <a id="album-spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+          <a id="album-apple" href="#" target="_blank" rel="noopener">Apple</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section data-anim>
-    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Recent highlights</h2></div>
-    <div class="highlights">
-      <article class="card item" aria-labelledby="h0">
-        <div><span class="pill">2025</span> <span class="venue">EMNLP — Industry Track</span></div>
-        <h3 id="h0">SFAL: Semantic‑Functional Alignment Scores for Distributional Evaluation of Auto‑Interpretability in Sparse Autoencoders</h3>
-        <p class="subtitle">Suzhou, China.</p>
-      </article>
-      <article class="card item" aria-labelledby="h1">
-        <div><span class="pill">May 2025</span> <span class="venue">ECML‑PKDD</span></div>
-        <h3 id="h1">A Benchmark to Evaluate LLMs’ Proficiency on Italian Student Competencies</h3>
-        <p class="subtitle">With colleagues from University of Milano‑Bicocca. Porto, Portugal.</p>
-      </article>
-      <article class="card item" aria-labelledby="h2">
-        <div><span class="pill">Mar 2025</span> <span class="venue">IJCAI</span></div>
-        <h3 id="h2">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</h3>
-        <p class="subtitle">Montreal, Canada — TEAI/TRAI indices for AI exposure.</p>
-      </article>
-      <article class="card item" aria-labelledby="h3">
-        <div><span class="pill">Mar 2025</span> <span class="venue">ACM SAC</span></div>
-        <h3 id="h3">SkiLLMo: Normalized ESCO Skill Extraction</h3>
-        <p class="subtitle">Catania, Italy — standardizing skills with transformers.</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="pubs" class="grid-2" data-anim>
-    <div>
-      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Publications</h2></div>
+  <section id="pubs" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Publications"</h2></div>
+    <div class="card">
       <ul class="list" aria-label="Selected publications">
         <li>
           <div class="left"><strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP Industry Track, Suzhou (China)</div>
@@ -402,62 +425,57 @@ title: "Antonio Serino"
         </li>
       </ul>
     </div>
-    <div>
-      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Where in the world</h2></div>
-      <div class="card" style="padding:0;overflow:hidden">
-        <div id="map" style="height:340px"></div>
-      </div>
+  </section>
+
+  <section id="map-section" data-anim>
+    <div class="section-title"><span class="dot"></span><h2>"Where in the world"</h2></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="map" style="height:400px"></div>
     </div>
   </section>
 
   <section id="projects" data-anim>
-    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Projects</h2></div>
+    <div class="section-title"><span class="dot"></span><h2>"Projects"</h2></div>
     <div class="projects">
       <article class="card project">
         <h3>MHEO Report</h3>
         <p>Labour market analytics on 100K+ Lombardy graduates.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">Econometrics</span><span class="tag">Dashboards</span></div>
       </article>
-      <article class="card project">
-        <h3>TEAI & TRAI</h3>
-        <p>Measuring AI exposure and replacement risk across occupations.</p>
-        <div class="tags"><span class="tag">LLMs</span><span class="tag">Policy</span><span class="tag">Causal</span></div>
-      </article>
-      <article class="card project">
-        <h3>Skills‑Hunter & SkiLLMo</h3>
-        <p>Standardizing skill extraction with ESCO.</p>
-        <div class="tags"><span class="tag">NLP</span><span class="tag">Transformers</span><span class="tag">ETL</span></div>
-      </article>
     </div>
   </section>
 
   <section id="experience" class="grid-2" data-anim>
     <div>
-      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Experience</h2></div>
-      <ul class="list">
-        <li>
-          <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
-          <div class="right">2024 – 25</div>
-        </li>
-        <li>
-          <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
-          <div class="right">2023 – 24</div>
-        </li>
-      </ul>
+      <div class="section-title"><span class="dot"></span><h2>"Experience"</h2></div>
+      <div class="card">
+        <ul class="list">
+          <li>
+            <div class="left"><strong>Research collaboration</strong> — University of Milan (MHEO Report)</div>
+            <div class="right">2024 – 25</div>
+          </li>
+          <li>
+            <div class="left"><strong>NLP Researcher</strong> — CRISP, Interuniversity Research Centre for Public Services</div>
+            <div class="right">2023 – 24</div>
+          </li>
+        </ul>
+      </div>
     </div>
     <div>
-      <div class="section-title"><span class="dot"></span><h2 style="margin:0">Review & Service</h2></div>
-      <ul class="list">
-        <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
-        <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
-        <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
-        <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
-      </ul>
+      <div class="section-title"><span class="dot"></span><h2>"Review & Service"</h2></div>
+      <div class="card">
+        <ul class="list">
+          <li><div class="left">ECML‑PKDD — Research Track</div><div class="right">2024</div></li>
+          <li><div class="left">COLING — Industry Track</div><div class="right">2025</div></li>
+          <li><div class="left">Knowledge‑Based Systems (Q1)</div><div class="right">–</div></li>
+          <li><div class="left">Intl. Journal of IT & Decision Making (Q2)</div><div class="right">–</div></li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <section id="education" data-anim>
-    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Education</h2></div>
+    <div class="section-title"><span class="dot"></span><h2>"Education"</h2></div>
     <div class="card timeline">
       <div class="edu">
         <div class="when">2023 – now</div>
@@ -478,9 +496,9 @@ title: "Antonio Serino"
   </section>
 
   <section id="contact" data-anim>
-    <div class="section-title"><span class="dot"></span><h2 style="margin:0">Contact</h2></div>
+    <div class="section-title"><span class="dot"></span><h2>"Contact"</h2></div>
     <div class="card">
-      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></Jekyll-s-email-and-link-checker-is-weird-sometimes></p>
+      <p>Email: <a href="mailto:a.serino3@campus.unimib.it">a.serino3@campus.unimib.it</a></p>
       <p>GitHub: <a href="https://github.com/serino28" target="_blank" rel="noopener">"serino28"</a> · LinkedIn: <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener">"antonio‑serino"</a></p>
     </div>
   </section>
@@ -506,9 +524,8 @@ title: "Antonio Serino"
       localStorage.setItem(key, mode);
       document.getElementById('theme-light').classList.toggle('active', mode==='light');
       document.getElementById('theme-dark').classList.toggle('active', mode==='dark');
-      // Update meta theme color
-      document.getElementById('meta-theme-dark').setAttribute('content', mode==='dark' ? '#0D1117' : '#0D1117');
-      document.getElementById('meta-theme-light').setAttribute('content', mode==='light' ? '#F4F4F4' : '#F4F4F4');
+      document.getElementById('meta-theme-dark').setAttribute('content', mode==='dark' ? '#0A0A0A' : '#0A0A0A');
+      document.getElementById('meta-theme-light').setAttribute('content', mode==='light' ? '#F9F9F9' : '#F9F9F9');
     }
 
     window.addEventListener('DOMContentLoaded',()=>{
@@ -526,103 +543,90 @@ title: "Antonio Serino"
     });
   })();
 
-  // ===== MINI CHAT (Gemma 3 270M via proxy) =====
-  // Configure your serverless proxy URL here; it should call the model `google/gemma-3-270m` and return JSON {reply}
-  // Example implementations: Netlify Function (/netlify/functions/chat) or Vercel (/api/chat)
-  // IMPORTANT: Do not call Hugging Face API directly from the browser with a secret token.
-  const BACKEND_URL = null; // e.g., 'https://your-vercel-app.vercel.app/api/chat'
-
-  function appendBubble(side, text){
-    const log=document.getElementById('chat-log');
-    const b=document.createElement('div'); b.className='bubble '+(side==='me'?'me':'bot'); b.textContent=text; log.appendChild(b); log.scrollTop=log.scrollHeight;
-  }
-  async function sendMsg(){
-    const inp=document.getElementById('chat-input');
-    const msg=inp.value.trim(); if(!msg) return; inp.value='';
-    appendBubble('me', msg);
-    if(BACKEND_URL){
-      try{
-        const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg, model:'google/gemma-3-270m'})});
-        const data=await r.json(); appendBubble('bot', data.reply||'No reply');
-      }catch(e){ appendBubble('bot','Proxy error. Check console.'); console.error(e); }
-    }else{
-      // Fallback scripted replies
-      const canned = (
-        msg.toLowerCase().includes('paper') ? 'Latest: SFAL @ EMNLP 2025 (Industry, Suzhou).' :
-        msg.toLowerCase().includes('teai') ? 'TEAI/TRAI assess job exposure and replacement risks to AI.' :
-        msg.toLowerCase().includes('contact') ? 'Reach me at a.serino3@campus.unimib.it' :
-        'Demo mode. Add BACKEND_URL to answer with Gemma 3 270M.'
-      );
-      await new Promise(r=>setTimeout(r, 350));
-      appendBubble('bot', canned);
-    }
-  }
-  window.addEventListener('DOMContentLoaded',()=>{
-    document.getElementById('chat-send').addEventListener('click', sendMsg);
-    document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
-    appendBubble('bot', 'Hi! Ask me about my work, papers, or TEAI/TRAI.');
-  });
-
-  // ===== ALBUM OF THE DAY (names + smart links; embed if IDs provided) =====
-  const ALBUMS = [
-    'Nothing was the same — Drake',
-    'Honestly, Nevermind — Drake',
-    'More Life — Drake',
-    'The College Dropout — Kanye West',
-    'Graduation — Kanye West',
-    'Watch the Throne — Kanye West',
-    'Reggatta de Blanc — The Police',
-    'Bad — Michael Jackson',
-    'Thriller — Michael Jackson',
-    'Off the Wall — Michael Jackson',
-    'Kiss Land — The Weeknd',
-    'Starboy — The Weeknd',
-    'My Dear Melancholy, — The Weeknd',
-    'After Hours — The Weeknd',
-    'Dawn FM — The Weeknd',
-    'Hurry Up Tomorrow — The Weeknd',
-    'CHROMAKOPIA — Tyler, The Creator',
-    'IGOR — Tyler, The Creator',
-    'ASTROWORLD — Travis Scott',
-    'UTOPIA — Travis Scott',
-    'HARDSTONE PSYCHO — Don Toliver',
-    'Radical Optimism — Dua Lipa',
-    'Future Nostalgia — Dua Lipa',
-    'SOS — SZA',
-    'Blonde — Frank Ocean',
-    'Alone at Prom — Tory Lanez'
+  // ===== NEW: HIGHLIGHTS TICKER =====
+  // 1. Definisci i tuoi highlight qui
+  const HIGHLIGHTS = [
+    { title: "SFAL", venue: "EMNLP 2025 (Industry)" },
+    { title: "TEAI/TRAI", venue: "IJCAI 2025" },
+    { title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
+    { title: "SkiLLMo", venue: "ACM SAC 2025" }
   ];
 
-  // Optional mapping for direct Spotify embeds when you have IDs (fill later):
-  // const SPOTIFY_IDS = { 'After Hours — The Weeknd': '4yP0hdKOZPNshxUOjY0cZj', ... };
-  const SPOTIFY_IDS = {};
+  function mountTicker(){
+    const ticker = document.getElementById('ticker');
+    if(!ticker) return;
+    
+    // Duplica la lista per l'effetto loop infinito
+    const items = [...HIGHLIGHTS, ...HIGHLIGHTS];
+    
+    items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'tick-item';
+      el.innerHTML = `<strong>${item.title}</strong> @ ${item.venue}`;
+      ticker.appendChild(el);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', mountTicker);
+
+
+  // ===== NEW: ALBUM OF THE DAY (con copertine) =====
+  // 1. Definisci i tuoi album qui
+  // 2. Trova un URL per la copertina (es. da Discogs, RateYourMusic, o cercando su Google Immagini e "Copia indirizzo immagine")
+  // 3. Trova i link di Spotify / Apple Music
+  const ALBUMS = [
+    { 
+      title: 'After Hours', 
+      artist: 'The Weeknd', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
+      spotifyUrl: 'https://open.spotify.com/album/4yP0hdKOZPNshxUOjY0cZj',
+      appleUrl: 'https://music.apple.com/us/album/after-hours/1503387848'
+    },
+    { 
+      title: 'IGOR', 
+      artist: 'Tyler, The Creator', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg',
+      spotifyUrl: 'https://open.spotify.com/album/5zi7WsKlIiUXv098o2MHTS',
+      appleUrl: 'https://music.apple.com/us/album/igor/1463409338'
+    },
+    { 
+      title: 'Graduation', 
+      artist: 'Kanye West', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg',
+      spotifyUrl: 'https://open.spotify.com/album/5fPglEDz9LflmhMziBYWWG',
+      appleUrl: 'https://music.apple.com/us/album/graduation/1440838389'
+    },
+    { 
+      title: 'Blonde', 
+      artist: 'Frank Ocean', 
+      img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg',
+      spotifyUrl: 'https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf',
+      appleUrl: 'https://music.apple.com/us/album/blond/1146195596'
+    },
+    // Aggiungi altri album...
+  ];
 
   function dailyIndex(n){
     const d=new Date();
     const seed = d.getFullYear()*1000 + (d.getMonth()+1)*50 + d.getDate();
     return seed % n;
   }
-  function smartLinks(title){
-    const q = encodeURIComponent(title);
-    const spotify = `https://open.spotify.com/search/${q}`;
-    const apple = `https://music.apple.com/us/search?term=${q}`;
-    return `<div style="display:flex;gap:8px;height:100%;align-items:center;justify-content:center;flex-direction:column">
-      <div class="subtitle" style="text-align:center;padding:0 8px">${title}</div>
-      <div style="display:flex;gap:8px">
-        <a class="btn" href="${spotify}" target="_blank" rel="noopener">Spotify</a>
-        <a class="btn" href="${apple}" target="_blank" rel="noopener">Apple</a>
-      </div>
-    </div>`;
-  }
+  
   function mountAlbum(){
-    const idx=dailyIndex(ALBUMS.length);
-    const title=ALBUMS[idx];
-    const wrap=document.getElementById('album-wrap');
-    if(SPOTIFY_IDS[title]){
-      wrap.innerHTML = `<iframe style="border:0;width:100%;height:100%" src="https://open.spotify.com/embed/album/${SPOTIFY_IDS[title]}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-    }else{
-      wrap.innerHTML = smartLinks(title);
-    }
+    const idx = dailyIndex(ALBUMS.length);
+    const album = ALBUMS[idx];
+    
+    const imgEl = document.getElementById('album-cover-img');
+    const titleEl = document.getElementById('album-title');
+    const artistEl = document.getElementById('album-artist');
+    const spotifyEl = document.getElementById('album-spotify');
+    const appleEl = document.getElementById('album-apple');
+    
+    if(imgEl) imgEl.src = album.img;
+    if(imgEl) imgEl.alt = `Cover of ${album.title} by ${album.artist}`;
+    if(titleEl) titleEl.textContent = album.title;
+    if(artistEl) artistEl.textContent = album.artist;
+    if(spotifyEl) spotifyEl.href = album.spotifyUrl;
+    if(appleEl) appleEl.href = album.appleUrl;
   }
   window.addEventListener('DOMContentLoaded', mountAlbum);
 
