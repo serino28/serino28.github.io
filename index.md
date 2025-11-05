@@ -411,7 +411,6 @@ title: "Antonio Serino"
 
 <header class="container site-header" aria-label="Site header">
   <div class="site-title">
-    ANTONIO SERINO | PHD IN AI & NLP, AI SCIENTIST, DATA SCIENTIST
   </div>
 
   <div id="ticker-wrap" aria-label="Recent highlights">
@@ -465,7 +464,7 @@ title: "Antonio Serino"
     
     <div class="hero-bottom-bio">
       <p class="motto">Create like a child, edit like a scientist.</p>
-      <p class="subtitle">Data Scientist & PhD Student in AI & NLP. My research focuses on <strong>evaluation</strong>, <strong>computational linguistics</strong>, and the <strong>interpretability</strong> of Large Language Models, aiming to make them transparent, trustworthy, and ready for real-world applications.</p>
+      <p class="subtitle">Currently a PhD student at the University of Milano-Bicocca, focusing on AI & NLP. My research investigates the internal mechanics of Transformer based Language Models using <strong>mechanistic interpretability</strong> to understand *how* they build representations and make decisions. The goal is to develop robust <strong>evaluation</strong> and <strong>explanation</strong> techniques, ensuring these systems are aligned with human values and exhibit safe behaviour. I love tackling the challenge of integrating trustworthy AI into the human-machine collaboration paradigm. I love being multi-disciplinary and drinking sugar-free coffee. </p>
       
       <div class="cta" role="group" aria-label="Primary actions">
         <a class="btn primary" href="mailto:a.serino3@campus.unimib.it">Contact me</a>
@@ -482,55 +481,55 @@ title: "Antonio Serino"
       <ul class="list" aria-label="Selected publications">
         <li>
           <div class="left">
-            <strong>Terminator Economy: Assessing jobs and tasks exposure to AI</strong> — AAAI (Demo Track), Singapore
+            <strong>Terminator Economy: Assessing jobs and tasks exposure to AI</strong> — AAAI 2026 (Demo Track), Singapore
           </div>
           <div class="right">2026</div>
         </li>
         <li>
           <div class="left">
-            <strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP (Industry)
+            <strong>SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders</strong> — EMNLP 2025 (Industry Track)
             <p class="pub-desc">Proposing SFAL, a fast and cost-effective evaluation strategy for auto-interpretability in Sparse Autoencoders.</p>
           </div>
           <div class="right">2025</div>
         </li>
         <li>
           <div class="left">
-            <strong>Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian Benchmark</strong> — ECML-PKDD
+            <strong>Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian Benchmark</strong> — ECML-PKDD 2025
             <p class="pub-desc">A structured benchmark using INVALSI tests to evaluate the linguistic versatility of LLMs in non-English languages.</p>
           </div>
           <div class="right">2025</div>
         </li>
         <li>
           <div class="left">
-            <strong>Towards the Terminator Economy: Assessing Job Exposure to Al through LLMs</strong> — IJCAI
+            <strong>Towards the Terminator Economy: Assessing Job Exposure to Al through LLMs</strong> — IJCAI 2025
             <p class="pub-desc">A data-driven framework using LLMs to assess AI exposure in U.S. employment, formalising the TEAI index.</p>
           </div>
           <div class="right">2025</div>
         </li>
         <li>
           <div class="left">
-            <strong>SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</strong> — ACM SAC
+            <strong>SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</strong> — ACM SAC 2025
             <p class="pub-desc">A pipeline leveraging Transformers and LLMs to extract, filter, and standardize skills from job ads to the ESCO taxonomy.</p>
           </div>
           <div class="right">2025</div>
         </li>
         <li>
           <div class="left">
-            <strong>An approach to Evaluative Al through Large Language Models</strong> — ECAI
+            <strong>An approach to Evaluative Al through Large Language Models</strong> — ECAI 2024
             <p class="pub-desc">Introducing EADS, a framework integrating Evaluative AI with conversational explanations (pros/cons) to enhance decision-making.</p>
           </div>
           <div class="right">2024</div>
         </li>
         <li>
           <div class="left">
-            <strong>Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation</strong> — XAI-IJCAI24
+            <strong>Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation</strong> — XAI World Conf-IJCAI 2024
             <p class="pub-desc">Using Generative AI to create natural language explanations for recommender systems, replacing manual expert labor.</p>
           </div>
           <div class="right">2024</div>
         </li>
         <li>
           <div class="left">
-            <strong>Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction</strong> — AIxIA
+            <strong>Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction</strong> — AIxIA 2023
             <p class="pub-desc">An automated approach using LLMs to overcome the data labelling problem for skill extraction in job ads.</p>
           </div>
           <div class="right">2023</div>
@@ -663,10 +662,10 @@ title: "Antonio Serino"
   // ===== HIGHLIGHTS TICKER =====
   // 1. Definisci i tuoi highlight qui
   const HIGHLIGHTS = [
-    { emoji: "📰", title: "SFAL", venue: "EMNLP 2025 (Industry)" },
-    { emoji: "📈", title: "TEAI/TRAI", venue: "IJCAI 2025" },
-    { emoji: "🎓", title: "Disce aut Deficere", venue: "ECML-PKDD 2025" },
-    { emoji: "🛠️", title: "SkiLLMo", venue: "ACM SAC 2025" }
+    { emoji: "🤖", title: "Terminator Economy: Assessing jobs and tasks exposure to AI", venue: "AAAI 2026" },
+    { emoji: "📰", title: "SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders", venue: "EMNLP 2025" },
+    { emoji: "📈", title: "Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs", venue: "IJCAI 2025" },
+    { emoji: "🎓", title: "A Benchmark to Evaluate LLMs’ Proficiency on Italian Student Competencies", venue: "ECML-PKDD 2025" }
   ];
 
   function mountTicker(){
@@ -768,7 +767,7 @@ title: "Antonio Serino"
       {lat:45.5017,lng:-73.5673,label:'IJCAI 2025 — Montreal<br><strong>Towards the Terminator Economy:</strong> ...TEAI/TRAI'},
       {lat:37.5022,lng:15.0873,label:'ACM SAC 2025 — Catania<br><strong>SkiLLMo:</strong> Normalized ESCO Skill Extraction...'},
       {lat:42.8782,lng:-8.5449,label:'ECAI 2024 — Santiago de Compostela<br><strong>An approach to Evaluative AI...</strong>'},
-      {lat:35.9375,lng:14.5001,label:'XAI World 2024 — Malta<br><strong>Augmenting XAI with LLMs</strong> (Best Paper)'},
+      {lat:35.9375,lng:14.5001,label:'XAI World 2024 — Malta<br><strong>Augmenting XAI with LLMs</strong> (Best Presentation Award)'},
       {lat:41.9028,lng:12.4964,label:'AIxIA 2023 — Rome<br><strong>Skills-Hunter:</strong> adapting LLMs...'}
     ];
     const group=[]; pubs.forEach(p=>{ L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.label); group.push([p.lat,p.lng]); });
