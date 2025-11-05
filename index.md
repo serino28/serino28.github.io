@@ -768,7 +768,8 @@ title: "Antonio Serino"
       {lat:37.5022,lng:15.0873,label:'ACM SAC 2025 — Catania<br><strong>SkiLLMo:</strong> Normalized ESCO Skill Extraction...'},
       {lat:42.8782,lng:-8.5449,label:'ECAI 2024 — Santiago de Compostela<br><strong>An approach to Evaluative AI...</strong>'},
       {lat:35.9375,lng:14.5001,label:'XAI World 2024 — Malta<br><strong>Augmenting XAI with LLMs</strong> (Best Presentation Award)'},
-      {lat:41.9028,lng:12.4964,label:'AIxIA 2023 — Rome<br><strong>Skills-Hunter:</strong> adapting LLMs...'}
+      {lat:41.9028,lng:12.4964,label:'AIxIA 2023 — Rome<br><strong>Skills-Hunter:</strong> adapting LLMs...'},
+      {lat: 33.3617, lng: 126.5292, label: 'XAI-IJCAI 2024 Workshop — Jeju Islands<br><strong>Augmenting XAI with LLMs...</strong>'},
     ];
     const group=[]; pubs.forEach(p=>{ L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.label); group.push([p.lat,p.lng]); });
     if(group.length){ map.fitBounds(group, {padding:[30,30]}); }
