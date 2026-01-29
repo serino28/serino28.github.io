@@ -1,0 +1,334 @@
+---
+layout: default
+title: "Home"
+---
+
+<div class="ticker-wrap">
+    <div class="ticker" id="ticker"></div>
+</div>
+
+<section class="hero container">
+    <div class="hero-grid">
+        <div class="hero-content" data-anim>
+            <span class="hero-badge">AI • NLP • Interpretability</span>
+            <h1 class="hero-title">Antonio Serino</h1>
+            <p class="hero-motto">Create like a child, edit like a scientist.</p>
+            <p class="hero-description">
+                PhD student at the University of Milano-Bicocca, focusing on <strong>AI & NLP</strong>.
+                My research investigates the internal mechanics of Transformer-based Language Models using
+                <strong>mechanistic interpretability</strong> to understand <em>how</em> they build representations
+                and make decisions. The goal: develop robust <strong>evaluation</strong> and
+                <strong>explanation</strong>
+                techniques ensuring AI systems are aligned with human values. I love multi-disciplinary work
+                and sugar-free coffee.
+            </p>
+            <div class="hero-cta">
+                <a href="mailto:a.serino3@campus.unimib.it" class="btn btn-primary">Contact Me</a>
+                <a href="https://github.com/serino28" target="_blank" rel="noopener"
+                    class="btn btn-secondary">GitHub</a>
+                <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener"
+                    class="btn btn-secondary">LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="hero-visual" data-anim data-anim-delay="1">
+            <div class="avatar-container">
+                <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager"
+                    width="300" height="300">
+            </div>
+
+            <!-- Now Playing Widget -->
+            <div class="now-playing" id="now-playing">
+                <div class="now-playing-header" id="now-playing-trigger">
+                    <span>🎧 what i recommend u listen to while grinding today</span>
+                    <span class="now-playing-toggle">+</span>
+                </div>
+                <div class="now-playing-content">
+                    <div class="now-playing-cover">
+                        <img class="now-playing-img" id="now-playing-img" src="" alt="" loading="lazy">
+                        <div class="now-playing-overlay">
+                            <h4 class="now-playing-title" id="now-playing-title"></h4>
+                            <p class="now-playing-artist" id="now-playing-artist"></p>
+                        </div>
+                    </div>
+                    <a class="now-playing-link" id="now-playing-link" href="#" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white">
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.464 17.54c-.2.28-.58.38-.88.18-2.4-1.46-5.4-1.78-8.96-.98-.34.08-.66-.16-.76-.5s.16-.66.5-.76c3.84-.86 7.12-.5 9.8 1.12.3.18.4.56.2.84zm1.44-3.18c-.26.34-.7.44-1.04.18-2.68-1.64-6.76-2.1-9.96-1.14-.42.12-.86-.12-1-.54s.12-.86.54-1c3.6-1.06 8.06-.54 11.12 1.3.34.2.44.64.18 1zm1.5-3.3c-.3.42-.84.56-1.26.26-3.24-1.98-8.5-2.42-11.82-1.32-.5.16-1.02-.16-1.18-.66-.16-.5.16-1.02.66-1.18 3.74-1.2 9.42-.72 13.06 1.5.42.26.56.8.26 1.26z" />
+                        </svg>
+                        Listen on Spotify
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications -->
+<section id="publications" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Publications</h2>
+    </div>
+    <div class="glass-card" data-anim>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">Terminator Economy: Assessing jobs and tasks exposure to AI</div>
+                    <div class="pub-venue">AAAI 2026 (Demo Track) — Singapore</div>
+                </div>
+                <div class="pub-year">2026</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of
+                        Auto-Interpretability in Sparse Autoencoders</div>
+                    <div class="pub-venue">EMNLP 2025 (Industry Track)</div>
+                    <p class="pub-desc">Proposing SFAL, a fast and cost-effective evaluation strategy for
+                        auto-interpretability in Sparse Autoencoders.</p>
+                </div>
+                <div class="pub-year">2025</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian
+                        Benchmark</div>
+                    <div class="pub-venue">ECML-PKDD 2025</div>
+                    <p class="pub-desc">A structured benchmark using INVALSI tests to evaluate the linguistic
+                        versatility of LLMs in non-English languages.</p>
+                </div>
+                <div class="pub-year">2025</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs
+                    </div>
+                    <div class="pub-venue">IJCAI 2025</div>
+                    <p class="pub-desc">A data-driven framework using LLMs to assess AI exposure in U.S. employment,
+                        formalising the TEAI index.</p>
+                </div>
+                <div class="pub-year">2025</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</div>
+                    <div class="pub-venue">ACM SAC 2025 — Catania</div>
+                    <p class="pub-desc">A pipeline leveraging Transformers and LLMs to extract, filter, and standardize
+                        skills from job ads to the ESCO taxonomy.</p>
+                </div>
+                <div class="pub-year">2025</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">An approach to Evaluative AI through Large Language Models</div>
+                    <div class="pub-venue">ECAI 2024 — Santiago de Compostela</div>
+                    <p class="pub-desc">Introducing EADS, a framework integrating Evaluative AI with conversational
+                        explanations to enhance decision-making.</p>
+                </div>
+                <div class="pub-year">2024</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation
+                    </div>
+                    <div class="pub-venue">XAI World Conference @ IJCAI 2024 — Malta 🏆</div>
+                    <p class="pub-desc">Using Generative AI to create natural language explanations for recommender
+                        systems. Best Presentation Award.</p>
+                </div>
+                <div class="pub-year">2024</div>
+            </li>
+            <li class="pub-item">
+                <div class="pub-info">
+                    <div class="pub-title">Skills-Hunter: adapting Large Language Models to the Labour Market for Skill
+                        Extraction</div>
+                    <div class="pub-venue">AIxIA 2023 — Rome</div>
+                    <p class="pub-desc">An automated approach using LLMs to overcome the data labelling problem for
+                        skill extraction in job ads.</p>
+                </div>
+                <div class="pub-year">2023</div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Map -->
+<section id="map-section" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Where in the World</h2>
+    </div>
+    <div class="map-container" data-anim>
+        <div id="map"></div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects-grid">
+        <article class="glass-card project-card" data-anim>
+            <h3 class="project-title">MHEO Report</h3>
+            <p class="project-desc">Labour market analytics on 100K+ Lombardy graduates. Analyzing occupational
+                trajectories and education-to-employment transitions.</p>
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Econometrics</span>
+                <span class="tag">Dashboards</span>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- Experience & Service -->
+<section id="experience" class="container">
+    <div class="exp-grid">
+        <div>
+            <div class="section-header" data-anim>
+                <span class="section-dot"></span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="glass-card" data-anim>
+                <ul class="exp-list">
+                    <li class="exp-item">
+                        <div>
+                            <div class="exp-role">Research collaboration</div>
+                            <div class="exp-org">University of Milan (MHEO Report)</div>
+                            <p class="exp-desc">Analyzing occupational trajectories and education-to-employment
+                                transitions for 100,000+ Lombardy graduates.</p>
+                        </div>
+                        <div class="exp-date">2024–25</div>
+                    </li>
+                    <li class="exp-item">
+                        <div>
+                            <div class="exp-role">NLP Researcher</div>
+                            <div class="exp-org">CRISP, Interuniversity Research Centre</div>
+                            <p class="exp-desc">Developing methodologies for skill extraction and standardization from
+                                job ads based on the ESCO taxonomy.</p>
+                        </div>
+                        <div class="exp-date">2023–24</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <div class="section-header" data-anim>
+                <span class="section-dot"></span>
+                <h2 class="section-title">Review & Service</h2>
+            </div>
+            <div class="glass-card" data-anim>
+                <ul class="exp-list">
+                    <li class="exp-item">
+                        <div class="exp-role">ECML-PKDD — Research Track</div>
+                        <div class="exp-date">2024</div>
+                    </li>
+                    <li class="exp-item">
+                        <div class="exp-role">COLING — Industry Track</div>
+                        <div class="exp-date">2025</div>
+                    </li>
+                    <li class="exp-item">
+                        <div class="exp-role">Knowledge-Based Systems (Q1)</div>
+                        <div class="exp-date">—</div>
+                    </li>
+                    <li class="exp-item">
+                        <div class="exp-role">Intl. Journal of IT & Decision Making (Q2)</div>
+                        <div class="exp-date">—</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Education</h2>
+    </div>
+    <div class="glass-card" data-anim>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2023 – now</div>
+                <h3 class="timeline-title">PhD — Big Data & Analytics</h3>
+                <p class="timeline-desc">University of Milano-Bicocca. Researching NLP, LLM Evaluation, and Explainable
+                    AI.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2021 – 2023</div>
+                <h3 class="timeline-title">MSc — Data Science</h3>
+                <p class="timeline-desc">University of Milano-Bicocca. Skills in Python, Machine Learning, Deep
+                    Learning, and NLP.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2018 – 2021</div>
+                <h3 class="timeline-title">BSc — Computer Science</h3>
+                <p class="timeline-desc">University of Bari. Skills in C, C++, Java, Algorithms, and Data Structures.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Awards -->
+<section id="awards" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Awards</h2>
+    </div>
+    <div class="glass-card" data-anim>
+        <div class="award-item">
+            <span class="award-icon">🏆</span>
+            <div class="award-info">
+                <div class="award-title">Best Presentation Award</div>
+                <p class="award-desc">For "Augmenting XAI with LLMs" at 2nd World Conference on Explainable AI, Malta.
+                </p>
+            </div>
+            <div class="award-date">Jul 2024</div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="glass-card contact-content" data-anim>
+        <h3 class="contact-title">Let's Connect</h3>
+        <p class="contact-desc">
+            Interested in collaboration, research opportunities, or just want to chat about AI interpretability?
+            I'd love to hear from you.
+        </p>
+        <div class="contact-links">
+            <a href="mailto:a.serino3@campus.unimib.it" class="btn btn-primary">Email Me</a>
+            <a href="https://github.com/serino28" target="_blank" class="btn btn-secondary">GitHub</a>
+            <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank"
+                class="btn btn-secondary">LinkedIn</a>
+        </div>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Antonio Serino",
+  "jobTitle": "PhD in AI & NLP, AI Scientist, Data Scientist",
+  "alumniOf": [
+    {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
+    {"@type":"CollegeOrUniversity","name":"University of Bari"}
+  ],
+  "email": "mailto:a.serino3@campus.unimib.it",
+  "image": "/assets/img/Antonio.jpeg",
+  "sameAs": [
+    "https://github.com/serino28",
+    "https://www.linkedin.com/in/antonio-serino-881799205"
+  ],
+  "url": "/"
+}
+</script>

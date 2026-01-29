@@ -1,3 +1,30 @@
-title: ""
-theme: minima
+title: "Antonio Serino"
+description: "PhD in AI & NLP | Mechanistic Interpretability | AI Safety"
+url: "https://serino28.github.io"
+baseurl: ""
+
+# Build settings
 markdown: kramdown
+highlighter: rouge
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /research/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
