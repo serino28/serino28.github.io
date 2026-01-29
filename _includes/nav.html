@@ -1,8 +1,8 @@
 <nav class="nav" id="nav">
     <div class="nav-container">
-        <span class="nav-logo" id="nav-logo" role="button" tabindex="0" aria-label="Home">
+        <a href="{{ '/' | relative_url }}" class="nav-logo">
             <span class="nav-logo-text">AS</span>
-        </span>
+        </a>
 
         <div class="nav-links">
             <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>

@@ -145,17 +145,18 @@ function initNowPlaying() {
     }
 }
 
-/* ===== EASTER EGG: Triple-click on logo ===== */
+/* ===== EASTER EGG: Triple-click on footer hint ===== */
 function initEasterEgg() {
-    const logo = document.getElementById('nav-logo');
-    if (!logo) return;
+    const trigger = document.getElementById('easter-egg-trigger');
+    if (!trigger) return;
 
     let clickCount = 0;
     let clickTimer = null;
 
-    logo.style.cursor = 'pointer';
+    trigger.style.cursor = 'pointer';
+    trigger.style.userSelect = 'none';
 
-    logo.addEventListener('click', (e) => {
+    trigger.addEventListener('click', (e) => {
         clickCount++;
 
         if (clickTimer) clearTimeout(clickTimer);
@@ -165,12 +166,8 @@ function initEasterEgg() {
             activateSnake();
         } else {
             clickTimer = setTimeout(() => {
-                // Single click = go home
-                if (clickCount === 1) {
-                    window.location.href = '/';
-                }
                 clickCount = 0;
-            }, 350);
+            }, 500);
         }
     });
 }
