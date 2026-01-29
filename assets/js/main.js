@@ -147,11 +147,13 @@ function initNowPlaying() {
 
 /* ===== EASTER EGG: Triple-click on logo ===== */
 function initEasterEgg() {
-    const logo = document.querySelector('.nav-logo');
+    const logo = document.getElementById('nav-logo');
     if (!logo) return;
 
     let clickCount = 0;
     let clickTimer = null;
+
+    logo.style.cursor = 'pointer';
 
     logo.addEventListener('click', (e) => {
         clickCount++;
@@ -159,16 +161,20 @@ function initEasterEgg() {
         if (clickTimer) clearTimeout(clickTimer);
 
         if (clickCount >= 3) {
-            e.preventDefault();
             clickCount = 0;
             activateSnake();
         } else {
             clickTimer = setTimeout(() => {
+                // Single click = go home
+                if (clickCount === 1) {
+                    window.location.href = '/';
+                }
                 clickCount = 0;
-            }, 500);
+            }, 350);
         }
     });
 }
+
 
 /* ===== SNAKE GAME ===== */
 let snakeGame = null;

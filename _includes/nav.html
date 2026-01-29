@@ -1,14 +1,14 @@
 <nav class="nav" id="nav">
     <div class="nav-container">
-        <a href="{{ '/' | relative_url }}" class="nav-logo">
+        <span class="nav-logo" id="nav-logo" role="button" tabindex="0" aria-label="Home">
             <span class="nav-logo-text">AS</span>
-        </a>
+        </span>
 
         <div class="nav-links">
             <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
             <a href="{{ '/research' | relative_url }}"
                 class="nav-link {% if page.url contains 'research' %}active{% endif %}">Research</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="{{ '/' | relative_url }}#contact" class="nav-link">Contact</a>
         </div>
 
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
