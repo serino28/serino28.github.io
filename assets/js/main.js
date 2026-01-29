@@ -7,9 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initNavScroll();
     initScrollAnimations();
-    initTicker();
     initNowPlaying();
-    initKonamiCode();
+    initEasterEgg();
     initSnakeGame();
     initMap();
     initYear();
@@ -66,30 +65,6 @@ function initScrollAnimations() {
     }, { threshold: 0.1 });
 
     elements.forEach(el => observer.observe(el));
-}
-
-/* ===== TICKER ===== */
-const HIGHLIGHTS = [
-    { emoji: "🤖", title: "Terminator Economy: Assessing jobs and tasks exposure to AI", venue: "AAAI 2026" },
-    { emoji: "📰", title: "SFAL: Semantic-Functional Alignment Scores for Auto-Interpretability", venue: "EMNLP 2025" },
-    { emoji: "📈", title: "Towards the Terminator Economy: TEAI Index", venue: "IJCAI 2025" },
-    { emoji: "🎓", title: "Disce aut Deficere: LLMs on Italian INVALSI", venue: "ECML-PKDD 2025" },
-    { emoji: "🔧", title: "SkiLLMo: ESCO Skill Extraction", venue: "ACM SAC 2025" }
-];
-
-function initTicker() {
-    const ticker = document.getElementById('ticker');
-    if (!ticker) return;
-
-    // Triple for smooth loop
-    const items = [...HIGHLIGHTS, ...HIGHLIGHTS, ...HIGHLIGHTS];
-
-    items.forEach(item => {
-        const el = document.createElement('span');
-        el.className = 'ticker-item';
-        el.innerHTML = `${item.emoji} <strong>"${item.title}"</strong> @ ${item.venue}`;
-        ticker.appendChild(el);
-    });
 }
 
 /* ===== NOW PLAYING (ALBUM WIDGET) ===== */
@@ -170,20 +145,27 @@ function initNowPlaying() {
     }
 }
 
-/* ===== KONAMI CODE ===== */
-function initKonamiCode() {
-    const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-    let index = 0;
+/* ===== EASTER EGG: Triple-click on logo ===== */
+function initEasterEgg() {
+    const logo = document.querySelector('.nav-logo');
+    if (!logo) return;
 
-    document.addEventListener('keydown', (e) => {
-        if (e.code === code[index]) {
-            index++;
-            if (index === code.length) {
-                activateSnake();
-                index = 0;
-            }
+    let clickCount = 0;
+    let clickTimer = null;
+
+    logo.addEventListener('click', (e) => {
+        clickCount++;
+
+        if (clickTimer) clearTimeout(clickTimer);
+
+        if (clickCount >= 3) {
+            e.preventDefault();
+            clickCount = 0;
+            activateSnake();
         } else {
-            index = 0;
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 500);
         }
     });
 }
@@ -356,7 +338,7 @@ class SnakeGame {
             if (this.score >= 50 && !this.specialMessageShown) {
                 this.specialMessageShown = true;
                 setTimeout(() => {
-                    alert("🎉 You're crushing it! Keep grinding like this and you'll master interpretability too! 🐍");
+                    alert("🎉 You're crushing it! Keep working like this and you'll master interpretability too! 🐍");
                 }, 100);
             }
         } else {
@@ -479,7 +461,7 @@ function initMap() {
     }).addTo(map);
 
     const publications = [
-        { lat: 1.3521, lng: 103.8198, label: '<strong>AAAI 2026</strong> — Singapore<br>Terminator Economy (Demo)' },
+        { lat: 34.0209, lng: -6.8416, label: '<strong>EACL 2026</strong> — Rabat<br>Safe-Unsafe Concept Separation' },
         { lat: 31.2989, lng: 120.5853, label: '<strong>EMNLP 2025</strong> — Suzhou<br>SFAL: Auto-Interpretability' },
         { lat: 41.1621, lng: -8.6291, label: '<strong>ECML-PKDD 2025</strong> — Porto<br>Disce aut Deficere' },
         { lat: 45.5017, lng: -73.5673, label: '<strong>IJCAI 2025</strong> — Montreal<br>Terminator Economy' },

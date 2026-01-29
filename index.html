@@ -3,10 +3,6 @@ layout: default
 title: "Home"
 ---
 
-<div class="ticker-wrap">
-    <div class="ticker" id="ticker"></div>
-</div>
-
 <section class="hero container">
     <div class="hero-grid">
         <div class="hero-content" data-anim>
@@ -23,7 +19,7 @@ title: "Home"
                 and sugar-free coffee.
             </p>
             <div class="hero-cta">
-                <a href="mailto:a.serino3@campus.unimib.it" class="btn btn-primary">Contact Me</a>
+                <a href="#contact" class="btn btn-primary">Contact Me</a>
                 <a href="https://github.com/serino28" target="_blank" rel="noopener"
                     class="btn btn-secondary">GitHub</a>
                 <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener"
@@ -40,7 +36,7 @@ title: "Home"
             <!-- Now Playing Widget -->
             <div class="now-playing" id="now-playing">
                 <div class="now-playing-header" id="now-playing-trigger">
-                    <span>🎧 what i recommend u listen to while grinding today</span>
+                    <span>🎧 what i'd recommend u listen to while working today</span>
                     <span class="now-playing-toggle">+</span>
                 </div>
                 <div class="now-playing-content">
@@ -74,8 +70,13 @@ title: "Home"
         <ul class="pub-list">
             <li class="pub-item">
                 <div class="pub-info">
-                    <div class="pub-title">Terminator Economy: Assessing jobs and tasks exposure to AI</div>
-                    <div class="pub-venue">AAAI 2026 (Demo Track) — Singapore</div>
+                    <div class="pub-title">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language
+                        Models Activation Space</div>
+                    <div class="pub-venue">EACL 2026 — Rabat, Morocco</div>
+                    <p class="pub-desc">We identify the layer where safe/unsafe concepts are maximally separable in
+                        pretrained LLMs. A simple linear classifier on internal representations provides robust
+                        safeguarding without weight modification, validated across 8 domains, 3 tasks, and 16
+                        non-English languages.</p>
                 </div>
                 <div class="pub-year">2026</div>
             </li>
@@ -83,9 +84,11 @@ title: "Home"
                 <div class="pub-info">
                     <div class="pub-title">SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of
                         Auto-Interpretability in Sparse Autoencoders</div>
-                    <div class="pub-venue">EMNLP 2025 (Industry Track)</div>
-                    <p class="pub-desc">Proposing SFAL, a fast and cost-effective evaluation strategy for
-                        auto-interpretability in Sparse Autoencoders.</p>
+                    <div class="pub-venue">EMNLP 2025 (Industry Track) — Suzhou, China</div>
+                    <p class="pub-desc">We propose SFAL, a novel evaluation framework that measures how well
+                        LLM-generated feature explanations align with actual feature behavior. Unlike costly
+                        simulation-based methods, SFAL uses embedding-based semantic similarity for fast, scalable
+                        assessment of auto-interpretability quality.</p>
                 </div>
                 <div class="pub-year">2025</div>
             </li>
@@ -93,9 +96,10 @@ title: "Home"
                 <div class="pub-info">
                     <div class="pub-title">Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian
                         Benchmark</div>
-                    <div class="pub-venue">ECML-PKDD 2025</div>
-                    <p class="pub-desc">A structured benchmark using INVALSI tests to evaluate the linguistic
-                        versatility of LLMs in non-English languages.</p>
+                    <div class="pub-venue">ECML-PKDD 2025 — Porto, Portugal</div>
+                    <p class="pub-desc">We introduce a rigorous benchmark using official Italian INVALSI standardized
+                        tests to evaluate LLMs' linguistic versatility beyond English. Our analysis reveals significant
+                        performance gaps between multilingual claims and actual non-English language understanding.</p>
                 </div>
                 <div class="pub-year">2025</div>
             </li>
@@ -103,27 +107,30 @@ title: "Home"
                 <div class="pub-info">
                     <div class="pub-title">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs
                     </div>
-                    <div class="pub-venue">IJCAI 2025</div>
-                    <p class="pub-desc">A data-driven framework using LLMs to assess AI exposure in U.S. employment,
-                        formalising the TEAI index.</p>
+                    <div class="pub-venue">IJCAI 2025 — Montreal, Canada</div>
+                    <p class="pub-desc">We formalize TEAI (Task Exposure to AI Index), a data-driven framework using
+                        LLMs to systematically assess AI automation potential across U.S. occupations. Our methodology
+                        enables granular task-level analysis of workforce vulnerability to AI displacement.</p>
                 </div>
                 <div class="pub-year">2025</div>
             </li>
             <li class="pub-item">
                 <div class="pub-info">
                     <div class="pub-title">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models</div>
-                    <div class="pub-venue">ACM SAC 2025 — Catania</div>
-                    <p class="pub-desc">A pipeline leveraging Transformers and LLMs to extract, filter, and standardize
-                        skills from job ads to the ESCO taxonomy.</p>
+                    <div class="pub-venue">ACM SAC 2025 — Catania, Italy</div>
+                    <p class="pub-desc">A complete pipeline combining Transformers and LLMs to extract skills from job
+                        advertisements and map them to the standardized ESCO taxonomy. Our approach addresses the
+                        critical challenge of skill normalization for labour market analytics.</p>
                 </div>
                 <div class="pub-year">2025</div>
             </li>
             <li class="pub-item">
                 <div class="pub-info">
                     <div class="pub-title">An approach to Evaluative AI through Large Language Models</div>
-                    <div class="pub-venue">ECAI 2024 — Santiago de Compostela</div>
-                    <p class="pub-desc">Introducing EADS, a framework integrating Evaluative AI with conversational
-                        explanations to enhance decision-making.</p>
+                    <div class="pub-venue">ECAI 2024 — Santiago de Compostela, Spain</div>
+                    <p class="pub-desc">We introduce EADS (Evaluative AI Decision Support), a framework that integrates
+                        LLMs into decision-making processes by generating structured pros/cons evaluations. This enables
+                        transparent, conversational explanations that augment human judgment.</p>
                 </div>
                 <div class="pub-year">2024</div>
             </li>
@@ -132,8 +139,9 @@ title: "Home"
                     <div class="pub-title">Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation
                     </div>
                     <div class="pub-venue">XAI World Conference @ IJCAI 2024 — Malta 🏆</div>
-                    <p class="pub-desc">Using Generative AI to create natural language explanations for recommender
-                        systems. Best Presentation Award.</p>
+                    <p class="pub-desc">We demonstrate how Generative AI can transform opaque ML model outputs into
+                        human-readable natural language explanations for recommender systems in banking. Awarded Best
+                        Presentation for bridging the gap between technical XAI and end-user understanding.</p>
                 </div>
                 <div class="pub-year">2024</div>
             </li>
@@ -141,9 +149,10 @@ title: "Home"
                 <div class="pub-info">
                     <div class="pub-title">Skills-Hunter: adapting Large Language Models to the Labour Market for Skill
                         Extraction</div>
-                    <div class="pub-venue">AIxIA 2023 — Rome</div>
-                    <p class="pub-desc">An automated approach using LLMs to overcome the data labelling problem for
-                        skill extraction in job ads.</p>
+                    <div class="pub-venue">AIxIA 2023 — Rome, Italy</div>
+                    <p class="pub-desc">Our pioneering work on leveraging LLMs for automated skill extraction from job
+                        postings, addressing the fundamental data labelling bottleneck that had limited previous
+                        approaches to labour market analysis.</p>
                 </div>
                 <div class="pub-year">2023</div>
             </li>
