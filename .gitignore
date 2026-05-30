@@ -1,0 +1,5 @@
+.DS_Store
+_preview/
+_site/
+.jekyll-cache/
+.claude/

@@ -6,6 +6,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initNavScroll();
+    initNavMenu();
+    initScrollProgress();
+    initCardSpotlight();
     initScrollAnimations();
     initNowPlaying();
     initEasterEgg();
@@ -49,6 +52,63 @@ function initNavScroll() {
 
     window.addEventListener('scroll', checkScroll, { passive: true });
     checkScroll();
+}
+
+/* ===== MOBILE NAV MENU ===== */
+function initNavMenu() {
+    const nav = document.getElementById('nav');
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    if (!nav || !toggle || !links) return;
+
+    const close = () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close after picking a destination
+    links.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', close);
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+    });
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+
+    const update = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        bar.style.width = pct + '%';
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+}
+
+/* ===== CARD SPOTLIGHT (cursor-following glow) ===== */
+function initCardSpotlight() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('pointermove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        });
+    });
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
