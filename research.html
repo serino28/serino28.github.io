@@ -1,71 +1,40 @@
 ---
 layout: default
 title: "Research"
+description: "Notes on mechanistic interpretability — explained from scratch and connected to our published work."
 ---
 
 <section class="research-hero container">
-    <span class="research-badge">🚧 Work in Progress</span>
-    <h1>Research Notes</h1>
+    <span class="hero-badge">Research Notes</span>
+    <h1>Notes on Mechanistic Interpretability</h1>
     <p class="hero-description" style="max-width: 700px; margin: 0 auto;">
-        Deep dives into mechanistic interpretability, sparse autoencoders, and understanding how language models think.
-        Coming soon.
+        Deep dives into how language models work on the inside — explained from scratch,
+        and connected to the research we publish.
     </p>
 </section>
 
 <section class="container" style="padding-bottom: 100px;">
+    {% if site.posts.size > 0 %}
     <div class="research-grid">
-
-        <!-- Placeholder Card 1 -->
-        <article class="glass-card research-card" data-anim>
+        {% for post in site.posts %}
+        <a class="glass-card research-card post-card" href="{{ post.url | relative_url }}"
+            data-anim {% if forloop.index0 > 0 %}data-anim-delay="{{ forloop.index0 }}"{% endif %}>
             <div class="research-card-content">
-                <div class="research-card-date">Coming Soon</div>
-                <h3 class="research-card-title">Understanding Sparse Autoencoders</h3>
+                <div class="research-card-date">{{ post.date | date: "%b %-d, %Y" }}</div>
+                <h3 class="research-card-title">{{ post.title }}</h3>
                 <p class="research-card-excerpt">
-                    An introduction to SAEs and why they're becoming a key tool for mechanistic interpretability
-                    research.
-                    We'll explore how to train them, what they learn, and how to evaluate feature quality.
+                    {{ post.description | default: post.excerpt | strip_html | truncate: 160 }}
                 </p>
+                {% if post.tags %}
                 <div class="project-tags">
-                    <span class="tag">Interpretability</span>
-                    <span class="tag">SAE</span>
-                    <span class="tag">Tutorial</span>
+                    {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
                 </div>
+                {% endif %}
             </div>
-        </article>
-
-        <!-- Placeholder Card 2 -->
-        <article class="glass-card research-card" data-anim data-anim-delay="1">
-            <div class="research-card-content">
-                <div class="research-card-date">Coming Soon</div>
-                <h3 class="research-card-title">Auto-Interpretability: Promise and Pitfalls</h3>
-                <p class="research-card-excerpt">
-                    Using LLMs to explain other neural networks sounds great in theory.
-                    Here's what actually works, what doesn't, and how SFAL helps evaluate it.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Auto-Interp</span>
-                    <span class="tag">Evaluation</span>
-                    <span class="tag">SFAL</span>
-                </div>
-            </div>
-        </article>
-
-        <!-- Placeholder Card 3 -->
-        <article class="glass-card research-card" data-anim data-anim-delay="2">
-            <div class="research-card-content">
-                <div class="research-card-date">Coming Soon</div>
-                <h3 class="research-card-title">Toxic Feature Detection in LLMs</h3>
-                <p class="research-card-excerpt">
-                    Can we find and manipulate specific "toxicity" features in language models?
-                    A practical exploration of probing, ablation, and feature steering.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Safety</span>
-                    <span class="tag">Probing</span>
-                    <span class="tag">Steering</span>
-                </div>
-            </div>
-        </article>
-
+        </a>
+        {% endfor %}
     </div>
+    {% else %}
+    <p style="text-align: center; color: var(--text-muted);">First notes coming soon.</p>
+    {% endif %}
 </section>
