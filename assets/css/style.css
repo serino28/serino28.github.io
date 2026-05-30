@@ -692,9 +692,30 @@ section {
 }
 
 .pub-title {
+  display: block;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 4px;
+}
+
+a.pub-title {
+  transition: color var(--transition-fast);
+}
+
+a.pub-title:hover {
+  color: var(--accent-start);
+}
+
+.pub-link-icon {
+  display: inline-block;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+a.pub-title:hover .pub-link-icon {
+  color: var(--accent-start);
+  transform: translate(2px, -2px);
 }
 
 .pub-venue {
