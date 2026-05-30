@@ -29,15 +29,62 @@ particular *directions* in that space. "This text is in French" is one direction
 something, you don't read a single neuron — you check **how much the arrow leans along
 that concept's direction**.
 
+<figure>
+  <img src="{{ '/assets/img/posts/linearity-word2vec.png' | relative_url }}"
+       alt="Hand-drawn vector diagram with the words king, queen, man and woman, arranged so that the move from man to king matches the move from woman to queen.">
+  <figcaption>The classic word2vec analogy: <em>king − man + woman ≈ queen</em>. Semantic relationships show up as straight-line moves through the space — the first clue that meaning is stored <em>linearly</em>. (Mikolov et&nbsp;al., 2013; Park et&nbsp;al., 2024.)</figcaption>
+</figure>
+
 > Think of a music chord. The sound you hear is one thing — a single waveform — but
 > it's made of several notes played together. A trained ear can pick out each note.
 > The model's internal state is the chord; concepts are the notes; interpretability is
 > learning to hear them one at a time.
 
+<figure>
+  <img src="{{ '/assets/img/posts/feature-as-direction.png' | relative_url }}"
+       alt="Hand-drawn 3D axes labelled neuron 1, 2 and 3, with a red 'concept direction' arrow that blends all three axes instead of lining up with any one of them.">
+  <figcaption>A feature isn't a neuron. It's a single <em>direction</em> — a unit vector built from many neurons at once — pointing off at its own angle through the activation space. (A Mathematical Framework for Transformer Circuits, Anthropic.)</figcaption>
+</figure>
+
 Why does this matter so much? Because if concepts are directions, they're *findable*.
 You can measure them, monitor them, even nudge them — and you can do it with simple,
 linear tools instead of wrestling with the whole tangled network. A surprising amount
 of modern interpretability rides on this one assumption holding up.
+
+## Spin the axes, and the neurons lie
+
+Here's a thought experiment that makes the point sharp. Take the whole cloud of
+activation vectors and **rotate the coordinate system** — leave the arrows exactly
+where they are, just turn the axes you measure them against. Every single *neuron
+value* changes. But the **angles between the arrows, and their dot products, don't move
+at all**.
+
+<figure>
+  <img src="{{ '/assets/img/posts/basis-rotation.png' | relative_url }}"
+       alt="Two side-by-side hand-drawn diagrams of the same vectors under different axis orientations; the angle theta between the activation and the concept direction is identical in both.">
+  <figcaption>Rotate the axes (right) and every neuron reading changes completely — yet the angle θ between the activation and the concept direction, the part that actually carries meaning, is exactly the same.</figcaption>
+</figure>
+
+So if you'd pinned an interpretation onto "neuron 37 fires for X," a harmless rotation
+would have erased it — even though the model computes the very same thing. In a space
+with **no privileged basis**, the axes are just an arbitrary ruler. Meaning lives in
+the *relative geometry* of the directions, not in any single coordinate.
+
+That's the clean version. The honest version has a twist worth knowing: **not every
+space inside the model is free to rotate.**
+
+- The **residual stream** — the shared workspace concepts get written to — really has
+  no privileged basis. You can rotate it and fold the rotation into the surrounding
+  weight matrices without changing the network's behaviour. Reading one of its
+  dimensions in isolation is genuinely meaningless.
+- The **MLP's hidden units** are different. Their nonlinearity (ReLU/GELU) acts on each
+  coordinate *separately*, which bolts the axes down: rotate that space and you change
+  the function the layer computes. There, the neuron axes are real.
+
+And that second case is where it gets interesting. Even where neurons *are* privileged,
+real objects, the concepts still refuse to line up with them — the axes are nailed in
+place and the features point off at their own stubborn angles anyway. That stubbornness
+has a name, and it's the next piece of the puzzle.
 
 ## The puzzle: too many ideas, not enough room
 

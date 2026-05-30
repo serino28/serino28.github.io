@@ -1380,8 +1380,30 @@ a.pub-title:hover .pub-link-icon {
 }
 
 .prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em auto;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
+}
+
+.prose figure {
+  margin: 2em 0;
+}
+
+.prose figure img {
+  margin-bottom: 0.6em;
+}
+
+/* A caption is an emphasized line right after an image, or a real <figcaption> */
+.prose figcaption,
+.prose img + em {
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-muted);
 }
 
 /* ===== 404 PAGE ===== */
