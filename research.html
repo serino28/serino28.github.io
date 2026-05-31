@@ -21,11 +21,14 @@ description: "Notes on mechanistic interpretability — explained from scratch a
         {% for post in site.posts %}
         <a class="glass-card research-card post-card" href="{{ post.url | relative_url }}"
             data-anim {% if forloop.index0 > 0 %}data-anim-delay="{{ forloop.index0 }}"{% endif %}>
+            {% if post.image %}
+            <img class="research-card-img" src="{{ post.image | relative_url }}" alt="" loading="lazy">
+            {% endif %}
             <div class="research-card-content">
                 <div class="research-card-date">{{ post.date | date: "%b %Y" }}</div>
                 <h3 class="research-card-title">{{ post.title }}</h3>
                 <p class="research-card-excerpt">
-                    {{ post.description | default: post.excerpt | strip_html | truncate: 160 }}
+                    {{ post.description | default: post.excerpt | strip_html }}
                 </p>
                 {% if post.tags %}
                 <div class="project-tags">

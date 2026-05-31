@@ -1240,25 +1240,42 @@ a.pub-title:hover .pub-link-icon {
 }
 
 .research-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
 .research-card {
   padding: 0;
   overflow: hidden;
+  display: flex;
+  align-items: stretch;
 }
 
 .research-card-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid var(--border-color);
+  width: 320px;
+  flex-shrink: 0;
+  align-self: stretch;
+  object-fit: contain;
+  background: var(--bg-tertiary);
+  border-right: 1px solid var(--border-color);
 }
 
 .research-card-content {
   padding: 24px;
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .research-card {
+    flex-direction: column;
+  }
+  .research-card-img {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
 }
 
 .research-card-date {
@@ -1281,7 +1298,6 @@ a.pub-title:hover .pub-link-icon {
 
 /* Clickable post card (whole card is a link) */
 .post-card {
-  display: block;
   color: inherit;
   text-decoration: none;
 }

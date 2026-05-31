@@ -1,157 +1,136 @@
 ---
-title: "Why You Can't Read a Model by Staring at Neurons"
-description: "An accessible tour of the linear representation hypothesis, superposition, and polysemanticity: why concepts live as directions, not neurons."
+title: "Linear Representations and Superposition: How Models Represent Concepts"
+description: "Why concepts are encoded as directions rather than neurons (the linear representation hypothesis), how superposition lets a model represent more features than it has dimensions, and why that leaves individual neurons polysemantic."
 date: 2024-10-15
 tags: [Interpretability, Foundations]
+image: /assets/img/posts/feature-as-direction.png
 lang: en
 alt_url: /it/research/linear-representations-superposition/
 ---
 
-Suppose you could freeze a language model mid-thought and inspect it, neuron by
-neuron, like reading dials on a control panel. You point at one and ask: *what does
-this measure?* The intuitive hope is that each neuron has a job: this one detects
-French, that one tracks sarcasm, another lights up for code.
+Mechanistic interpretability rests on a claim about *where* meaning lives inside a neural
+network. The naive expectation is that each neuron encodes one concept, so that reading a
+model would amount to locating the "French neuron" or the "sentiment neuron." That
+expectation is almost entirely wrong, and understanding why is the foundation for
+everything that follows, including the sparse autoencoders covered in the
+[next note]({{ '/research/sparse-autoencoders/' | relative_url }}). This note develops the
+three ideas that together explain how language models actually represent what they know: the
+**linear representation hypothesis**, **superposition**, and **polysemanticity**.
 
-It would be wonderful. It's also mostly wrong. This note is about *why*, and about
-the three ideas you need to make sense of how models actually store what they know:
-the **linear representation hypothesis**, **superposition**, and **polysemanticity**.
+## The linear representation hypothesis
 
-## Concepts are directions, not dials
+Take the model's internal state at a given layer to be a vector in a high-dimensional
+**activation space** (for a mid-size model, on the order of a thousand dimensions). The
+**linear representation hypothesis** states that human-interpretable concepts are encoded
+as *directions* in that space: a concept corresponds to a vector, and the extent to which
+the model represents that concept on a given input is, to a first approximation, the
+projection of the activation onto that direction.
 
-Start with a cleaner idea than "one neuron, one concept." Picture the model's internal
-state at some layer as an **arrow** floating in a very high-dimensional space, with
-thousands of dimensions instead of the three we can imagine. Every time the model
-processes some text, that arrow points somewhere specific.
-
-The **linear representation hypothesis** says that meaningful concepts correspond to
-particular *directions* in that space. "This text is in French" is one direction.
-"This sentence is about money" is another. To ask whether the model currently represents
-something, you don't read a single neuron; you check **how much the arrow leans along
-that concept's direction**.
+A **feature** is therefore a direction, not a neuron. To test whether the model represents
+"this text is in French," you do not inspect a single coordinate; you take the dot product
+of the activation with the French direction and read off its magnitude. The earliest
+evidence for this picture is the linear structure of word embeddings, where semantic
+relations appear as consistent vector offsets (Mikolov et al., 2013).
 
 <figure>
   <img src="{{ '/assets/img/posts/linearity-word2vec.png' | relative_url }}"
        alt="Hand-drawn vector diagram with the words king, queen, man and woman, arranged so that the move from man to king matches the move from woman to queen.">
-  <figcaption>The classic word2vec analogy: <em>king − man + woman ≈ queen</em>. Semantic relationships show up as straight-line moves through the space, the first clue that meaning is stored <em>linearly</em>. (Mikolov et&nbsp;al., 2013; Park et&nbsp;al., 2024.)</figcaption>
+  <figcaption>The linear structure of word embeddings: semantic relations appear as consistent vector offsets, with <em>king − man + woman ≈ queen</em>. This linearity in the input space is the first evidence that meaning is encoded in directions. (Mikolov et&nbsp;al., 2013; Park et&nbsp;al., 2024.)</figcaption>
 </figure>
 
-> Think of a music chord. The sound you hear is one thing, a single waveform, but
-> it's made of several notes played together. A trained ear can pick out each note.
-> The model's internal state is the chord; concepts are the notes; interpretability is
-> learning to hear them one at a time.
+Applied to internal activations rather than input embeddings, the same idea is what makes
+interpretability tractable: if a concept is a direction, it can be located, measured,
+monitored, and edited with linear tools.
 
 <figure>
   <img src="{{ '/assets/img/posts/feature-as-direction.png' | relative_url }}"
        alt="Hand-drawn 3D axes labelled neuron 1, 2 and 3, with a red 'concept direction' arrow that blends all three axes instead of lining up with any one of them.">
-  <figcaption>A feature isn't a neuron. It's a single <em>direction</em>, a unit vector built from many neurons at once, pointing off at its own angle through the activation space. (A Mathematical Framework for Transformer Circuits, Anthropic.)</figcaption>
+  <figcaption>A feature is a direction, not a neuron: a unit vector composed of many neurons at once, sitting at its own angle to the coordinate axes. (Elhage et&nbsp;al., <em>A Mathematical Framework for Transformer Circuits</em>, Anthropic.)</figcaption>
 </figure>
 
-Why does this matter so much? Because if concepts are directions, they're *findable*.
-You can measure them, monitor them, even nudge them, all with simple linear tools
-instead of wrestling with the whole tangled network. A surprising amount of modern
-interpretability rides on this one assumption holding up.
+## No privileged basis: meaning is in directions, not coordinates
 
-## Spin the axes, and the neurons lie
-
-Here's a thought experiment that makes the point sharp. Take the whole cloud of
-activation vectors and **rotate the coordinate system**: leave the arrows exactly
-where they are, and just turn the axes you measure them against. Every single *neuron
-value* changes. But the **angles between the arrows, and their dot products, don't move
-at all**.
+If features are directions, the individual neuron axes carry no special status, and a
+standard argument makes this precise. Apply an orthogonal rotation to the coordinate
+system, leaving the activation vectors themselves unchanged and only turning the axes
+against which we read them. Every neuron *value* changes, but every angle and dot product
+between vectors is preserved. Since the linear-representation readout depends only on dot
+products, the model's represented content is invariant to the rotation, while any
+interpretation pinned to a specific neuron is destroyed by it.
 
 <figure>
   <img src="{{ '/assets/img/posts/basis-rotation.png' | relative_url }}"
        alt="Two side-by-side hand-drawn diagrams of the same vectors under different axis orientations; the angle theta between the activation and the concept direction is identical in both.">
-  <figcaption>Rotate the axes (right) and every neuron reading changes completely, yet the angle θ between the activation and the concept direction, the part that actually carries meaning, stays exactly the same.</figcaption>
+  <figcaption>Rotating the coordinate axes changes every neuron value but preserves all angles and dot products. The represented content (the projection onto the concept direction, the angle θ) is invariant; any neuron-pinned interpretation is not.</figcaption>
 </figure>
 
-So if you'd pinned an interpretation onto "neuron 37 fires for X," a harmless rotation
-would have erased it, even though the model computes the very same thing. In a space
-with **no privileged basis**, the axes are just an arbitrary ruler. Meaning lives in
-the *relative geometry* of the directions, not in any single coordinate.
+This is the sense in which the activation space has **no privileged basis**: the coordinate
+axes are an arbitrary reference frame, and meaning lives in the relative geometry of the
+directions. There is an important qualification, because not every space inside a
+transformer is rotation-invariant:
 
-That's the clean version. The honest version has a twist worth knowing: **not every
-space inside the model is free to rotate.**
+- The **residual stream**, the shared activation space that components read from and write
+  to, genuinely has no privileged basis. A rotation can be absorbed into the surrounding
+  weight matrices without changing the network's function, so reading a single
+  residual-stream dimension in isolation is meaningless.
+- The **MLP hidden layer** is different. Its element-wise nonlinearity (ReLU, GELU) acts on
+  each coordinate independently, which *does* privilege the basis: rotating that space
+  changes the function the layer computes, so there the neuron axes are meaningful objects.
 
-- The **residual stream**, the shared workspace concepts get written to, really has
-  no privileged basis. You can rotate it and fold the rotation into the surrounding
-  weight matrices without changing the network's behaviour, so reading one of its
-  dimensions in isolation is genuinely meaningless.
-- The **MLP's hidden units** are different. Their nonlinearity (ReLU/GELU) acts on each
-  coordinate *separately*, which bolts the axes down: rotate that space and you change
-  the function the layer computes. There, the neuron axes are real.
+The decisive observation is that even where the basis is privileged, features still do not
+align with neurons. The axes are fixed, yet the directions the model uses sit at their own
+angles to them. That misalignment is not an accident; it is the signature of superposition.
 
-And that second case is where it gets interesting. Even where neurons *are* privileged,
-real objects, the concepts still refuse to line up with them. The axes are nailed in
-place and the features point off at their own stubborn angles anyway. That stubbornness
-has a name, and it's the next piece of the puzzle.
+## Superposition: representing more features than dimensions
 
-## The puzzle: too many ideas, not enough room
+A model needs to represent far more concepts than it has dimensions: a layer with a few
+thousand dimensions tracks vastly more than a few thousand distinguishable properties of
+its input. **Superposition** is how it reconciles this. The model encodes more feature
+directions than there are dimensions by allowing them to be only *approximately* orthogonal
+and to interfere slightly.
 
-Here's the tension. A model needs to represent an enormous number of concepts, far
-more than it has neurons. A mid-size layer might have a few thousand dimensions, but
-the model clearly tracks *way* more than a few thousand distinguishable things about
-its input.
+Two facts make this work. First, high-dimensional spaces contain exponentially many
+*almost-orthogonal* directions, so a large number of features can coexist with small
+pairwise interference. Second, natural data is **sparse**: at any moment almost every
+concept is absent, since a sentence about a French recipe is not simultaneously about
+quantum field theory, basketball, and contract law. Because only a few features are active
+at once, their directions rarely collide, and the model can decode them despite the
+overlap. Superposition is, in effect, a learned compression scheme that trades a little
+interference for a large gain in representational capacity (Elhage et al.,
+*Toy Models of Superposition*, 2022).
 
-How do you fit ten thousand concepts into a thousand-dimensional space?
+## Polysemanticity: why individual neurons look meaningless
 
-You cheat, cleverly. This is **superposition**: the model packs many more concept
-directions into the space than there are dimensions, by letting them *overlap* a
-little. It works because of a quiet fact about language: at any given moment, **almost
-all concepts are absent**. A sentence about a French recipe isn't also about quantum
-physics, basketball stats, and legal contracts all at once. Since only a handful of
-concepts are "on" at a time, their directions can share space without stepping on each
-other too often.
+Superposition has a direct, observable consequence. Because feature directions are not
+aligned with the neuron basis, any single neuron participates in many unrelated features at
+once. Inspecting it shows activation across a seemingly arbitrary mixture, for example
+academic citations, the color green, and a particular grammatical construction. This is
+**polysemanticity**, and it is why neuron-level inspection is unreliable: the neuron is not
+malfunctioning, it simply was never the unit of representation. The structure lives in
+directions that cut across neurons, and recovering a one-concept-per-unit description, that
+is **monosemanticity**, requires changing basis rather than reading the existing one.
 
-> Imagine a small apartment shared by a hundred roommates who are almost never home at
-> the same time. With enough luck and scheduling, a hundred people can live in a space
-> built for ten, *as long as they don't all show up at once.* Superposition is the
-> model doing exactly this with concepts.
+## From superposition to dictionary learning
 
-It's a genuinely good deal for the model: more representational capacity for free. But
-it's a nightmare for anyone trying to interpret it.
+This frames the central practical problem. If the meaningful units are directions, smeared
+across neurons and overlapping under superposition, how do we recover a clean, monosemantic
+set of features from the entangled activations? Stated this way it is a **dictionary
+learning** problem: find an overcomplete set of directions such that each activation is a
+sparse combination of them. That is exactly the job of **sparse autoencoders**, the subject
+of the [next note]({{ '/research/sparse-autoencoders/' | relative_url }}).
 
-## The symptom: polysemantic neurons
+The same linear picture also underwrites applied safety work. In our
+[safe-unsafe separation]({{ '/#publications' | relative_url }}) result, a single direction
+in activation space is enough to flag unsafe inputs with a linear readout, with no weight
+modification. The hypothesis developed here is the foundation such methods stand on.
 
-Superposition has a visible consequence, and it's the thing that wrecks the
-"one neuron, one concept" dream: **polysemanticity**.
+## Summary
 
-Because concept directions don't line up neatly with individual neurons, any single
-neuron ends up participating in *many* unrelated concepts at once. Inspect it and
-you'll find it firing for, say, academic citations *and* the color green *and* a
-particular grammatical quirk, a meaningless-looking jumble. The neuron isn't broken.
-It's just that the model never agreed to organize itself one-concept-per-neuron in the
-first place. The real structure lives in *combinations* of neurons, in directions that
-cut across them.
-
-This is why staring at neurons rarely tells you anything. You're trying to read a chord
-by examining a single string.
-
-## So what do we do about it?
-
-If the meaningful units are directions, and those directions are smeared across neurons
-and overlapping with each other, the central practical question becomes:
-
-**How do we recover the original, clean concepts from the superposed mess?**
-
-That's exactly the job of **sparse autoencoders (SAEs)**, the subject of the
-[next note]({{ '/research/sparse-autoencoders/' | relative_url }}). The short version: we
-train a second, small network whose only purpose is to "unmix" the activations into a long list
-of features that are mostly off at any moment, mirroring the sparsity that made
-superposition possible in the first place.
-
-It's also why the linear picture is more than a tidy story. In our work on
-[safe-unsafe separation]({{ '/#publications' | relative_url }}), the whole method leans
-on it: if "unsafe request" is a direction, then a simple readout along that direction
-can flag unsafe inputs, with no retraining and no surgery on the weights. The hypothesis
-in this note is the foundation that result stands on.
-
-## The one-paragraph version
-
-Models don't store concepts in neurons; they store them as **directions** in a
-high-dimensional space (the linear representation hypothesis). To represent more
-concepts than they have dimensions, they let those directions **overlap**, leaning on
-the fact that few concepts are active at once (superposition). The side effect is that
-individual neurons look like nonsense, each tangled up in many unrelated concepts
-(polysemanticity). Interpretability, then, isn't about reading neurons; it's about
-finding the right directions.
+Language models do not represent concepts in neurons; they represent them as **directions** in
+activation space (the linear representation hypothesis). Because the space has **no
+privileged basis**, the neuron axes are an arbitrary frame and meaning lives in the relative
+geometry of directions. To represent more features than dimensions, the model places them in
+**superposition**, exploiting near-orthogonality and the sparsity of natural data, which is
+what makes individual neurons **polysemantic**. Interpretability is therefore not the act of
+reading neurons but of recovering the right directions, which is precisely what dictionary
+learning and sparse autoencoders set out to do.

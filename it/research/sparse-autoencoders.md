@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Districare la superposition: guida pratica agli sparse autoencoder"
-description: "Come gli sparse autoencoder trasformano le attivazioni aggrovigliate e polisemantiche di un modello in un lungo dizionario di feature che puoi leggere, nominare e usare per fare steering."
+title: "Sparse autoencoder: recuperare feature interpretabili dalla superposition"
+description: "Come gli sparse autoencoder scompongono le attivazioni di un modello in un dizionario overcomplete di latenti, e come quei latenti vengono spiegati e valutati dalle attuali pipeline di auto-interpretability."
 date: 2024-12-05
 tags: [Interpretabilità, SAE]
 lang: it
@@ -10,166 +10,214 @@ alt_url: /research/sparse-autoencoders/
 ---
 
 Nella [nota precedente]({{ '/it/research/linear-representations-superposition/' | relative_url }})
-ci eravamo lasciati con un problema. I concetti vivono come **direzioni** nello spazio
-delle attivazioni, ma il modello ne stipa molti più delle dimensioni che ha (la
-superposition), così si spalmano sui neuroni e ogni singolo neurone si accende per un
-guazzabuglio privo di senso di cose non correlate (la polisemanticità). Fissare i neuroni
-non dice quasi nulla.
+abbiamo visto perché non si può leggere un modello neurone per neurone. I concetti sono
+rappresentati come **direzioni** nello spazio delle attivazioni (la linear representation
+hypothesis), e il modello ne immagazzina più delle dimensioni che ha mettendoli in
+**superposition**, il che rende i singoli neuroni **polisemantici**. La domanda pratica che
+ne segue è come recuperare quelle direzioni. L'approccio dominante oggi è lo **sparse
+autoencoder (SAE)**: una piccola rete addestrata a scomporre le attivazioni in un insieme
+ampio e sparso di **latenti** che dovrebbero essere **monosemantici**.
 
-Da qui la domanda di questa nota: se i concetti puliti sono ancora lì dentro,
-aggrovigliati e sovrapposti, **come li tiriamo fuori?** La risposta migliore che abbiamo
-oggi è una rete neurale sorprendentemente piccola, lo **sparse autoencoder (SAE)**.
+Una convenzione di vocabolario che terrò per tutta la nota: un *latente* è un'unità che lo
+SAE impara; una *feature* è il concetto sottostante che speriamo catturi. Tenerli distinti
+conta, perché non ogni latente si rivela una feature pulita.
 
-## Un dizionario, non un microscopio
+## Dictionary learning sulle attivazioni
 
-Il trucco è smettere di *ispezionare* l'attivazione e iniziare a *ri-descriverla*. Prendi
-un singolo vettore di attivazione e prova a scriverlo come somma di pochi mattoncini presi
-da un insieme grande e fisso:
+Uno SAE è un caso di **dictionary learning**. Dato un vettore di attivazione `x` preso da un
+punto del modello (tipicamente il **residual stream** a un layer scelto), lo modelliamo come
+combinazione lineare sparsa e non negativa di un insieme fisso e **overcomplete** di
+direzioni:
 
 ```text
-attivazione  ≈  0.9 · "francese"  +  0.4 · "parla di soldi"  +  0.2 · "tono formale"
+x  ≈  f₁·d₁ + f₂·d₂ + … + fₘ·dₘ        con quasi tutti gli fᵢ = 0
 ```
 
-Quell'insieme di mattoncini è un **dizionario**, e ogni voce è una candidata concept
-direction. Questo è il *dictionary learning*: spiegare ogni vettore come combinazione
-sparsa di atomi del dizionario. La speranza è che gli atomi si allineino a feature dotate
-di significato per noi, là dove i neuroni grezzi non lo facevano mai. Uno SAE è
-semplicemente la macchina che impara questo dizionario.
+Le direzioni `dᵢ` formano il **dizionario** (il decoder), e i coefficienti `fᵢ` sono le
+**attivazioni dei latenti**. Per un dato input quasi tutti i coefficienti sono zero, quindi
+ogni attivazione è spiegata da una manciata di elementi del dizionario. L'ipotesi è che, con
+sparsità sufficiente, queste direzioni del dizionario recuperino le feature sottostanti che
+la superposition aveva aggrovigliato, là dove nessun singolo neurone lo faceva.
 
-## L'architettura è quasi imbarazzantemente semplice
+## L'architettura dello sparse autoencoder
 
-Uno SAE è un autoencoder con un unico strato nascosto, largo e sparso. Come mostra la
-figura, il compito è mappare un'attivazione `x ∈ R^{d_model}` in un dizionario molto più
-grande `f ∈ R^{d_SAE}`, dove `d_SAE = F · d_model` e il **fattore di espansione** `F` è ciò
-che rende lo strato nascosto *overcomplete*. Fa due cose:
+Uno SAE è un autoencoder con un unico strato nascosto, largo e sparso. Come mostra la figura,
+mappa un'attivazione `x ∈ R^{d_model}` in un dizionario molto più grande `f ∈ R^{d_SAE}`,
+dove `d_SAE = F · d_model` e il **fattore di espansione** `F` rende lo strato nascosto
+*overcomplete*. Ha due parti:
 
-- **Encode.** Sottrae un bias, proietta verso lo spazio delle feature e tiene solo la parte
-  positiva: `f = ReLU(W_enc (x − b_dec) + b_enc)`. Ogni componente di `f` dice "quanto sta
-  sparando la feature *i*".
-- **Decode.** Ricostruisce l'attivazione originale a partire da quelle feature:
-  `x̂ = W_dec · f + b_dec`. Le **righe di `W_dec` sono le direzioni delle feature** stesse,
-  e la ricostruzione è solo una somma pesata di quelle attive.
+- **Encoder.** Sottrae un bias, proietta verso lo spazio dei latenti e applica una
+  nonlinearità: `f = ReLU(W_enc (x − b_dec) + b_enc)`. Ogni componente di `f` è l'attivazione
+  di un latente.
+- **Decoder.** Ricostruisce l'attivazione come somma pesata di direzioni del dizionario:
+  `x̂ = W_dec · f + b_dec`. Le **righe di `W_dec` sono le direzioni dei latenti** (gli atomi
+  del dizionario).
 
 <figure>
   <img src="{{ '/assets/img/posts/sae-architecture.png' | relative_url }}"
-       alt="Schema disegnato a mano di uno sparse autoencoder. A sinistra un vettore di attivazione x di dimensione d_model entra in un trapezio 'encoder' che contiene x' = x − b_dec, W_enc·x' + b_enc e una ReLU. Al centro una barra verticale alta etichettata 'spazio latente sparso' di dimensione F·d_model contiene le feature f. A destra un trapezio 'decoder' con W_dec·f + b_dec ricostruisce il vettore x-hat. Sotto sono scritte due formule: f = ReLU(W_enc(x − b_dec) + b_enc) e x-hat = W_dec·f + b_dec.">
-  <figcaption>Tutta la macchina, da sinistra a destra: un'attivazione di dimensione <code>d_model</code> viene codificata (sottrai <code>b_dec</code>, moltiplica per <code>W_enc</code>, ReLU) in un dizionario alto e sparso di dimensione <code>d_SAE = F · d_model</code>, poi decodificata indietro in una ricostruzione. La larghezza dà risoluzione; la sparsità dà significato. (Da Cunningham et&nbsp;al., <em>Sparse Autoencoders Find Interpretable Features in Language Models</em>, EleutherAI.)</figcaption>
+       alt="Schema disegnato a mano di uno sparse autoencoder. A sinistra un vettore di attivazione x di dimensione d_model entra in un trapezio 'encoder' che contiene x' = x − b_dec, W_enc·x' + b_enc e una ReLU. Al centro una barra verticale alta etichettata 'spazio latente sparso' di dimensione F·d_model contiene i latenti f. A destra un trapezio 'decoder' con W_dec·f + b_dec ricostruisce il vettore x-hat. Sotto sono scritte due formule: f = ReLU(W_enc(x − b_dec) + b_enc) e x-hat = W_dec·f + b_dec.">
+  <figcaption>L'encoder mappa un'attivazione <code>d_model</code> in uno spazio di latenti overcomplete di dimensione <code>d_SAE = F · d_model</code>; il decoder la ricostruisce come somma pesata sparsa di direzioni del dizionario. (Da Cunningham et&nbsp;al., <em>Sparse Autoencoders Find Highly Interpretable Features in Language Models</em>, EleutherAI.)</figcaption>
 </figure>
 
-Perché renderlo overcomplete? La superposition aveva stipato molti concetti in pochi
-neuroni, quindi per disfarla ci servono *più* slot di quanti ne avesse il modello, con
-spazio perché ogni concetto si prenda il suo.
+Il dizionario è deliberatamente overcomplete: la superposition aveva stipato molti concetti
+in pochi neuroni, quindi per disfarla lo spazio dei latenti ha bisogno di più slot di quanti
+ne avesse il modello, con spazio perché ogni concetto si prenda il suo.
 
-## La sparsità è tutto il trucco
+## L'obiettivo di addestramento: ricostruzione e sparsità
 
-Uno strato nascosto largo, da solo, imparerebbe solo una copia pigra dell'input. La magia
-sta nell'obiettivo di addestramento, che tira in due direzioni contemporaneamente:
-**ricostruire bene** (la `x̂` ricostruita deve assomigliare a `x`, un classico termine di
-errore quadratico) e **usare poche feature** (quasi tutte le componenti di `f` devono
-essere zero su un dato input, una penalità di sparsità, classicamente un termine L1 su `f`).
+Uno SAE è addestrato sulle attivazioni del modello stesso con una loss composta da due
+termini in competizione: un termine di **ricostruzione**, l'errore quadratico `‖x − x̂‖²`, e
+un termine di **sparsità** che spinge il vettore dei latenti verso lo zero. Nella formulazione
+originale il termine di sparsità è una **penalità L1** `λ‖f‖₁`, e `λ` regola il compromesso.
 
-È quel secondo termine a fare il lavoro vero. Costringere lo SAE a spiegare ogni input con
-solo una manciata di feature attive rispecchia il fatto silenzioso che ha reso possibile la
-superposition in primo luogo: in ogni istante **quasi tutti i concetti sono assenti**. Un
-dizionario che rispetta questo principio tende a scoprire feature *monosemantiche*,
-ciascuna accesa per una singola cosa nominabile invece che per il calderone di un neurone.
+Siccome i due termini tirano in direzioni opposte, uno SAE non si giudica mai a un singolo
+punto di lavoro. Si valuta lungo la **frontiera di Pareto ricostruzione-sparsità**, bilanciando
+la fedeltà di ricostruzione (spesso riportata come frazione della loss del modello recuperata
+quando si reinserisce `x̂`, oppure come varianza spiegata) contro la sparsità (il numero medio
+di latenti attivi per input, l'**L0**). Lo scopo della pressione di sparsità è la
+**monosemanticità**: costringere ogni input a essere spiegato da pochi latenti tende ad
+allineare quei latenti a singoli concetti nominabili, invece che alle miscele aggrovigliate
+che portano i neuroni.
 
-## Dove la ricetta semplice fa acqua
+## Modalità di fallimento dello sparse autoencoder L1
 
-La ricetta L1 funziona, ma ha un difetto ben noto. La penalità colpisce la *magnitudo*, non
-solo la *presenza*, così lo SAE impara a sottostimare quanto una feature sia davvero accesa,
-solo per tenere bassa la penalità. Questo **activation shrinkage** distorce le feature e
-peggiora la ricostruzione. Un secondo problema sono le **dead feature**: latenti che, una
-volta smesso di attivarsi durante l'addestramento, non tornano più.
+Lo SAE L1 di base ha due problemi ben documentati.
 
-Gran parte dei progressi recenti riguarda esattamente la correzione di questo:
+**Activation shrinkage (feature suppression).** La penalità L1 agisce sulla *magnitudo* dei
+latenti, non solo sul fatto che siano attivi, quindi minimizzarla distorce sistematicamente
+verso il basso le attivazioni dei latenti. L'encoder impara a sottostimare quanto forte spari
+un latente, il che peggiora la ricostruzione e distorce proprio le quantità che vogliamo
+leggere.
 
-- I **Gated SAE** separano la decisione *se* una feature è accesa da *quanto* lo è, così la
-  pressione di sparsità smette di trascinare giù le magnitudo.
-- I **TopK SAE** eliminano del tutto il termine L1 e tengono invece solo le *K* attivazioni
-  di feature più grandi per input. La sparsità diventa un vincolo esatto invece di una
-  spinta morbida, aggirando lo shrinkage.
-- Il **JumpReLU** usa una soglia appresa: una feature non contribuisce nulla finché non la
-  supera, poi passa a piena intensità.
+**Dead latents.** Durante l'addestramento molti latenti smettono del tutto di attivarsi e non
+tornano più, sprecando capacità del dizionario.
 
-Il filo conduttore: più riesci a imporre in modo pulito "poche feature, a magnitudo oneste",
-più il dizionario è affidabile.
+Gran parte delle architetture recenti affronta direttamente questi problemi:
 
-## Due cose che puoi fare con una feature
+- I **Gated SAE** (Rajamanoharan et al., 2024) separano la decisione su *quali* latenti sono
+  attivi dalla stima di *quanto* lo sono, disaccoppiando la pressione L1 dalle magnitudo e
+  riducendo lo shrinkage.
+- I **TopK SAE** (Gao et al., 2024) sostituiscono la penalità L1 con un vincolo rigido che
+  tiene solo le `K` attivazioni di latenti più grandi per input, rendendo la sparsità esatta
+  ed eliminando per costruzione il bias di shrinkage.
+- I **JumpReLU SAE** (Rajamanoharan et al., 2024) usano una soglia appresa per latente: un
+  latente non contribuisce nulla finché non la supera, poi passa a piena intensità,
+  migliorando la frontiera ricostruzione-sparsità.
 
-Una volta addestrato lo SAE, ogni feature è insieme qualcosa che puoi *leggere* e una
-direzione che puoi *usare*.
+L'obiettivo comune è un dizionario che sia sparso e fedele allo stesso tempo.
 
-**Leggerla.** Fai passare un input nel modello, prendi l'attivazione e codificala. Allo
-strato sparso si accendono solo una manciata di feature, e *quelle* sono la tua
-interpretazione. Nella figura qui sotto prendiamo l'attivazione di GPT-2 al layer 11 per un
-prompt breve e volutamente sgradevole, la codifichiamo e ci fermiamo allo strato sparso: un
-solo latente, la cella 10335, si illumina, e si scopre che traccia i riferimenti alle donne
-e ai loro diritti. Il decoder non lo eseguiamo nemmeno. Le feature attive *sono* la lettura.
+## Due usi di un latente: interpretazione e intervento
+
+Una volta addestrato, un latente supporta due operazioni complementari.
+
+**Interpretazione (lettura).** Codifica un'attivazione e guarda quali latenti sono attivi.
+Poiché il codice è sparso, sparano solo pochi latenti, e quelli sono l'interpretazione di
+quell'attivazione. La figura qui sotto codifica l'attivazione del residual stream di GPT-2 al
+layer 11 per un prompt breve; un solo latente (indice 10335) si attiva, e i suoi
+max-activating examples mostrano che traccia i riferimenti alle donne e ai loro diritti. Qui
+il decoder non serve nemmeno: i latenti attivi sono la lettura.
 
 <figure>
   <img src="{{ '/assets/img/posts/sae-interpret.png' | relative_url }}"
        alt="Diagramma disegnato a mano intitolato 'Interpretare un LLM'. Il prompt 'I hate women' produce un'attivazione x di GPT-2 al layer 11, che viene data in pasto a un encoder. L'output è un vettore sparso alto, quasi tutto zeri, con una cella evidenziata in rosso. Una freccia da quella cella, etichettata 'cella 10335', punta al testo 'references to women and their rights or issues'. Il decoder è abbozzato ma non usato.">
-  <figcaption>Interpretazione: codifica un'attivazione e fermati allo strato sparso. Per questo prompt si attiva la feature 10335, un latente che traccia i riferimenti alle donne e ai loro diritti. Il decoder è disegnato ma inutilizzato: la feature attiva è tutta la risposta.</figcaption>
+  <figcaption>Interpretazione: codifica un'attivazione e fermati allo strato dei latenti. Per questo prompt si attiva il latente 10335, e i suoi max-activating examples tracciano i riferimenti alle donne e ai loro diritti. Il decoder è disegnato ma inutilizzato.</figcaption>
 </figure>
 
-**Usarne la direzione.** Ogni feature possiede anche una direzione nella matrice del
-decoder, il vettore che riscrive nel modello quando si attiva. Scegli una feature, entra
-nella sua riga di `W_dec`, e puoi leggere, amplificare o azzerare il concetto che porta.
-Nella figura successiva prendiamo un latente diverso, la feature 11149, ne estraiamo la riga
-dalla matrice del decoder e recuperiamo una direzione che sta per termini e frasi legate a
-hate speech e crimini d'odio. Quella direzione del decoder è la maniglia che afferri quando
-vuoi *fare steering* del comportamento invece di limitarti a osservarlo, ed è esattamente il
-punto in cui riprende il filo sulla sicurezza della
-[prima nota]({{ '/it/research/linear-representations-superposition/' | relative_url }}).
+**Intervento (steering).** Ogni latente possiede anche una **direzione del decoder**, il
+vettore che riscrive nel residual stream quando si attiva, e questo rende i latenti delle
+maniglie causali. Aggiungere la direzione del decoder di un latente ne amplifica il concetto;
+**azzerarla** con un'**ablation** (forzando il latente a zero, o sottraendone la direzione) lo
+rimuove. È la base del **feature steering**, un'alternativa più mirata rispetto allo steering
+con differenze di attivazione grezze. La figura successiva prende il latente 11149, ne legge la
+riga dalla matrice del decoder, e recupera una direzione associata a termini legati all'hate
+speech, esattamente il tipo di direzione che si azzererebbe per sopprimere quel comportamento.
+È qui che riprende il filo sulla sicurezza della
+[prima nota]({{ '/it/research/linear-representations-superposition/' | relative_url }}): se un
+concetto non sicuro è una direzione recuperabile, è anche una direzione su cui intervenire.
 
 <figure>
   <img src="{{ '/assets/img/posts/sae-decoder-direction.png' | relative_url }}"
        alt="Diagramma disegnato a mano. Lo stesso prompt 'I hate women' viene codificato in un vettore sparso con una cella evidenziata. Una freccia etichettata 'cella 11149' conduce alla matrice del decoder, disegnata come una griglia m per m; la riga 11149 viene estratta come una barra orizzontale. Una seconda freccia da quella riga punta al testo 'terms and phrases related to hate speech and hate crimes'.">
-  <figcaption>Controllo: scegli una feature nello strato sparso ed entra nella matrice del decoder <code>W_dec</code>; la sua riga è la direzione latente ricostruita che la feature riscrive. Qui la feature 11149 recupera una direzione per termini legati all'hate speech, il tipo di direzione che puoi amplificare o azzerare per fare steering del modello.</figcaption>
+  <figcaption>Intervento: scegli un latente nello strato sparso e leggine la riga dalla matrice del decoder <code>W_dec</code>; quella riga è la direzione che il latente riscrive nel residual stream. Qui il latente 11149 recupera una direzione per termini legati all'hate speech, una direzione che puoi amplificare o azzerare per fare steering del modello.</figcaption>
 </figure>
 
-## Lo SAE ti consegna 16.000 feature. E adesso?
+## Auto-interpretability: generare le spiegazioni
 
-Leggere una feature a mano è facile. Un buon SAE te ne lascia *decine di migliaia* e nessuna
-etichetta, e leggerle a mano non scala. Quindi la mossa standard è l'**auto-interpretability**:
-mostri a un modello linguistico gli input che fanno sparare una feature più forte e gli
-chiedi di scriverne una breve descrizione ("riferimenti alle donne e ai loro diritti",
-"spara sul colore verde"). Economico, veloce, e facilissimo da *sopravvalutare*.
+Un buon SAE produce decine di migliaia di latenti, troppi per etichettarli a mano, quindi le
+spiegazioni si generano in automatico. La pipeline standard di **auto-interpretability**
+(introdotta per i singoli neuroni da Bills et al., 2023, e oggi eseguita su larga scala sui
+latenti degli SAE da iniziative come l'auto-interp di EleutherAI e Neuronpedia) ha due fasi.
 
-## Come si dà un voto a una spiegazione?
+1. **Raccolta degli activating examples.** Si fa passare un grande corpus di testo nel modello
+   e nello SAE, e per ogni latente si registrano i contesti in cui spara, conservando i valori
+   di attivazione token per token. In pratica si raccolgono i **max-activating examples** e si
+   campiona anche da quantili di attivazione più bassi, così la spiegazione non è distorta dai
+   soli casi estremi.
+2. **Generazione della spiegazione.** Si passano questi contesti, con i token attivanti e le
+   loro intensità evidenziati, a un **explainer model** (un LLM capace), chiedendogli di
+   descrivere in linguaggio naturale a cosa risponde il latente, per esempio *"si attiva sui
+   riferimenti alle donne e ai loro diritti."* L'output è un'ipotesi breve e leggibile sulla
+   selettività del latente.
 
-È la domanda in cui vive il mio lavoro. Un'etichetta generata in automatico può suonare
-perfettamente sensata ed essere comunque sbagliata. Il modo standard per verificarla è lo
-**scoring basato su simulazione**: dai la spiegazione a un modello, gli fai predire quando
-la feature dovrebbe sparare, e vedi quanto combacia con la realtà. È fedele ma costoso,
-perché ogni spiegazione richiede un nuovo giro di chiamate al modello.
+## Valutare le spiegazioni: simulazione, detection e allineamento
 
-In **SFAL** (*Semantic-Functional Alignment Scores*, EMNLP 2025) prendiamo una strada più
-economica. Invece di simulare il comportamento, ci chiediamo se la *semantica* di una
-spiegazione si allinea con la *funzione* della feature, confrontandole con una similarità
-basata su embedding. Il risultato è un segnale rapido e scalabile su quanto un'etichetta
-automatica rispecchi davvero ciò che la feature fa. È l'interpretability rivolta su sé
-stessa: interpretare gli interpreti.
+Una spiegazione è solo un'ipotesi, e una ben formulata può essere sbagliata, quindi va
+**valutata** contro il comportamento reale del latente. Ci sono tre grandi famiglie.
 
-## Una dose necessaria di dubbio
+**Simulation scoring** (Bills et al., 2023). Un **simulator model** separato riceve solo la
+spiegazione e deve predire l'attivazione del latente su ogni token di un testo tenuto da parte.
+Il punteggio è la correlazione tra i profili di attivazione predetti e quelli veri. È la misura
+più fedele, e anche la più costosa, perché richiede predizioni token per token su molti
+contesti per ogni latente.
 
-Gli SAE sono il miglior strumento che abbiamo, non un problema risolto. Un dizionario può
-ricostruire benissimo e ciononostante ingannare: le feature si **spezzano** (un concetto
-spalmato su molti latenti quasi-duplicati) o si **compongono** in modi che non corrispondono
-a come il modello le usa davvero, e ricostruire un'attivazione non è la stessa cosa che
-catturare il calcolo che l'ha prodotta. È per questo che la valutazione deve crescere di
-pari passo con i metodi, e perché "la feature sembra significativa" non può mai essere la
-fine della frase.
+**Detection scoring** (Paulo et al., 2024). Invece di riprodurre l'intero profilo di
+attivazione, al simulator si dà la spiegazione insieme a un mix bilanciato di contesti attivanti
+e non attivanti, e gli si chiede di classificare su quali il latente spara. Valutare per
+accuratezza di detection (o AUC) è molto più economico della simulazione completa e scala a
+milioni di latenti; una variante di **fuzzing** chiede invece al modello di giudicare se i token
+evidenziati sono quelli giusti.
 
-## La versione in un paragrafo
+**Intervention scoring.** Un controllo causale più severo: usa la spiegazione per predire
+l'effetto dello steering o dell'ablation del latente, e verifica che il cambiamento di
+comportamento corrisponda alla predizione.
 
-La superposition lascia i concetti aggrovigliati su neuroni polisemantici. Uno **sparse
-autoencoder** li districa ri-descrivendo ogni attivazione come combinazione sparsa di un
-**dizionario** overcomplete di direzioni apprese, bilanciando ricostruzione e sparsità in
-modo che le feature emergano **monosemantiche**. La classica penalità L1 causa shrinkage,
-che le varianti più recenti (Gated, TopK, JumpReLU) ripuliscono. Ogni feature è poi
-qualcosa che puoi **leggere** (quali latenti si accendono) e una **direzione** del decoder
-che puoi usare per fare **steering**, mentre l'**auto-interpretability** le nomina su larga
-scala e lavori come [SFAL]({{ '/#publications' | relative_url }}) ne valutano i nomi, perché
-una spiegazione plausibile non è ancora una spiegazione corretta.
+Tutte e tre rieseguono un modello per ogni spiegazione. **SFAL** (*Semantic-Functional Alignment
+Scores*, EMNLP 2025) prende una strada diversa: invece di simulare il comportamento, confronta la
+**semantica** della spiegazione con la **funzione** del latente (riassunta dai suoi activating
+examples) tramite similarità basata su embedding, ottenendo un segnale rapido, scalabile e
+distribuzionale di quanto una spiegazione rispecchi ciò che il latente fa. L'inquadramento è
+l'interpretability applicata ai propri output: valutare le spiegazioni invece di fidarsene.
+
+## Limiti: faithfulness, feature splitting e absorption
+
+Gli SAE sono lo stato dell'arte attuale, non un problema risolto, e diverse modalità di
+fallimento sono ormai ben comprese.
+
+- **La ricostruzione non è il calcolo.** Un dizionario può ricostruire le attivazioni con
+  precisione e ciononostante descrivere male come il modello le usa; un errore di ricostruzione
+  basso non implica rilevanza causale.
+- **Feature splitting.** Man mano che il dizionario cresce, un singolo concetto può
+  frammentarsi su molti latenti quasi-duplicati, così una feature è spalmata invece che catturata
+  una volta sola.
+- **Feature absorption** (Chanin et al., 2024). Un latente ampio può assorbire silenziosamente uno
+  più specifico, così un latente smette di sparare su casi che la sua spiegazione copre
+  chiaramente. Questo gonfia l'interpretabilità apparente mentre la rompe.
+- **Composizione e latenti non monosemantici.** Alcuni latenti restano miscele, altri hanno senso
+  solo in combinazione con altri.
+
+È esattamente per questo che lo scoring e la valutazione devono crescere di pari passo con i
+dizionari: una spiegazione che sembra significativa è un punto di partenza, non una conclusione.
+
+## In sintesi
+
+La superposition aggroviglia le feature su neuroni polisemantici. Uno sparse autoencoder le
+recupera imparando un **dizionario** overcomplete e scomponendo ogni attivazione in un insieme
+sparso di **latenti**, bilanciando ricostruzione e sparsità per spingere quei latenti verso la
+**monosemanticità**. L'obiettivo L1 originale causa **activation shrinkage** e **dead latents**,
+che le varianti **Gated**, **TopK** e **JumpReLU** correggono. Ogni latente si può **leggere**
+(quali latenti sono attivi) e **usare** come direzione causale (steering e ablation). Poiché un
+buon dizionario produce troppi latenti per etichettarli a mano, l'**auto-interpretability** genera
+le spiegazioni dai max-activating examples, e i metodi di scoring (**simulation**, **detection**,
+**intervention**, e approcci basati su embedding come [**SFAL**]({{ '/#publications' | relative_url }}))
+misurano se quelle spiegazioni corrispondono davvero al comportamento dei latenti, perché una
+spiegazione plausibile non è ancora una spiegazione corretta.

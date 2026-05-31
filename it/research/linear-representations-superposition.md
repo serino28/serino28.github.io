@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Perché non puoi leggere un modello fissando i neuroni"
-description: "Una guida accessibile alla linear representation hypothesis, alla superposition e alla polisemanticità: perché i concetti vivono come direzioni, non come neuroni."
+title: "Rappresentazioni lineari e superposition: come i modelli rappresentano i concetti"
+description: "Perché i concetti sono codificati come direzioni e non come neuroni (la linear representation hypothesis), come la superposition permette di rappresentare più feature delle dimensioni disponibili, e perché questo lascia i singoli neuroni polisemantici."
 date: 2024-10-15
 tags: [Interpretabilità, Fondamenti]
 lang: it
@@ -9,156 +9,136 @@ permalink: /it/research/linear-representations-superposition/
 alt_url: /research/linear-representations-superposition/
 ---
 
-Immagina di poter congelare un modello linguistico a metà di un pensiero e ispezionarlo
-neurone per neurone, come si leggono le lancette di un quadro di controllo. Ne indichi
-uno e chiedi: *cosa misura questo?* La speranza istintiva è che ogni neurone abbia un
-compito preciso: questo riconosce il francese, quello segue il sarcasmo, un altro si
-accende per il codice.
+La mechanistic interpretability poggia su un'affermazione su *dove* viva il significato
+dentro una rete neurale. L'aspettativa ingenua è che ogni neurone codifichi un concetto,
+così che leggere un modello equivarrebbe a individuare il "neurone del francese" o il
+"neurone del sentiment." Quell'aspettativa è quasi del tutto sbagliata, e capire perché è la
+base di tutto ciò che segue, inclusi gli sparse autoencoder trattati nella
+[prossima nota]({{ '/it/research/sparse-autoencoders/' | relative_url }}). Questa nota
+sviluppa le tre idee che insieme spiegano come i modelli linguistici rappresentano davvero
+ciò che sanno: la **linear representation hypothesis**, la **superposition** e la
+**polisemanticità**.
 
-Sarebbe meraviglioso. Ed è anche, in larga parte, sbagliato. Questa nota parla proprio
-del *perché*, e delle tre idee che servono per capire come i modelli immagazzinano
-davvero ciò che sanno: la **linear representation hypothesis**, la **superposition** e
-la **polisemanticità**.
+## La linear representation hypothesis
 
-## I concetti sono direzioni, non lancette
+Considera lo stato interno del modello a un dato layer come un vettore in uno **spazio delle
+attivazioni** ad alta dimensionalità (per un modello di media grandezza, dell'ordine del
+migliaio di dimensioni). La **linear representation hypothesis** afferma che i concetti
+interpretabili sono codificati come *direzioni* in quello spazio: a un concetto corrisponde
+un vettore, e quanto il modello rappresenti quel concetto su un dato input è, in prima
+approssimazione, la proiezione dell'attivazione su quella direzione.
 
-Partiamo da un'idea più pulita del classico "un neurone, un concetto". Immagina lo stato
-interno del modello, a un certo layer, come una **freccia** sospesa in uno spazio a
-dimensionalità altissima: migliaia di dimensioni invece delle tre che riusciamo a
-visualizzare. Ogni volta che il modello elabora del testo, quella freccia punta in una
-direzione precisa.
-
-La **linear representation hypothesis** dice che i concetti dotati di significato
-corrispondono a particolari *direzioni* in quello spazio. "Questo testo è in francese" è
-una direzione. "Questa frase parla di soldi" è un'altra. Per capire se il modello sta
-rappresentando qualcosa in questo momento non leggi un singolo neurone: misuri **quanto
-la freccia è inclinata lungo la direzione di quel concetto**.
+Una **feature** è quindi una direzione, non un neurone. Per verificare se il modello
+rappresenta "questo testo è in francese" non ispezioni una singola coordinata: fai il
+prodotto scalare dell'attivazione con la direzione del francese e ne leggi la magnitudo. La
+prima evidenza di questo quadro è la struttura lineare dei word embedding, dove le relazioni
+semantiche compaiono come offset vettoriali consistenti (Mikolov et al., 2013).
 
 <figure>
   <img src="{{ '/assets/img/posts/linearity-word2vec.png' | relative_url }}"
        alt="Diagramma vettoriale disegnato a mano con le parole king, queen, man e woman, disposte in modo che lo spostamento da man a king corrisponda a quello da woman a queen.">
-  <figcaption>La classica analogia di word2vec: <em>king − man + woman ≈ queen</em>. Le relazioni semantiche emergono come spostamenti in linea retta nello spazio, il primo indizio che il significato è immagazzinato in modo <em>lineare</em>. (Mikolov et&nbsp;al., 2013; Park et&nbsp;al., 2024.)</figcaption>
+  <figcaption>La struttura lineare dei word embedding: le relazioni semantiche compaiono come offset vettoriali consistenti, con <em>king − man + woman ≈ queen</em>. Questa linearità nello spazio di input è la prima evidenza che il significato è codificato in direzioni. (Mikolov et&nbsp;al., 2013; Park et&nbsp;al., 2024.)</figcaption>
 </figure>
 
-> Pensa a un accordo musicale. Il suono che senti è una cosa sola, una singola forma
-> d'onda, ma è fatto di più note suonate insieme. Un orecchio allenato sa isolare ogni
-> nota. Lo stato interno del modello è l'accordo; i concetti sono le note;
-> l'interpretability è imparare a sentirle una alla volta.
+Applicata alle attivazioni interne invece che agli embedding di input, la stessa idea è ciò
+che rende trattabile l'interpretability: se un concetto è una direzione, può essere
+localizzato, misurato, monitorato e modificato con strumenti lineari.
 
 <figure>
   <img src="{{ '/assets/img/posts/feature-as-direction.png' | relative_url }}"
        alt="Assi 3D disegnati a mano ed etichettati neuron 1, 2 e 3, con una freccia rossa 'concept direction' che mescola tutti e tre gli assi invece di allinearsi a uno solo.">
-  <figcaption>Una feature non è un neurone. È una singola <em>direzione</em>, un vettore unitario costruito a partire da molti neuroni insieme, che punta con la sua angolazione attraverso lo spazio delle attivazioni. (A Mathematical Framework for Transformer Circuits, Anthropic.)</figcaption>
+  <figcaption>Una feature è una direzione, non un neurone: un vettore unitario composto da molti neuroni insieme, con una sua angolazione rispetto agli assi delle coordinate. (Elhage et&nbsp;al., <em>A Mathematical Framework for Transformer Circuits</em>, Anthropic.)</figcaption>
 </figure>
 
-Perché tutto questo conta così tanto? Perché se i concetti sono direzioni, allora sono
-*trovabili*. Puoi misurarli, monitorarli, persino spingerli un po', e farlo con
-strumenti lineari semplici invece di lottare con l'intera rete aggrovigliata. Una parte
-sorprendentemente grande dell'interpretability moderna si regge su questa singola ipotesi.
+## Nessuna base privilegiata: il significato è nelle direzioni, non nelle coordinate
 
-## Ruota gli assi, e i neuroni mentono
-
-Ecco un esperimento mentale che rende l'idea tagliente. Prendi l'intera nuvola dei
-vettori di attivazione e **ruota il sistema di coordinate**: lascia le frecce esattamente
-dove sono, limitandoti a girare gli assi rispetto a cui le misuri. Ogni singolo *valore
-di neurone* cambia. Ma gli **angoli tra le frecce, e i loro prodotti scalari, non si
-muovono di un millimetro**.
+Se le feature sono direzioni, i singoli assi dei neuroni non hanno alcuno status speciale, e
+un argomento standard lo rende preciso. Applica una rotazione ortogonale al sistema di
+coordinate, lasciando invariati i vettori di attivazione e girando solo gli assi rispetto a
+cui li leggiamo. Ogni *valore di neurone* cambia, ma ogni angolo e ogni prodotto scalare tra
+i vettori si conserva. Poiché la lettura della rappresentazione lineare dipende solo dai
+prodotti scalari, il contenuto rappresentato dal modello è invariante alla rotazione, mentre
+qualunque interpretazione ancorata a uno specifico neurone viene distrutta.
 
 <figure>
   <img src="{{ '/assets/img/posts/basis-rotation.png' | relative_url }}"
        alt="Due diagrammi disegnati a mano affiancati che mostrano gli stessi vettori con orientamenti degli assi diversi; l'angolo theta tra l'attivazione e la concept direction è identico in entrambi.">
-  <figcaption>Ruota gli assi (a destra) e ogni lettura dei neuroni cambia completamente, eppure l'angolo θ tra l'attivazione e la concept direction, la parte che porta davvero il significato, resta esattamente lo stesso.</figcaption>
+  <figcaption>Ruotare gli assi delle coordinate cambia ogni valore di neurone ma conserva tutti gli angoli e i prodotti scalari. Il contenuto rappresentato (la proiezione sulla concept direction, l'angolo θ) è invariante; un'interpretazione ancorata ai neuroni no.</figcaption>
 </figure>
 
-Quindi, se avessi appeso un'interpretazione a "il neurone 37 si attiva per X", una
-rotazione innocua l'avrebbe cancellata, pur calcolando il modello esattamente la stessa
-cosa. In uno spazio **senza una base privilegiata** gli assi sono solo un righello
-arbitrario. Il significato vive nella *geometria relativa* delle direzioni, non in una
-singola coordinata.
+È questo il senso in cui lo spazio delle attivazioni non ha una **base privilegiata**: gli
+assi delle coordinate sono un sistema di riferimento arbitrario, e il significato vive nella
+geometria relativa delle direzioni. C'è però una precisazione importante, perché non ogni
+spazio dentro un transformer è invariante per rotazione:
 
-Questa è la versione pulita. La versione onesta ha un risvolto che vale la pena
-conoscere: **non tutti gli spazi dentro al modello sono liberi di ruotare.**
+- Il **residual stream**, lo spazio di attivazioni condiviso da cui i componenti leggono e su
+  cui scrivono, non ha davvero una base privilegiata. Una rotazione può essere assorbita
+  nelle matrici di pesi circostanti senza cambiare la funzione della rete, quindi leggere una
+  sua singola dimensione isolata è privo di senso.
+- Lo **strato nascosto della MLP** è diverso. La sua nonlinearità element-wise (ReLU, GELU)
+  agisce su ciascuna coordinata indipendentemente, e questo *privilegia* la base: ruotare
+  quello spazio cambia la funzione che il layer calcola, quindi lì gli assi dei neuroni sono
+  oggetti dotati di significato.
 
-- Il **residual stream**, lo spazio di lavoro condiviso in cui i concetti vengono
-  scritti, non ha davvero una base privilegiata. Puoi ruotarlo e assorbire la rotazione
-  nelle matrici di pesi circostanti senza cambiare il comportamento della rete, quindi
-  leggere una sua singola dimensione isolata è genuinamente privo di senso.
-- Gli **hidden unit delle MLP** sono un'altra storia. La loro nonlinearità (ReLU/GELU)
-  agisce su ciascuna coordinata *separatamente*, e questo inchioda gli assi: ruota quello
-  spazio e cambi la funzione che il layer calcola. Lì gli assi dei neuroni sono reali.
+L'osservazione decisiva è che persino dove la base è privilegiata, le feature continuano a
+non allinearsi ai neuroni. Gli assi sono fissi, eppure le direzioni che il modello usa
+stanno con la propria angolazione rispetto a loro. Quel disallineamento non è un caso: è la
+firma della superposition.
 
-Ed è in questo secondo caso che la faccenda si fa interessante. Persino dove i neuroni
-*sono* oggetti privilegiati e reali, i concetti continuano a rifiutarsi di allinearsi a
-loro. Gli assi sono fissati, eppure le feature puntano comunque con le loro angolazioni
-testarde. Questa testardaggine ha un nome, ed è il prossimo pezzo del puzzle.
+## Superposition: rappresentare più feature delle dimensioni
 
-## Il rompicapo: troppe idee, poco spazio
+Un modello deve rappresentare molti più concetti delle dimensioni che ha: un layer con
+qualche migliaio di dimensioni tiene traccia di molte più di qualche migliaio di proprietà
+distinguibili del suo input. La **superposition** è come concilia questo fatto. Il modello
+codifica più direzioni di feature di quante siano le dimensioni, lasciandole solo
+*approssimativamente* ortogonali e facendole interferire un po'.
 
-Ecco la tensione. Un modello deve rappresentare un numero enorme di concetti, molti di
-più dei neuroni che ha. Un layer di media grandezza può avere qualche migliaio di
-dimensioni, ma il modello tiene chiaramente traccia di *molte* più di qualche migliaio
-di cose distinguibili sul suo input.
+Due fatti lo rendono possibile. Primo, gli spazi ad alta dimensionalità contengono
+esponenzialmente molte direzioni *quasi ortogonali*, così un gran numero di feature può
+coesistere con piccola interferenza reciproca. Secondo, i dati naturali sono **sparsi**: in
+ogni istante quasi ogni concetto è assente, dato che una frase su una ricetta francese non
+parla allo stesso tempo di teoria quantistica dei campi, basket e diritto contrattuale.
+Poiché solo poche feature sono attive alla volta, le loro direzioni collidono di rado, e il
+modello riesce a decodificarle nonostante la sovrapposizione. La superposition è, di fatto,
+uno schema di compressione appreso che scambia un po' di interferenza per un grande guadagno
+di capacità rappresentativa (Elhage et al., *Toy Models of Superposition*, 2022).
 
-Come fai a far stare diecimila concetti in uno spazio a mille dimensioni?
+## Polisemanticità: perché i singoli neuroni sembrano insensati
 
-Bari, con astuzia. Questa è la **superposition**: il modello stipa nello spazio molte più
-concept direction di quante siano le dimensioni, lasciandole *sovrapporre* un po'.
-Funziona grazie a un fatto silenzioso sul linguaggio: in un dato istante **quasi tutti i
-concetti sono assenti**. Una frase su una ricetta francese non parla allo stesso tempo
-di fisica quantistica, statistiche di basket e contratti legali. Visto che solo una
-manciata di concetti è "acceso" alla volta, le loro direzioni possono condividere lo
-spazio senza pestarsi i piedi troppo spesso.
+La superposition ha una conseguenza diretta e osservabile. Poiché le direzioni delle feature
+non sono allineate alla base dei neuroni, ogni singolo neurone partecipa a molte feature non
+correlate alla volta. Ispezionarlo mostra attivazione su una miscela apparentemente
+arbitraria, per esempio citazioni accademiche, il colore verde e una particolare costruzione
+grammaticale. Questa è la **polisemanticità**, ed è il motivo per cui l'ispezione a livello
+di neurone è inaffidabile: il neurone non è guasto, semplicemente non è mai stato l'unità di
+rappresentazione. La struttura vive in direzioni che attraversano i neuroni, e recuperare una
+descrizione un-concetto-per-unità, cioè la **monosemanticità**, richiede di cambiare base
+invece di leggere quella esistente.
 
-> Immagina un piccolo appartamento condiviso da cento coinquilini che non sono quasi mai
-> a casa nello stesso momento. Con un po' di fortuna e di organizzazione, cento persone
-> possono vivere in uno spazio costruito per dieci, *finché non si presentano tutte
-> insieme.* La superposition è il modello che fa esattamente questo con i concetti.
+## Dalla superposition al dictionary learning
 
-Per il modello è un ottimo affare: più capacità rappresentativa a costo zero. Ma è un
-incubo per chiunque provi a interpretarlo.
+Questo inquadra il problema pratico centrale. Se le unità dotate di significato sono
+direzioni, spalmate sui neuroni e sovrapposte per via della superposition, come recuperiamo
+un insieme pulito e monosemantico di feature dalle attivazioni aggrovigliate? Posto così, è
+un problema di **dictionary learning**: trovare un insieme overcomplete di direzioni tale che
+ogni attivazione sia una loro combinazione sparsa. È esattamente il compito degli **sparse
+autoencoder**, l'argomento della
+[prossima nota]({{ '/it/research/sparse-autoencoders/' | relative_url }}).
 
-## Il sintomo: i neuroni polisemantici
+Lo stesso quadro lineare sostiene anche il lavoro applicato sulla sicurezza. Nel nostro
+risultato sulla [separazione safe-unsafe]({{ '/#publications' | relative_url }}), una singola
+direzione nello spazio delle attivazioni basta per segnalare gli input non sicuri con una
+lettura lineare, senza modificare i pesi. L'ipotesi sviluppata qui è la fondazione su cui
+poggiano questi metodi.
 
-La superposition ha una conseguenza visibile, ed è proprio ciò che manda in frantumi il
-sogno "un neurone, un concetto": la **polisemanticità**.
+## In sintesi
 
-Siccome le concept direction non si allineano in modo pulito ai singoli neuroni, ogni
-neurone finisce per partecipare a *molti* concetti non correlati alla volta. Lo ispezioni
-e lo trovi che si attiva, mettiamo, per le citazioni accademiche *e* per il colore verde
-*e* per una particolare stranezza grammaticale: un guazzabuglio apparentemente privo di
-senso. Il neurone non è guasto. È solo che il modello non ha mai accettato di
-organizzarsi un-concetto-per-neurone. La struttura vera vive nelle *combinazioni* di
-neuroni, in direzioni che li attraversano.
-
-È per questo che fissare i neuroni quasi non dice nulla. È come provare a leggere un
-accordo esaminando una sola corda.
-
-## E allora cosa ci facciamo?
-
-Se le unità dotate di significato sono direzioni, e quelle direzioni sono spalmate sui
-neuroni e sovrapposte tra loro, la domanda pratica centrale diventa:
-
-**Come recuperiamo i concetti originali e puliti dal pasticcio sovrapposto?**
-
-È esattamente il compito degli **sparse autoencoder (SAE)**, l'argomento della
-[prossima nota]({{ '/it/research/sparse-autoencoders/' | relative_url }}). In breve:
-addestriamo una seconda piccola rete il cui unico scopo è "smescolare" le attivazioni in una lunga lista
-di feature che restano spente quasi sempre, rispecchiando la sparsità che ha reso
-possibile la superposition in primo luogo.
-
-È anche il motivo per cui il quadro lineare è più di una storia ben confezionata. Nel
-nostro lavoro sulla [separazione safe-unsafe]({{ '/#publications' | relative_url }}),
-l'intero metodo si appoggia su di esso: se "richiesta non sicura" è una direzione, allora
-una semplice lettura lungo quella direzione può segnalare gli input pericolosi, senza
-riaddestramento e senza interventi chirurgici sui pesi. L'ipotesi di questa nota è la
-fondazione su cui poggia quel risultato.
-
-## La versione in un paragrafo
-
-I modelli non immagazzinano i concetti nei neuroni; li immagazzinano come **direzioni**
-in uno spazio ad alta dimensionalità (la linear representation hypothesis). Per
-rappresentare più concetti di quante siano le dimensioni, lasciano quelle direzioni
-**sovrapporsi**, sfruttando il fatto che pochi concetti sono attivi alla volta (la
-superposition). L'effetto collaterale è che i singoli neuroni sembrano insensati, ognuno
-ingarbugliato in molti concetti non correlati (la polisemanticità). L'interpretability,
-allora, non consiste nel leggere i neuroni: consiste nel trovare le direzioni giuste.
+I modelli linguistici non rappresentano i concetti nei neuroni; li rappresentano come
+**direzioni** nello spazio delle attivazioni (la linear representation hypothesis). Poiché lo
+spazio non ha una **base privilegiata**, gli assi dei neuroni sono un riferimento arbitrario
+e il significato vive nella geometria relativa delle direzioni. Per rappresentare più feature
+delle dimensioni, il modello le mette in **superposition**, sfruttando la quasi-ortogonalità
+e la sparsità dei dati naturali, ed è questo a rendere i singoli neuroni **polisemantici**.
+L'interpretability non è quindi l'atto di leggere i neuroni, ma di recuperare le direzioni
+giuste, che è esattamente ciò che dictionary learning e sparse autoencoder si propongono di
+fare.
