@@ -22,7 +22,7 @@ description: "Notes on mechanistic interpretability — explained from scratch a
         <a class="glass-card research-card post-card" href="{{ post.url | relative_url }}"
             data-anim {% if forloop.index0 > 0 %}data-anim-delay="{{ forloop.index0 }}"{% endif %}>
             <div class="research-card-content">
-                <div class="research-card-date">{{ post.date | date: "%b %-d, %Y" }}</div>
+                <div class="research-card-date">{{ post.date | date: "%b %Y" }}</div>
                 <h3 class="research-card-title">{{ post.title }}</h3>
                 <p class="research-card-excerpt">
                     {{ post.description | default: post.excerpt | strip_html | truncate: 160 }}

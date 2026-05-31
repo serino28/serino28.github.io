@@ -2,7 +2,21 @@
 layout: default
 ---
 <article class="post container">
-  <a href="{{ '/research' | relative_url }}" class="post-back">← Research Notes</a>
+  <div class="post-topbar">
+    <a href="{{ '/research' | relative_url }}" class="post-back">← {% if page.lang == 'it' %}Note di ricerca{% else %}Research Notes{% endif %}</a>
+
+    {% if page.alt_url %}
+    <div class="lang-switch" aria-label="Language">
+      {% if page.lang == 'it' %}
+      <a class="lang-opt" href="{{ page.alt_url | relative_url }}" hreflang="en">EN</a>
+      <span class="lang-opt active" aria-current="true">IT</span>
+      {% else %}
+      <span class="lang-opt active" aria-current="true">EN</span>
+      <a class="lang-opt" href="{{ page.alt_url | relative_url }}" hreflang="it">IT</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
 
   <header class="post-header">
     {% if page.tags %}
@@ -12,9 +26,9 @@ layout: default
     {% endif %}
     <h1 class="post-title">{{ page.title }}</h1>
     <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %Y" }}</time>
       <span class="post-meta-sep">•</span>
-      <span>{{ content | number_of_words | divided_by: 200.0 | ceil }} min read</span>
+      <span>{{ content | number_of_words | divided_by: 200.0 | ceil }} {% if page.lang == 'it' %}min di lettura{% else %}min read{% endif %}</span>
     </div>
     {% if page.description %}<p class="post-lead">{{ page.description }}</p>{% endif %}
   </header>
@@ -24,6 +38,6 @@ layout: default
   </div>
 
   <footer class="post-footer">
-    <a href="{{ '/research' | relative_url }}" class="post-back">← Back to all notes</a>
+    <a href="{{ '/research' | relative_url }}" class="post-back">← {% if page.lang == 'it' %}Torna a tutte le note{% else %}Back to all notes{% endif %}</a>
   </footer>
 </article>
