@@ -62,6 +62,35 @@ title: "Home"
     </div>
 </section>
 
+<!-- Safety: latent-space geometry -->
+<section id="safety-viz" class="container">
+    <div class="section-header" data-anim>
+        <span class="section-dot"></span>
+        <h2 class="section-title">The Geometry of Safety</h2>
+    </div>
+    <div class="safety-grid">
+        <div class="safety-copy" data-anim>
+            <p class="safety-lead">Safety isn't scattered randomly across a model's mind. Inside a
+                pretrained LLM's activation space, <strong>safe and unsafe instructions fall on opposite
+                    sides of a single linear direction.</strong></p>
+            <p class="safety-text">My <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
+                    rel="noopener">EACL&nbsp;2026 work</a> locates that direction and turns it into a lightweight,
+                <em>weight-free</em> safeguard — robust across 8&nbsp;domains, 3&nbsp;tasks and 16&nbsp;non-English
+                languages. At <strong>NTU&nbsp;Singapore</strong> I'm pushing the idea further:
+                <em>AI safety through mechanistic interpretability.</em></p>
+            <div class="safety-legend">
+                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
+                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
+                <span class="safety-key"><span class="safety-dot plane"></span> learned boundary</span>
+            </div>
+        </div>
+        <div class="safety-stage" data-anim data-anim-delay="1">
+            <div id="latent3d"></div>
+            <p class="safety-hint">Drag to rotate · the plane is the safety direction</p>
+        </div>
+    </div>
+</section>
+
 <!-- Publications -->
 <section id="publications" class="container">
     <div class="section-header" data-anim>

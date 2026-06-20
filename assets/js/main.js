@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initEasterEgg();
     initSnakeGame();
     initGlobe();
+    initLatent3d();
     initYear();
 });
 
@@ -602,6 +603,113 @@ function initGlobe() {
         window.addEventListener('resize', applySize, { passive: true });
     }
     applySize();
+}
+
+/* ===== SAFETY LATENT-SPACE 3D (three.js) ===== */
+function makeDiscTexture() {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.3, 'rgba(255,255,255,0.85)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+}
+
+function initLatent3d() {
+    const el = document.getElementById('latent3d');
+    if (!el || typeof THREE === 'undefined' || !window.LATENT_POINTS) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SAFE = 0x2dd4bf, UNSAFE = 0xfb7185, ACCENT = 0x7c8cf0;
+
+    const sizeFor = () => {
+        const w = el.clientWidth || el.parentElement.clientWidth || 600;
+        const h = Math.max(340, Math.min(520, Math.round(w * 0.78)));
+        return { w, h };
+    };
+    let { w, h } = sizeFor();
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0a0f, 0.06);
+
+    const camera = new THREE.PerspectiveCamera(52, w / h, 0.1, 100);
+    camera.position.set(4.2, 1.8, 4.6);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(w, h);
+    el.appendChild(renderer.domElement);
+
+    const sprite = makeDiscTexture();
+    const cloud = (arr, color) => {
+        const g = new THREE.BufferGeometry();
+        const pos = new Float32Array(arr.length * 3);
+        for (let i = 0; i < arr.length; i++) {
+            pos[i * 3] = arr[i][0];
+            pos[i * 3 + 1] = arr[i][1];
+            pos[i * 3 + 2] = arr[i][2];
+        }
+        g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const m = new THREE.PointsMaterial({
+            size: 0.16, map: sprite, color: color, transparent: true, opacity: 0.9,
+            depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
+        });
+        return new THREE.Points(g, m);
+    };
+    scene.add(cloud(window.LATENT_POINTS.safe, SAFE));
+    scene.add(cloud(window.LATENT_POINTS.unsafe, UNSAFE));
+
+    // The separating hyperplane (normal along x) — the "single direction"
+    const planeGeo = new THREE.PlaneGeometry(5.2, 5.2);
+    const plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
+        color: ACCENT, transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false
+    }));
+    plane.rotation.y = Math.PI / 2;
+    scene.add(plane);
+    const edge = new THREE.LineSegments(
+        new THREE.EdgesGeometry(planeGeo),
+        new THREE.LineBasicMaterial({ color: ACCENT, transparent: true, opacity: 0.45 })
+    );
+    edge.rotation.y = Math.PI / 2;
+    scene.add(edge);
+
+    // Arrow showing the safety direction
+    const arrow = new THREE.ArrowHelper(
+        new THREE.Vector3(1, 0, 0), new THREE.Vector3(-3, -2.6, 0), 6, ACCENT, 0.45, 0.28
+    );
+    scene.add(arrow);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.autoRotate = !reduce;
+    controls.autoRotateSpeed = 0.7;
+    el.addEventListener('pointerenter', () => { controls.autoRotate = false; });
+    el.addEventListener('pointerleave', () => { controls.autoRotate = !reduce; });
+
+    (function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    })();
+
+    const applySize = () => {
+        const s = sizeFor();
+        camera.aspect = s.w / s.h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(s.w, s.h);
+    };
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(applySize).observe(el);
+    } else {
+        window.addEventListener('resize', applySize, { passive: true });
+    }
 }
 
 /* ===== YEAR ===== */
