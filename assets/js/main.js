@@ -628,7 +628,7 @@ function initLatent3d() {
 
     const sizeFor = () => {
         const w = el.clientWidth || el.parentElement.clientWidth || 600;
-        const h = Math.max(340, Math.min(520, Math.round(w * 0.78)));
+        const h = Math.max(320, Math.min(460, Math.round(w * 1.0)));
         return { w, h };
     };
     let { w, h } = sizeFor();

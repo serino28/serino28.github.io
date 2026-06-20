@@ -5,18 +5,27 @@ title: "Home"
 
 <section class="hero container">
     <div class="hero-grid">
-        <div class="hero-content" data-anim>
+        <div class="hero-safety" data-anim>
+            <div id="latent3d"></div>
+            <div class="hero-safety-foot">
+                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
+                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
+                <span class="safety-key"><span class="safety-dot plane"></span> direction</span>
+            </div>
+        </div>
+
+        <div class="hero-content" data-anim data-anim-delay="1">
             <span class="hero-badge">AI • NLP • Interpretability</span>
             <h1 class="hero-title">Antonio Serino</h1>
             <p class="hero-motto">Create like a child, edit like a scientist.</p>
             <p class="hero-description">
                 PhD student at the University of Milano-Bicocca, focusing on <strong>AI & NLP</strong>.
-                My research investigates the internal mechanics of Transformer-based Language Models using
-                <strong>mechanistic interpretability</strong> to understand <em>how</em> they build representations
-                and make decisions. The goal: develop robust <strong>evaluation</strong> and
-                <strong>explanation</strong>
-                techniques ensuring AI systems are aligned with human values. I love multi-disciplinary work
-                and sugar-free coffee.
+                My research investigates the internal mechanics of Transformer-based Language Models through
+                <strong>mechanistic interpretability</strong> — <em>how</em> they build representations and make
+                decisions — with a particular focus on the <strong>geometry of safety</strong>: the directions in
+                a model's activation space that tell safe from unsafe. The goal: robust <strong>evaluation</strong>
+                and <strong>explanation</strong> techniques that keep AI systems aligned with human values.
+                I love multi-disciplinary work and sugar-free coffee.
             </p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">Contact Me</a>
@@ -27,9 +36,17 @@ title: "Home"
                 <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank" rel="noopener"
                     class="btn btn-secondary">Scholar</a>
             </div>
+
+            <div class="safety-callout">
+                <span class="safety-callout-arrow" aria-hidden="true">←</span>
+                <span class="safety-callout-body">
+                    <span class="safety-callout-title">The geometry of safety</span>
+                    <span class="safety-callout-sub">live — one direction splits safe from unsafe</span>
+                </span>
+            </div>
         </div>
 
-        <div class="hero-visual" data-anim data-anim-delay="1">
+        <div class="hero-visual" data-anim data-anim-delay="2">
             <div class="avatar-container">
                 <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager"
                     width="300" height="300">
@@ -58,35 +75,6 @@ title: "Home"
                     </a>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Safety: latent-space geometry -->
-<section id="safety-viz" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">The Geometry of Safety</h2>
-    </div>
-    <div class="safety-grid">
-        <div class="safety-copy" data-anim>
-            <p class="safety-lead">Safety isn't scattered randomly across a model's mind. Inside a
-                pretrained LLM's activation space, <strong>safe and unsafe instructions fall on opposite
-                    sides of a single linear direction.</strong></p>
-            <p class="safety-text">My <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
-                    rel="noopener">EACL&nbsp;2026 work</a> locates that direction and turns it into a lightweight,
-                <em>weight-free</em> safeguard — robust across 8&nbsp;domains, 3&nbsp;tasks and 16&nbsp;non-English
-                languages. At <strong>NTU&nbsp;Singapore</strong> I'm pushing the idea further:
-                <em>AI safety through mechanistic interpretability.</em></p>
-            <div class="safety-legend">
-                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
-                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
-                <span class="safety-key"><span class="safety-dot plane"></span> learned boundary</span>
-            </div>
-        </div>
-        <div class="safety-stage" data-anim data-anim-delay="1">
-            <div id="latent3d"></div>
-            <p class="safety-hint">Drag to rotate · the plane is the safety direction</p>
         </div>
     </div>
 </section>
