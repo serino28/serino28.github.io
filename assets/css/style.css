@@ -874,15 +874,43 @@ a.pub-title:hover .pub-link-icon {
 }
 
 /* ===== MAP ===== */
-.map-container {
+.globe-container {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-color);
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(102, 126, 234, 0.10) 0%, transparent 60%),
+    var(--bg-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#map {
-  height: 400px;
+#globe {
   width: 100%;
+}
+
+#globe canvas {
+  display: block;
+  margin: 0 auto;
+  cursor: grab;
+}
+
+#globe canvas:active {
+  cursor: grabbing;
+}
+
+.globe-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
 /* ===== AWARDS ===== */
@@ -892,6 +920,15 @@ a.pub-title:hover .pub-link-icon {
   gap: 16px;
   padding: 24px 0;
   border-bottom: 1px solid var(--border-color);
+}
+
+.award-item:first-child {
+  padding-top: 0;
+}
+
+.award-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .award-icon {

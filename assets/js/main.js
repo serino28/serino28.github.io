@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNowPlaying();
     initEasterEgg();
     initSnakeGame();
-    initMap();
+    initGlobe();
     initYear();
 });
 
@@ -508,22 +508,15 @@ class SnakeGame {
     }
 }
 
-/* ===== LEAFLET MAP ===== */
-function initMap() {
-    const mapEl = document.getElementById('map');
-    if (!mapEl || !window.L) return;
+/* ===== INTERACTIVE 3D GLOBE (globe.gl) ===== */
+function initGlobe() {
+    const el = document.getElementById('globe');
+    if (!el || typeof Globe === 'undefined') return;
 
-    const map = L.map('map', {
-        zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: true
-    }).setView([41.1621, 12.5], 4);
+    const ACCENT = '#667eea';
+    const VISIT = '#f5a623'; // distinct colour for the upcoming visiting stint
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© OpenStreetMap © CARTO'
-    }).addTo(map);
-
-    const publications = [
+    const locations = [
         { lat: 34.0209, lng: -6.8416, label: '<strong>EACL 2026</strong> — Rabat<br>Safe-Unsafe Concept Separation' },
         { lat: 31.2989, lng: 120.5853, label: '<strong>EMNLP 2025</strong> — Suzhou<br>SFAL: Auto-Interpretability' },
         { lat: 41.1621, lng: -8.6291, label: '<strong>ECML-PKDD 2025</strong> — Porto<br>Disce aut Deficere' },
@@ -532,29 +525,47 @@ function initMap() {
         { lat: 42.8782, lng: -8.5449, label: '<strong>ECAI 2024</strong> — Santiago<br>Evaluative AI' },
         { lat: 35.9375, lng: 14.5001, label: '<strong>XAI World 2024</strong> — Malta<br>🏆 Best Presentation' },
         { lat: 41.9028, lng: 12.4964, label: '<strong>AIxIA 2023</strong> — Rome<br>Skills-Hunter' },
-        { lat: 33.3617, lng: 126.5292, label: '<strong>XAI-IJCAI 2024</strong> — Jeju<br>Augmenting XAI' }
+        { lat: 33.3617, lng: 126.5292, label: '<strong>XAI-IJCAI 2024</strong> — Jeju<br>Augmenting XAI' },
+        { lat: 1.3483, lng: 103.6831, visiting: true, label: '<strong>NTU Singapore</strong> — Visiting 2026<br>AI Safety through Mechanistic Interpretability' }
     ];
 
-    const bounds = [];
+    const colorFor = d => d.visiting ? VISIT : ACCENT;
+    const height = 480;
 
-    // Custom marker icon
-    const markerIcon = L.divIcon({
-        className: 'custom-marker',
-        html: '<div style="width:12px;height:12px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;border:2px solid white;box-shadow:0 0 10px rgba(102,126,234,0.5);"></div>',
-        iconSize: [12, 12],
-        iconAnchor: [6, 6]
-    });
+    const globe = Globe()(el)
+        .width(el.clientWidth)
+        .height(height)
+        .backgroundColor('rgba(0,0,0,0)')
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .showAtmosphere(true)
+        .atmosphereColor(ACCENT)
+        .atmosphereAltitude(0.16)
+        .pointsData(locations)
+        .pointColor(colorFor)
+        .pointAltitude(0.02)
+        .pointRadius(0.42)
+        .pointLabel('label')
+        .ringsData(locations)
+        .ringColor(d => {
+            const c = d.visiting ? '245,166,35' : '102,126,234';
+            return t => `rgba(${c},${1 - t})`;
+        })
+        .ringMaxRadius(3)
+        .ringPropagationSpeed(1.4)
+        .ringRepeatPeriod(1500);
 
-    publications.forEach(pub => {
-        L.marker([pub.lat, pub.lng], { icon: markerIcon })
-            .addTo(map)
-            .bindPopup(pub.label);
-        bounds.push([pub.lat, pub.lng]);
-    });
+    // Frame the world and rotate gently; let users grab and spin it
+    globe.pointOfView({ lat: 25, lng: 25, altitude: 2.3 });
+    const controls = globe.controls();
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.6;
+    controls.enableZoom = false; // keep page scrolling natural over the globe
+    el.addEventListener('pointerdown', () => { controls.autoRotate = false; });
 
-    if (bounds.length) {
-        map.fitBounds(bounds, { padding: [30, 30] });
-    }
+    window.addEventListener('resize', () => {
+        globe.width(el.clientWidth);
+    }, { passive: true });
 }
 
 /* ===== YEAR ===== */
