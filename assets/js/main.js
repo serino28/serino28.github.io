@@ -517,35 +517,63 @@ function initGlobe() {
     const VISIT = '#f5a623'; // distinct colour for the upcoming visiting stint
 
     const locations = [
-        { lat: 34.0209, lng: -6.8416, label: '<strong>EACL 2026</strong> — Rabat<br>Safe-Unsafe Concept Separation' },
-        { lat: 31.2989, lng: 120.5853, label: '<strong>EMNLP 2025</strong> — Suzhou<br>SFAL: Auto-Interpretability' },
-        { lat: 41.1621, lng: -8.6291, label: '<strong>ECML-PKDD 2025</strong> — Porto<br>Disce aut Deficere' },
-        { lat: 45.5017, lng: -73.5673, label: '<strong>IJCAI 2025</strong> — Montreal<br>Terminator Economy' },
-        { lat: 37.5022, lng: 15.0873, label: '<strong>ACM SAC 2025</strong> — Catania<br>SkiLLMo' },
-        { lat: 42.8782, lng: -8.5449, label: '<strong>ECAI 2024</strong> — Santiago<br>Evaluative AI' },
-        { lat: 35.9375, lng: 14.5001, label: '<strong>XAI World 2024</strong> — Malta<br>🏆 Best Presentation' },
-        { lat: 41.9028, lng: 12.4964, label: '<strong>AIxIA 2023</strong> — Rome<br>Skills-Hunter' },
-        { lat: 33.3617, lng: 126.5292, label: '<strong>XAI-IJCAI 2024</strong> — Jeju<br>Augmenting XAI' },
-        { lat: 1.3483, lng: 103.6831, visiting: true, label: '<strong>NTU Singapore</strong> — Visiting 2026<br>AI Safety through Mechanistic Interpretability' }
+        { lat: 34.0209, lng: -6.8416, tag: 'EACL 2026', venue: 'EACL 2026 · Rabat',
+          title: 'Safe-Unsafe Concept Separation Emerges from a Single Direction in Language Models Activation Space' },
+        { lat: 31.2989, lng: 120.5853, tag: 'EMNLP 2025', venue: 'EMNLP 2025 · Suzhou',
+          title: 'SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of Auto-Interpretability in Sparse Autoencoders' },
+        { lat: 41.1621, lng: -8.6291, tag: 'ECML-PKDD 2025', venue: 'ECML-PKDD 2025 · Porto',
+          title: 'Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian Benchmark' },
+        { lat: 45.5017, lng: -73.5673, tag: 'IJCAI 2025', venue: 'IJCAI 2025 · Montreal',
+          title: 'Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs' },
+        { lat: 37.5022, lng: 15.0873, tag: 'ACM SAC 2025', venue: 'ACM SAC 2025 · Catania',
+          title: 'SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models' },
+        { lat: 42.8782, lng: -8.5449, tag: 'ECAI 2024', venue: 'ECAI 2024 · Santiago',
+          title: 'An approach to Evaluative AI through Large Language Models' },
+        { lat: 35.9375, lng: 14.5001, tag: 'xAI 2024 🏆', venue: 'xAI World Conference 2024 · Malta 🏆',
+          title: 'Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation' },
+        { lat: 33.3617, lng: 126.5292, tag: 'IJCAI 2024', venue: 'XAI Workshop @ IJCAI 2024 · Jeju',
+          title: 'Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation' },
+        { lat: 41.9028, lng: 12.4964, tag: 'AIxIA 2023', venue: 'AIxIA 2023 · Rome',
+          title: 'Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction' },
+        { lat: 1.3483, lng: 103.6831, visiting: true, tag: 'NTU Singapore', venue: 'NTU Singapore · Visiting 2026',
+          title: 'AI Safety through Mechanistic Interpretability' }
     ];
 
     const colorFor = d => d.visiting ? VISIT : ACCENT;
-    const height = 480;
+    locations.forEach(d => {
+        d.label = `<div class="globe-tip"><strong>${d.venue}</strong>${d.title}</div>`;
+    });
+
+    const sizeFor = () => {
+        const w = el.clientWidth || el.parentElement.clientWidth || 600;
+        const h = Math.max(360, Math.min(560, Math.round(w * 0.62)));
+        return { w, h };
+    };
+
+    const { w, h } = sizeFor();
 
     const globe = Globe()(el)
-        .width(el.clientWidth)
-        .height(height)
+        .width(w)
+        .height(h)
         .backgroundColor('rgba(0,0,0,0)')
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
-        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .globeImageUrl('/assets/img/earth-dark.jpg')
+        .bumpImageUrl('/assets/img/earth-topology.png')
         .showAtmosphere(true)
         .atmosphereColor(ACCENT)
         .atmosphereAltitude(0.16)
         .pointsData(locations)
         .pointColor(colorFor)
         .pointAltitude(0.02)
-        .pointRadius(0.42)
+        .pointRadius(0.5)
         .pointLabel('label')
+        .labelsData(locations)
+        .labelText('tag')
+        .labelColor(colorFor)
+        .labelSize(0.9)
+        .labelDotRadius(0.4)
+        .labelResolution(2)
+        .labelAltitude(0.01)
+        .labelLabel('label')
         .ringsData(locations)
         .ringColor(d => {
             const c = d.visiting ? '245,166,35' : '102,126,234';
@@ -556,16 +584,24 @@ function initGlobe() {
         .ringRepeatPeriod(1500);
 
     // Frame the world and rotate gently; let users grab and spin it
-    globe.pointOfView({ lat: 25, lng: 25, altitude: 2.3 });
+    globe.pointOfView({ lat: 25, lng: 25, altitude: 2.4 });
     const controls = globe.controls();
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.6;
+    controls.autoRotateSpeed = 0.45;
     controls.enableZoom = false; // keep page scrolling natural over the globe
-    el.addEventListener('pointerdown', () => { controls.autoRotate = false; });
+    // Pause rotation while the user is reading / interacting
+    el.addEventListener('pointerenter', () => { controls.autoRotate = false; });
+    el.addEventListener('pointerleave', () => { controls.autoRotate = true; });
 
-    window.addEventListener('resize', () => {
-        globe.width(el.clientWidth);
-    }, { passive: true });
+    // Robust sizing: handle the container being measured at 0 width on load
+    // (e.g. while off-screen) and keep the globe responsive afterwards.
+    const applySize = () => { const s = sizeFor(); globe.width(s.w).height(s.h); };
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(applySize).observe(el);
+    } else {
+        window.addEventListener('resize', applySize, { passive: true });
+    }
+    applySize();
 }
 
 /* ===== YEAR ===== */

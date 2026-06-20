@@ -913,6 +913,26 @@ a.pub-title:hover .pub-link-icon {
   pointer-events: none;
 }
 
+/* Marker tooltip (shown on hover over a globe point/label) */
+.globe-tip {
+  max-width: 260px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #fff;
+  white-space: normal;
+}
+
+.globe-tip strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #b9c2ff;
+}
+
 /* ===== AWARDS ===== */
 .award-item {
   display: flex;
