@@ -5,27 +5,21 @@ title: "Home"
 
 <section class="hero container">
     <div class="hero-grid">
-        <div class="hero-safety" data-anim>
-            <div id="latent3d"></div>
-            <div class="hero-safety-foot">
-                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
-                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
-                <span class="safety-key"><span class="safety-dot plane"></span> direction</span>
-            </div>
-        </div>
-
-        <div class="hero-content" data-anim data-anim-delay="1">
+        <div class="hero-content" data-anim>
             <span class="hero-badge">AI • NLP • Interpretability</span>
             <h1 class="hero-title">Antonio Serino</h1>
             <p class="hero-motto">Create like a child, edit like a scientist.</p>
             <p class="hero-description">
-                PhD student at the University of Milano-Bicocca, focusing on <strong>AI & NLP</strong>.
-                My research investigates the internal mechanics of Transformer-based Language Models through
-                <strong>mechanistic interpretability</strong> — <em>how</em> they build representations and make
-                decisions — with a particular focus on the <strong>geometry of safety</strong>: the directions in
-                a model's activation space that tell safe from unsafe. The goal: robust <strong>evaluation</strong>
-                and <strong>explanation</strong> techniques that keep AI systems aligned with human values.
-                I love multi-disciplinary work and sugar-free coffee.
+                Ph.D. candidate in AI and NLP at the University of Milan-Bicocca. My research explores the
+                internal mechanisms of Transformer-based language models through
+                <strong>mechanistic interpretability</strong>, that is, how they construct representations and
+                make decisions, with a particular focus on the
+                <button type="button" class="safety-trigger" id="safety-trigger" aria-haspopup="dialog"
+                    aria-controls="safety-modal"><span class="safety-word">safety</span><span class="safety-ico"
+                        aria-hidden="true">⤢</span></button>
+                of Large Language Models. My goal is to develop robust evaluation and explanation techniques that
+                ensure AI systems remain aligned with human values, with the aim of creating transparent and safe
+                decision-support systems. I love interdisciplinary work and sugar-free coffee.
             </p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">Contact Me</a>
@@ -36,17 +30,9 @@ title: "Home"
                 <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank" rel="noopener"
                     class="btn btn-secondary">Scholar</a>
             </div>
-
-            <div class="safety-callout">
-                <span class="safety-callout-arrow" aria-hidden="true">←</span>
-                <span class="safety-callout-body">
-                    <span class="safety-callout-title">The geometry of safety</span>
-                    <span class="safety-callout-sub">live — one direction splits safe from unsafe</span>
-                </span>
-            </div>
         </div>
 
-        <div class="hero-visual" data-anim data-anim-delay="2">
+        <div class="hero-visual" data-anim data-anim-delay="1">
             <div class="avatar-container">
                 <img class="avatar" src="assets/img/Antonio.jpeg" alt="Portrait of Antonio Serino" loading="eager"
                     width="300" height="300">
@@ -78,6 +64,29 @@ title: "Home"
         </div>
     </div>
 </section>
+
+<!-- Safety geometry modal (opened from the "safety" word in the bio) -->
+<div id="safety-modal" class="safety-modal" aria-hidden="true">
+    <div class="safety-modal-card" role="dialog" aria-modal="true" aria-labelledby="safety-modal-title">
+        <button class="safety-modal-close" id="safety-modal-close" aria-label="Close">&times;</button>
+        <span class="safety-modal-badge">Mechanistic interpretability · live</span>
+        <h3 class="safety-modal-title" id="safety-modal-title">How safety concepts can be geometrically organized
+            within a pre-trained language model</h3>
+        <div class="safety-modal-stage">
+            <div id="latent3d"></div>
+        </div>
+        <div class="safety-modal-foot">
+            <div class="safety-legend-row">
+                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
+                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
+                <span class="safety-key"><span class="safety-dot plane"></span> safety direction</span>
+            </div>
+            <p class="safety-modal-note">Safe and unsafe representations fall on opposite sides of a single linear
+                direction — the basis of my <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
+                    rel="noopener">EACL&nbsp;2026</a> weight-free safeguard. Drag to rotate.</p>
+        </div>
+    </div>
+</div>
 
 <!-- Publications -->
 <section id="publications" class="container">

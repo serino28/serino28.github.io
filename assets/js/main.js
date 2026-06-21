@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initEasterEgg();
     initSnakeGame();
     initGlobe();
-    initLatent3d();
+    initSafetyModal();
     initYear();
 });
 
@@ -621,14 +621,15 @@ function makeDiscTexture() {
 
 function initLatent3d() {
     const el = document.getElementById('latent3d');
-    if (!el || typeof THREE === 'undefined' || !window.LATENT_POINTS) return;
+    if (!el || el.dataset.init || typeof THREE === 'undefined' || !window.LATENT_POINTS) return;
+    el.dataset.init = '1';
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const SAFE = 0x2dd4bf, UNSAFE = 0xfb7185, ACCENT = 0x7c8cf0;
 
     const sizeFor = () => {
         const w = el.clientWidth || el.parentElement.clientWidth || 600;
-        const h = Math.max(320, Math.min(460, Math.round(w * 1.0)));
+        const h = Math.max(300, Math.min(Math.round(w * 0.62), Math.round(window.innerHeight * 0.58)));
         return { w, h };
     };
     let { w, h } = sizeFor();
@@ -710,6 +711,42 @@ function initLatent3d() {
     } else {
         window.addEventListener('resize', applySize, { passive: true });
     }
+}
+
+/* ===== SAFETY MODAL (opens the latent-space viz from the bio) ===== */
+function initSafetyModal() {
+    const trigger = document.getElementById('safety-trigger');
+    const modal = document.getElementById('safety-modal');
+    const closeBtn = document.getElementById('safety-modal-close');
+    if (!trigger || !modal) return;
+
+    let built = false;
+
+    const open = () => {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // Build the WebGL viz lazily, once the modal has a measurable size
+        if (!built) {
+            built = true;
+            requestAnimationFrame(() => initLatent3d());
+        }
+        if (closeBtn) closeBtn.focus();
+    };
+
+    const close = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        trigger.focus();
+    };
+
+    trigger.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) close();
+    });
 }
 
 /* ===== YEAR ===== */
