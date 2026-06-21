@@ -7,6 +7,10 @@ baseurl: ""
 markdown: kramdown
 highlighter: rouge
 
+# Plugins (whitelisted on GitHub Pages)
+plugins:
+  - jekyll-sitemap
+
 # Exclude from build
 exclude:
   - README.md
