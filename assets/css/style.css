@@ -1,5 +1,5 @@
 /* =====================================================
-   ANTONIO SERINO — PERSONAL WEBSITE
+   ANTONIO SERINO: PERSONAL WEBSITE
    Design System: Dark Elegant Tech + Glassmorphism
    ===================================================== */
 
@@ -24,10 +24,7 @@
   --accent-end: #764ba2;
   --accent-gradient: linear-gradient(135deg, var(--accent-start), var(--accent-end));
   --accent-glow: 0 0 30px rgba(102, 126, 234, 0.3);
-  
-  /* Spotify */
-  --spotify-green: #1DB954;
-  
+
   /* Sizing */
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -535,18 +532,6 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   background-clip: text;
 }
 
-.hero-motto {
-  font-size: 1.25rem;
-  font-style: italic;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-  padding-left: 16px;
-  border-left: 3px solid var(--accent-start);
-}
-
-.hero-motto::before { content: '"'; }
-.hero-motto::after { content: '"'; }
-
 .hero-description {
   font-size: 1.1rem;
   color: var(--text-secondary);
@@ -560,52 +545,48 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   flex-wrap: wrap;
 }
 
-.hero-visual {
+.hero-side {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 24px;
 }
 
-.avatar-container {
-  position: relative;
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 1;
+.focus-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-start);
 }
 
-.avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--border-color);
-  transition: all var(--transition-base);
+.focus-kicker:not(:first-child) {
+  margin-top: 20px;
 }
 
-.avatar-container::before {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: calc(var(--radius-lg) + 4px);
-  background: conic-gradient(from 0deg, var(--accent-start), var(--accent-end), var(--accent-start));
-  opacity: 0.45;
-  z-index: -1;
-  filter: blur(10px);
-  animation: avatar-spin 9s linear infinite;
-  transition: opacity var(--transition-base);
+.focus-text {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-@keyframes avatar-spin {
-  to { transform: rotate(360deg); }
+.play-card {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.avatar-container:hover::before {
-  opacity: 0.85;
+.play-placeholder {
+  text-align: center;
+  color: var(--text-muted);
 }
 
-.avatar-container:hover .avatar {
-  transform: scale(1.02);
+.play-icon {
+  display: block;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
 }
 
 /* ===== BUTTONS ===== */
@@ -749,119 +730,6 @@ section {
 
 .subsection-label:first-of-type {
   margin-top: -12px;
-}
-
-/* ===== NOW PLAYING WIDGET ===== */
-.now-playing {
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  max-width: 300px;
-}
-
-.now-playing-header {
-  padding: 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: color var(--transition-fast);
-}
-
-.now-playing-header:hover {
-  color: var(--text-secondary);
-}
-
-.now-playing-toggle {
-  font-size: 1.25rem;
-  transition: transform var(--transition-base);
-}
-
-.now-playing.open .now-playing-toggle {
-  transform: rotate(45deg);
-}
-
-.now-playing-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-
-.now-playing.open .now-playing-content {
-  max-height: 500px;
-}
-
-.now-playing-cover {
-  position: relative;
-  aspect-ratio: 1;
-  margin: 0 16px;
-}
-
-.now-playing-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  animation: album-glow 4s ease-in-out infinite;
-}
-
-@keyframes album-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(118, 75, 162, 0.5); }
-}
-
-.now-playing-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-}
-
-.now-playing-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-}
-
-.now-playing-artist {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.7);
-  margin: 4px 0 0;
-}
-
-.now-playing-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 16px;
-  padding: 12px;
-  background: var(--spotify-green);
-  color: white;
-  border-radius: var(--radius-sm);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all var(--transition-fast);
-}
-
-.now-playing-link:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
-  color: white;
 }
 
 /* ===== PUBLICATIONS LIST ===== */
@@ -1445,7 +1313,7 @@ a.pub-title:hover .pub-link-icon {
 }
 
 /* ===== ANIMATIONS ===== */
-/* Only hide content when JS is available to reveal it again — otherwise the
+/* Only hide content when JS is available to reveal it again: otherwise the
    page stays fully visible for no-JS users and assistive tooling. */
 .js [data-anim] {
   opacity: 0;
@@ -1850,9 +1718,8 @@ a.lang-opt:hover {
     text-align: center;
   }
 
-  .hero-visual {
-    order: -1;
-    align-items: center;
+  .hero-side {
+    text-align: left;
   }
 
   .hero-content {
@@ -1861,10 +1728,6 @@ a.lang-opt:hover {
 
   .hero-cta {
     justify-content: center;
-  }
-
-  .hero-motto {
-    text-align: left;
   }
 
   .exp-grid {
@@ -1927,11 +1790,7 @@ a.lang-opt:hover {
   .hero {
     padding-top: calc(var(--nav-height) + 40px);
   }
-  
-  .avatar-container {
-    max-width: 220px;
-  }
-  
+
   .footer-content {
     flex-direction: column;
     text-align: center;

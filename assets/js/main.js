@@ -1,6 +1,6 @@
 /* =====================================================
    ANTONIO SERINO: MAIN JAVASCRIPT
-   Features: Theme Toggle, Animations, Snake Game, Albums
+   Features: Theme Toggle, Animations, Snake Game
    ===================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollProgress();
     initCardSpotlight();
     initScrollAnimations();
-    initNowPlaying();
     initEasterEgg();
     initSnakeGame();
     initGlobe();
@@ -126,84 +125,6 @@ function initScrollAnimations() {
     }, { threshold: 0.1 });
 
     elements.forEach(el => observer.observe(el));
-}
-
-/* ===== NOW PLAYING (ALBUM WIDGET) ===== */
-const ALBUMS = [
-    // The Weeknd
-    { title: 'After Hours', artist: 'The Weeknd', img: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png', spotifyUrl: 'https://open.spotify.com/album/4yP0hdKOZPNshxUOjY0cZj' },
-    { title: 'Starboy', artist: 'The Weeknd', img: 'https://upload.wikimedia.org/wikipedia/en/3/39/The_Weeknd_-_Starboy.png', spotifyUrl: 'https://open.spotify.com/album/2ODvWsOgouMbaA5xf0RkJe' },
-    { title: 'Dawn FM', artist: 'The Weeknd', img: 'https://upload.wikimedia.org/wikipedia/en/b/b9/The_Weeknd_-_Dawn_FM.png', spotifyUrl: 'https://open.spotify.com/album/2nLOHgzXzwFEpl62zAgCEC' },
-
-    // Drake
-    { title: 'Take Care', artist: 'Drake', img: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Drake_-_Take_Care_cover.jpg', spotifyUrl: 'https://open.spotify.com/album/6X1x82kppWZmDzlXXK3y3q' },
-    { title: 'Nothing Was The Same', artist: 'Drake', img: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Nothing_Was_the_Same_cover_2.png', spotifyUrl: 'https://open.spotify.com/album/4mR7DzBrP5t1xFBiwgFpgy' },
-
-    // Kanye West
-    { title: 'Graduation', artist: 'Kanye West', img: 'https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_%28album%29.jpg', spotifyUrl: 'https://open.spotify.com/album/4SZko61aMnmgvNhfhgTuD3' },
-    { title: 'My Beautiful Dark Twisted Fantasy', artist: 'Kanye West', img: 'https://upload.wikimedia.org/wikipedia/en/a/a3/My_Beautiful_Dark_Twisted_Fantasy.jpg', spotifyUrl: 'https://open.spotify.com/album/20r762YmB5HeofjMCiPMLv' },
-
-    // Dua Lipa
-    { title: 'Future Nostalgia', artist: 'Dua Lipa', img: 'https://upload.wikimedia.org/wikipedia/en/f/f5/Dua_Lipa_-_Future_Nostalgia_%28Official_Album_Cover%29.png', spotifyUrl: 'https://open.spotify.com/album/5lKlFlReHOLShQKyRv6AL9' },
-
-    // Ariana Grande
-    { title: 'Dangerous Woman', artist: 'Ariana Grande', img: 'https://upload.wikimedia.org/wikipedia/en/4/4b/Ariana_Grande_-_Dangerous_Woman_%28Official_Album_Cover%29.png', spotifyUrl: 'https://open.spotify.com/album/3pdKBLSvnFIHVKxHOJCheT' },
-    { title: 'thank u, next', artist: 'Ariana Grande', img: 'https://upload.wikimedia.org/wikipedia/en/d/dd/Thank_U%2C_Next_album_cover.png', spotifyUrl: 'https://open.spotify.com/album/2fYhqwDWXjbpZSRaWoNqRv' },
-
-    // Michael Jackson
-    { title: 'Thriller', artist: 'Michael Jackson', img: 'https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png', spotifyUrl: 'https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ' },
-    { title: 'Bad', artist: 'Michael Jackson', img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Michael_Jackson_-_Bad.png', spotifyUrl: 'https://open.spotify.com/album/1gIC63gC3B7o7FfpPACZQJ' },
-
-    // Tyler, The Creator
-    { title: 'IGOR', artist: 'Tyler, The Creator', img: 'https://upload.wikimedia.org/wikipedia/en/5/51/Igor_-_Tyler%2C_the_Creator.jpg', spotifyUrl: 'https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE' },
-    { title: 'CHROMAKOPIA', artist: 'Tyler, The Creator', img: 'https://upload.wikimedia.org/wikipedia/en/0/03/Chromakopia.jpg', spotifyUrl: 'https://open.spotify.com/album/0U28P0QVB1QRxpqp5IHOlH' },
-
-    // Phil Collins
-    { title: 'Face Value', artist: 'Phil Collins', img: 'https://upload.wikimedia.org/wikipedia/en/a/a1/Facevaluealbum.jpg', spotifyUrl: 'https://open.spotify.com/album/58SshOWr7rXdnsbD9IrAAE' },
-
-    // Duran Duran
-    { title: 'Rio', artist: 'Duran Duran', img: 'https://upload.wikimedia.org/wikipedia/en/8/8e/DuranDuranRio.jpg', spotifyUrl: 'https://open.spotify.com/album/3LWIZJX8whRH2TqNVKFmPK' },
-
-    // Queen
-    { title: 'A Night at the Opera', artist: 'Queen', img: 'https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png', spotifyUrl: 'https://open.spotify.com/album/1GbtB4zTqAsyfZEsm1RZfx' },
-
-    // Prince
-    { title: 'Purple Rain', artist: 'Prince', img: 'https://upload.wikimedia.org/wikipedia/en/9/9c/Princepurplerain.jpg', spotifyUrl: 'https://open.spotify.com/album/7nXJ5k4XgRj5OLg9m8V3zc' },
-    { title: 'Sign o\' the Times', artist: 'Prince', img: 'https://upload.wikimedia.org/wikipedia/en/c/c8/Prince_Sign_O_the_Times.jpg', spotifyUrl: 'https://open.spotify.com/album/5sG7foNBBsI9yYlfu26qxY' },
-
-    // Frank Ocean
-    { title: 'Blonde', artist: 'Frank Ocean', img: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg', spotifyUrl: 'https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf' }
-];
-
-function dailyIndex(n) {
-    const d = new Date();
-    const seed = d.getFullYear() * 1000 + (d.getMonth() + 1) * 50 + d.getDate();
-    return seed % n;
-}
-
-function initNowPlaying() {
-    const widget = document.getElementById('now-playing');
-    const trigger = document.getElementById('now-playing-trigger');
-    const img = document.getElementById('now-playing-img');
-    const title = document.getElementById('now-playing-title');
-    const artist = document.getElementById('now-playing-artist');
-    const link = document.getElementById('now-playing-link');
-
-    if (!widget || !img) return;
-
-    const album = ALBUMS[dailyIndex(ALBUMS.length)];
-
-    img.src = album.img;
-    img.alt = `${album.title} by ${album.artist}`;
-    if (title) title.textContent = album.title;
-    if (artist) artist.textContent = album.artist;
-    if (link) link.href = album.spotifyUrl;
-
-    if (trigger) {
-        trigger.addEventListener('click', () => {
-            widget.classList.toggle('open');
-        });
-    }
 }
 
 /* ===== EASTER EGG: Triple-click on footer hint ===== */
