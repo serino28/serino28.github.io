@@ -735,6 +735,31 @@ section {
   letter-spacing: 0.02em;
 }
 
+/* Groups content within a section (e.g. "Awards" / "HPC Grants" under
+   "Awards & Grants") without the weight of a full section-header. */
+.subsection-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin: 32px 0 16px;
+}
+
+.subsection-label:first-of-type {
+  margin-top: -12px;
+}
+
+/* One-line context under a section title (e.g. Publications' count/span) */
+.section-lead {
+  margin-top: -20px;
+  margin-bottom: 28px;
+  max-width: 640px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
 /* ===== NOW PLAYING WIDGET ===== */
 .now-playing {
   background: var(--bg-glass);
@@ -943,32 +968,12 @@ a.pub-title:hover .pub-link-icon {
   color: var(--accent-start);
 }
 
-/* ===== PROJECTS GRID ===== */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.project-card {
-  padding: 32px;
-}
-
-.project-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-}
-
-.project-desc {
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
+/* ===== TAG ROW (reused by blog post cards and experience entries) ===== */
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 8px;
 }
 
 .tag {
