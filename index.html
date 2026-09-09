@@ -34,11 +34,24 @@ title: "Home"
         <div class="hero-side">
             <div class="glass-card focus-card" data-anim data-anim-delay="1">
                 <h3 class="focus-kicker">What I'm focused on</h3>
-                <!-- TODO(Antonio): replace with your real text -->
-                <p class="focus-text">Placeholder: paste here what you've been focusing on lately.</p>
+                <p class="focus-text">The recent <a href="https://huggingface.co/blog/security-incident-july-2026"
+                        target="_blank" rel="noopener">security incident involving an autonomous AI agent</a> at
+                    Hugging Face, the first documented large-scale attack orchestrated by an AI agent, has pushed me
+                    to focus even harder on AI safety through mechanistic interpretability. I'm investigating
+                    localized geometric representations: how safety-relevant features emerge not only in the
+                    residual stream, but also within attention-head subspaces and the MLP, and how they propagate
+                    through the network to produce misaligned behavior. I'm also exploring whether the
+                    representation of certain emotions relates to model alignment. My guiding principle: the more an
+                    internal geometric structure can steer a model's behavior, the more it deserves to be
+                    interpreted.</p>
                 <h3 class="focus-kicker">Questions I ask myself</h3>
-                <!-- TODO(Antonio): replace with your real text -->
-                <p class="focus-text">Placeholder: paste here the questions you keep coming back to.</p>
+                <p class="focus-text">Mechanistic interpretability lets us probe a model's internal components to
+                    monitor, control, and interpret the geometric structures that drive its behavior. That raises
+                    two questions I keep coming back to. On monitoring and control: can we build "transmission"
+                    methods across the different internal sites where a feature is represented, tracking and
+                    steering it end to end rather than at a single layer? On interpretation: are there real-world
+                    LLM applications, in security or other sensitive domains, that genuinely require decision-making,
+                    and could they become the bridge between mechanistic interpretability and classical XAI?</p>
             </div>
 
             <div class="glass-card play-card" data-anim data-anim-delay="2">
