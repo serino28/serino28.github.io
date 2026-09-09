@@ -313,7 +313,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: center;
+  align-items: start;
 }
 
 .hero-content {
@@ -569,24 +569,6 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
-}
-
-.play-card {
-  min-height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.play-placeholder {
-  text-align: center;
-  color: var(--text-muted);
-}
-
-.play-icon {
-  display: block;
-  font-size: 1.8rem;
-  margin-bottom: 8px;
 }
 
 /* ===== BUTTONS ===== */
