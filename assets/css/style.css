@@ -902,6 +902,17 @@ a.pub-title:hover .pub-link-icon {
   transform: translate(2px, -2px);
 }
 
+.pub-authors {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.pub-authors strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .pub-venue {
   font-size: 0.9rem;
   color: var(--accent-start);

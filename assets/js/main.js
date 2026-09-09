@@ -1,5 +1,5 @@
 /* =====================================================
-   ANTONIO SERINO — MAIN JAVASCRIPT
+   ANTONIO SERINO: MAIN JAVASCRIPT
    Features: Theme Toggle, Animations, Snake Game, Albums
    ===================================================== */
 
@@ -537,7 +537,7 @@ function initGlobe() {
         { lat: 41.9028, lng: 12.4964, tag: 'AIxIA 2023', venue: 'AIxIA 2023 · Rome',
           title: 'Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction' },
         { lat: 1.3483, lng: 103.6831, visiting: true, tag: 'NTU Singapore', venue: 'NTU Singapore · Visiting Researcher',
-          title: 'AI Safety through Mechanistic Interpretability — with Prof. Erik Cambria (Aug 2026–Jan 2027)' }
+          title: 'AI Safety through Mechanistic Interpretability (with Prof. Erik Cambria, Aug 2026–Jan 2027)' }
     ];
 
     const colorFor = d => d.visiting ? VISIT : ACCENT;
@@ -664,7 +664,7 @@ function initLatent3d() {
     scene.add(cloud(window.LATENT_POINTS.safe, SAFE));
     scene.add(cloud(window.LATENT_POINTS.unsafe, UNSAFE));
 
-    // The separating hyperplane (normal along x) — the "single direction"
+    // The separating hyperplane (normal along x): the "single direction"
     const planeGeo = new THREE.PlaneGeometry(5.2, 5.2);
     const plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
         color: ACCENT, transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false

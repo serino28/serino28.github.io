@@ -82,7 +82,7 @@ title: "Home"
                 <span class="safety-key"><span class="safety-dot plane"></span> safety direction</span>
             </div>
             <p class="safety-modal-note">Safe and unsafe representations fall on opposite sides of a single linear
-                direction — the basis of my <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
+                direction, the basis of my <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
                     rel="noopener">EACL&nbsp;2026</a> weight-free safeguard. Drag to rotate.</p>
         </div>
     </div>
@@ -100,11 +100,15 @@ title: "Home"
                 <div class="pub-info">
                     <div class="pub-title">Addressing the Concept Faithfulness Gap through Probe-Guided Sparse
                         Autoencoders</div>
-                    <div class="pub-venue">EMNLP 2026 (Findings) — Budapest, Hungary</div>
-                    <p class="pub-desc">With Lorenzo Malandri and Fabio Mercorio. We tackle the faithfulness gap in
-                        Sparse Autoencoders — the mismatch between the concepts a feature claims to encode and what
-                        actually drives model behavior — by using linear probes to guide SAE training toward
-                        features that are both interpretable and causally faithful.</p>
+                    <div class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></div>
+                    <div class="pub-venue">EMNLP 2026 (Findings), Budapest, Hungary</div>
+                    <p class="pub-desc">Sparse Autoencoders (SAEs) often produce features that look interpretable but
+                        fail to predict task-relevant concepts like toxicity or sentiment, a mismatch we call the
+                        concept faithfulness gap. We introduce ProbeSAE, a probing-guided fine-tuning framework that
+                        closes this gap, yielding a more monosemantic sparse decomposition that stays causally
+                        effective. Evaluated on two SAE architectures and two domains across six languages, despite
+                        training only on English data, ProbeSAE learns language-independent, faithful features and
+                        passes SAEBench evaluation, ruling out simple overfitting.</p>
                 </div>
                 <div class="pub-year">2026<br><span class="pub-status">to appear</span></div>
             </li>
@@ -113,7 +117,9 @@ title: "Home"
                     <a class="pub-title" href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
                         rel="noopener">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language
                         Models Activation Space <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">EACL 2026 — Rabat, Morocco</div>
+                    <div class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, <strong>Antonio
+                            Serino</strong></div>
+                    <div class="pub-venue">EACL 2026, Rabat, Morocco</div>
                     <p class="pub-desc">We identify the layer where safe/unsafe concepts are maximally separable in
                         pretrained LLMs. A simple linear classifier on internal representations provides robust
                         safeguarding without weight modification, validated across 8 domains, 3 tasks, and 16
@@ -126,7 +132,9 @@ title: "Home"
                     <a class="pub-title" href="https://aclanthology.org/2025.emnlp-industry.39/" target="_blank"
                         rel="noopener">SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of
                         Auto-Interpretability in Sparse Autoencoders <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">EMNLP 2025 (Industry Track) — Suzhou, China</div>
+                    <div class="pub-authors">Fabio Mercorio, Filippo Pallucchini, Daniele Potertì, <strong>Antonio
+                            Serino</strong>, Andrea Seveso</div>
+                    <div class="pub-venue">EMNLP 2025 (Industry Track), Suzhou, China</div>
                     <p class="pub-desc">We propose SFAL, a novel evaluation framework that measures how well
                         LLM-generated feature explanations align with actual feature behavior. Unlike costly
                         simulation-based methods, SFAL uses embedding-based semantic similarity for fast, scalable
@@ -139,7 +147,9 @@ title: "Home"
                     <a class="pub-title" href="https://arxiv.org/abs/2406.17535" target="_blank"
                         rel="noopener">Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian
                         Benchmark <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">ECML-PKDD 2025 — Porto, Portugal</div>
+                    <div class="pub-authors">Fabio Mercorio, Mario Mezzanzanica, Daniele Potertì, <strong>Antonio
+                            Serino</strong>, Andrea Seveso</div>
+                    <div class="pub-venue">ECML-PKDD 2025, Porto, Portugal</div>
                     <p class="pub-desc">We introduce a rigorous benchmark using official Italian INVALSI standardized
                         tests to evaluate LLMs' linguistic versatility beyond English. Our analysis reveals significant
                         performance gaps between multilingual claims and actual non-English language understanding.</p>
@@ -151,7 +161,9 @@ title: "Home"
                     <a class="pub-title" href="https://www.ijcai.org/proceedings/2025/1066" target="_blank"
                         rel="noopener">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs
                         <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">IJCAI 2025 — Montreal, Canada</div>
+                    <div class="pub-authors">Emilio Colombo, Fabio Mercorio, Mario Mezzanzanica, <strong>Antonio
+                            Serino</strong></div>
+                    <div class="pub-venue">IJCAI 2025, Montreal, Canada</div>
                     <p class="pub-desc">We formalize TEAI (Task Exposure to AI Index), a data-driven framework using
                         LLMs to systematically assess AI automation potential across U.S. occupations. Our methodology
                         enables granular task-level analysis of workforce vulnerability to AI displacement.</p>
@@ -163,7 +175,8 @@ title: "Home"
                     <a class="pub-title" href="https://dl.acm.org/doi/10.1145/3672608.3707960" target="_blank"
                         rel="noopener">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models
                         <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">ACM SAC 2025 — Catania, Italy</div>
+                    <div class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></div>
+                    <div class="pub-venue">ACM SAC 2025, Catania, Italy</div>
                     <p class="pub-desc">A complete pipeline combining Transformers and LLMs to extract skills from job
                         advertisements and map them to the standardized ESCO taxonomy. Our approach addresses the
                         critical challenge of skill normalization for labour market analytics.</p>
@@ -175,7 +188,9 @@ title: "Home"
                     <a class="pub-title" href="https://boa.unimib.it/handle/10281/526422" target="_blank"
                         rel="noopener">An approach to Evaluative AI through Large Language Models
                         <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">ECAI 2024 — Santiago de Compostela, Spain</div>
+                    <div class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, Navid Nobani,
+                        <strong>Antonio Serino</strong></div>
+                    <div class="pub-venue">ECAI 2024, Santiago de Compostela, Spain</div>
                     <p class="pub-desc">We introduce EADS (Evaluative AI Decision Support), a framework that integrates
                         LLMs into decision-making processes by generating structured pros/cons evaluations. This enables
                         transparent, conversational explanations that augment human judgment.</p>
@@ -187,7 +202,10 @@ title: "Home"
                     <a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-3-031-63787-2_11"
                         target="_blank" rel="noopener">Augmenting XAI with LLMs: A Case Study in Banking Marketing
                         Recommendation <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">XAI World Conference @ IJCAI 2024 — Malta 🏆</div>
+                    <div class="pub-authors">Alessandro Castelnovo, Roberto Depalmas, Fabio Mercorio, Nicolò
+                        Mombelli, Daniele Potertì, <strong>Antonio Serino</strong>, Andrea Seveso, Salvatore
+                        Sorrentino, Laura Viola</div>
+                    <div class="pub-venue">XAI World Conference @ IJCAI 2024, Malta 🏆</div>
                     <p class="pub-desc">We demonstrate how Generative AI can transform opaque ML model outputs into
                         human-readable natural language explanations for recommender systems in banking. Awarded Best
                         Presentation for bridging the gap between technical XAI and end-user understanding.</p>
@@ -199,7 +217,7 @@ title: "Home"
                     <a class="pub-title" href="https://ceur-ws.org/Vol-3670/paper87.pdf" target="_blank"
                         rel="noopener">Skills-Hunter: adapting Large Language Models to the Labour Market for Skill
                         Extraction <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">AIxIA 2023 — Rome, Italy</div>
+                    <div class="pub-venue">AIxIA 2023, Rome, Italy</div>
                     <p class="pub-desc">Our pioneering work on leveraging LLMs for automated skill extraction from job
                         postings, addressing the fundamental data labelling bottleneck that had limited previous
                         approaches to labour market analysis.</p>
@@ -298,10 +316,10 @@ title: "Home"
                     <li class="exp-item">
                         <div>
                             <div class="exp-role">Visiting Researcher</div>
-                            <div class="exp-org">Nanyang Technological University (NTU), Singapore — with Prof.
-                                Erik Cambria</div>
+                            <div class="exp-org">Nanyang Technological University (NTU), Singapore (with Prof.
+                                Erik Cambria)</div>
                             <p class="exp-desc">Researching AI safety through mechanistic interpretability, funded by
-                                the Ermenegildo Zegna Founder's Scholarship.</p>
+                                the Ermenegildo Zegna Founder's Scholarship and the University of Milan-Bicocca.</p>
                         </div>
                         <div class="exp-date">Aug 2026 – Jan 2027</div>
                     </li>
@@ -335,20 +353,20 @@ title: "Home"
             <div class="glass-card" data-anim>
                 <ul class="exp-list">
                     <li class="exp-item">
-                        <div class="exp-role">ECML-PKDD — Research Track</div>
+                        <div class="exp-role">ECML-PKDD, Research Track</div>
                         <div class="exp-date">2024</div>
                     </li>
                     <li class="exp-item">
-                        <div class="exp-role">COLING — Industry Track</div>
+                        <div class="exp-role">COLING, Industry Track</div>
                         <div class="exp-date">2025</div>
                     </li>
                     <li class="exp-item">
                         <div class="exp-role">Knowledge-Based Systems (Q1)</div>
-                        <div class="exp-date">—</div>
+                        <div class="exp-date">Ongoing</div>
                     </li>
                     <li class="exp-item">
                         <div class="exp-role">Intl. Journal of IT & Decision Making (Q2)</div>
-                        <div class="exp-date">—</div>
+                        <div class="exp-date">Ongoing</div>
                     </li>
                 </ul>
             </div>
@@ -366,19 +384,19 @@ title: "Home"
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-date">2023 – now</div>
-                <h3 class="timeline-title">PhD — Big Data & Analytics</h3>
+                <h3 class="timeline-title">PhD in Big Data & Analytics</h3>
                 <p class="timeline-desc">University of Milano-Bicocca. Researching NLP, LLM Evaluation, and Explainable
                     AI.</p>
             </div>
             <div class="timeline-item">
                 <div class="timeline-date">2021 – 2023</div>
-                <h3 class="timeline-title">MSc — Data Science</h3>
+                <h3 class="timeline-title">MSc in Data Science</h3>
                 <p class="timeline-desc">University of Milano-Bicocca. Skills in Python, Machine Learning, Deep
                     Learning, and NLP.</p>
             </div>
             <div class="timeline-item">
                 <div class="timeline-date">2018 – 2021</div>
-                <h3 class="timeline-title">BSc — Computer Science</h3>
+                <h3 class="timeline-title">BSc in Computer Science</h3>
                 <p class="timeline-desc">University of Bari. Skills in C, C++, Java, Algorithms, and Data Structures.
                 </p>
             </div>
@@ -397,8 +415,8 @@ title: "Home"
             <span class="award-icon">🎓</span>
             <div class="award-info">
                 <div class="award-title">Ermenegildo Zegna Founder's Scholarship</div>
-                <p class="award-desc">Funding part of my visiting research period at NTU Singapore, under the
-                    supervision of Prof. Erik Cambria, for my project
+                <p class="award-desc">Co-funds, alongside the University of Milan-Bicocca, my visiting research
+                    period at NTU Singapore under the supervision of Prof. Erik Cambria, for my project
                     <em>"AI Safety through Mechanistic Interpretability."</em> Recipients are selected based on
                     academic excellence, leadership potential, the quality of their proposed research, and their
                     commitment to giving a positive contribution to society.</p>
