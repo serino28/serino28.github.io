@@ -751,15 +751,6 @@ section {
   margin-top: -12px;
 }
 
-/* One-line context under a section title (e.g. Publications' count/span) */
-.section-lead {
-  margin-top: -20px;
-  margin-bottom: 28px;
-  max-width: 640px;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
-
 /* ===== NOW PLAYING WIDGET ===== */
 .now-playing {
   background: var(--bg-glass);
