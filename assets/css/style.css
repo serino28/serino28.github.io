@@ -919,6 +919,17 @@ a.pub-title:hover .pub-link-icon {
   font-size: 0.875rem;
   color: var(--text-muted);
   white-space: nowrap;
+  text-align: right;
+}
+
+.pub-status {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-start);
 }
 
 /* ===== PROJECTS GRID ===== */
@@ -1926,5 +1937,6 @@ a.lang-opt:hover {
   
   .pub-year {
     order: -1;
+    text-align: left;
   }
 }

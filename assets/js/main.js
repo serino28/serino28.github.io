@@ -536,8 +536,8 @@ function initGlobe() {
           title: 'Augmenting XAI with LLMs: A Case Study in Banking Marketing Recommendation' },
         { lat: 41.9028, lng: 12.4964, tag: 'AIxIA 2023', venue: 'AIxIA 2023 · Rome',
           title: 'Skills-Hunter: adapting Large Language Models to the Labour Market for Skill Extraction' },
-        { lat: 1.3483, lng: 103.6831, visiting: true, tag: 'NTU Singapore', venue: 'NTU Singapore · Visiting 2026',
-          title: 'AI Safety through Mechanistic Interpretability' }
+        { lat: 1.3483, lng: 103.6831, visiting: true, tag: 'NTU Singapore', venue: 'NTU Singapore · Visiting Researcher',
+          title: 'AI Safety through Mechanistic Interpretability — with Prof. Erik Cambria (Aug 2026–Jan 2027)' }
     ];
 
     const colorFor = d => d.visiting ? VISIT : ACCENT;
