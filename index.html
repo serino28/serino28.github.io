@@ -1,466 +1,71 @@
 ---
 layout: default
-title: "Home"
 ---
+<h1 class="name">Antonio Serino</h1>
 
-<section class="hero container">
-    <div class="hero-grid">
-        <div class="hero-content" data-anim>
-            <span class="hero-badge">AI • NLP • Interpretability</span>
-            <h1 class="hero-title">Antonio Serino</h1>
-            <p class="hero-description">
-                Ph.D. student in AI and NLP at the University of Milan-Bicocca. My research explores the
-                internal mechanisms of Transformer-based language models through
-                <strong>mechanistic interpretability</strong>, that is, how they construct representations and
-                make decisions, with a particular focus on the
-                <button type="button" class="safety-trigger" id="safety-trigger" aria-haspopup="dialog"
-                    aria-controls="safety-modal"><span class="safety-word">safety</span><span class="safety-ico"
-                        aria-hidden="true">⤢</span></button>
-                of Large Language Models. My goal is to develop robust evaluation and explanation techniques that
-                ensure AI systems remain aligned with human values, with the aim of creating transparent and safe
-                decision-support systems. I love interdisciplinary work and sugar-free coffee.
-            </p>
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Contact Me</a>
-                <a href="https://github.com/serino28" target="_blank" rel="noopener"
-                    class="btn btn-secondary">GitHub</a>
-                <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank" rel="noopener"
-                    class="btn btn-secondary">LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank" rel="noopener"
-                    class="btn btn-secondary">Scholar</a>
-            </div>
-        </div>
+<section class="bio">
+    <p>Hi! I am Antonio, a PhD student in Data Science and Artificial Intelligence at the 🇮🇹 University of
+        Milano-Bicocca, working on the interpretability and safety of large language models. I am currently a
+        Visiting Researcher at 🇸🇬 Nanyang Technological University. My supervisors are Fabio Mercorio and
+        Lorenzo Malandri in Italy, and Erik Cambria in Singapore.</p>
 
-        <div class="hero-side">
-            <div class="glass-card focus-card" data-anim data-anim-delay="1">
-                <h3 class="focus-kicker">What I'm focused on</h3>
-                <p class="focus-text">The recent <a href="https://huggingface.co/blog/security-incident-july-2026"
-                        target="_blank" rel="noopener">security incident involving an autonomous AI agent</a> at
-                    Hugging Face, the first documented large-scale attack orchestrated by an AI agent, has pushed me
-                    to focus even harder on AI safety through mechanistic interpretability. I'm investigating
-                    localized geometric representations: how safety-relevant features emerge not only in the
-                    residual stream, but also within attention-head subspaces and the MLP, and how they propagate
-                    through the network to produce misaligned behavior. I'm also exploring whether the
-                    representation of certain emotions relates to model alignment. My guiding principle: the more an
-                    internal geometric structure can steer a model's behavior, the more it deserves to be
-                    interpreted.</p>
-                <h3 class="focus-kicker">Questions I ask myself</h3>
-                <p class="focus-text">Mechanistic interpretability lets us probe a model's internal components to
-                    monitor, control, and interpret the geometric structures that drive its behavior. That raises
-                    two questions I keep coming back to. On monitoring and control: can we build "transmission"
-                    methods across the different internal sites where a feature is represented, tracking and
-                    steering it end to end rather than at a single layer? On interpretation: are there real-world
-                    LLM applications, in security or other sensitive domains, that genuinely require decision-making,
-                    and could they become the bridge between mechanistic interpretability and classical XAI?</p>
-            </div>
-            <!-- TODO: game widget goes here once decided (e.g. chess vs an engine).
-                 Revisit whether it fits under focus-card or needs its own layout. -->
-        </div>
-    </div>
+    <p>🔬 My research sits at the intersection of mechanistic interpretability, representation engineering and AI
+        safety. I study how language models encode safety-critical features in latent geometric spaces, how these
+        can be faithfully interpreted, and how that geometry can be used to steer and control the internal
+        mechanisms behind a model's behavior.</p>
+
+    <p>🎓 I am an Ermenegildo Zegna Founder's Scholar, and I contribute to high-performance computing research on
+        the Leonardo supercomputer, both as Principal Investigator and as a team member.</p>
+
+    <p>Outside of research, I enjoy interdisciplinary work and sugar-free coffee.</p>
+
+    <p class="links">
+        <a href="mailto:a.serino3@campus.unimib.it">Email</a>
+        <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank" rel="noopener">Scholar</a>
+        <a href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank"
+            rel="noopener">LinkedIn</a>
+    </p>
 </section>
 
-<!-- Safety geometry modal (opened from the "safety" word in the bio) -->
-<div id="safety-modal" class="safety-modal" aria-hidden="true">
-    <div class="safety-modal-card" role="dialog" aria-modal="true" aria-labelledby="safety-modal-title">
-        <button class="safety-modal-close" id="safety-modal-close" aria-label="Close">&times;</button>
-        <span class="safety-modal-badge">Mechanistic interpretability · live</span>
-        <h3 class="safety-modal-title" id="safety-modal-title">How safety concepts can be geometrically organized
-            within a pre-trained language model</h3>
-        <div class="safety-modal-stage">
-            <div id="latent3d"></div>
-        </div>
-        <div class="safety-modal-foot">
-            <div class="safety-legend-row">
-                <span class="safety-key"><span class="safety-dot safe"></span> safe</span>
-                <span class="safety-key"><span class="safety-dot unsafe"></span> unsafe</span>
-                <span class="safety-key"><span class="safety-dot plane"></span> safety direction</span>
-            </div>
-            <p class="safety-modal-note">Safe and unsafe representations fall on opposite sides of a single linear
-                direction, the basis of my <a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
-                    rel="noopener">EACL&nbsp;2026</a> weight-free safeguard. Drag to rotate.</p>
-        </div>
-    </div>
-</div>
+<section class="pubs">
+    <h2 class="label">Selected publications</h2>
 
-<!-- Publications -->
-<section id="publications" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">Publications</h2>
-    </div>
-    <div class="glass-card" data-anim>
-        <ul class="pub-list">
-            <li class="pub-item">
-                <div class="pub-info">
-                    <div class="pub-title">Addressing the Concept Faithfulness Gap through Probe-Guided Sparse
-                        Autoencoders</div>
-                    <div class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></div>
-                    <div class="pub-venue">EMNLP 2026 (Findings), Budapest, Hungary</div>
-                    <p class="pub-desc">Sparse Autoencoders (SAEs) often produce features that look interpretable but
-                        fail to predict task-relevant concepts like toxicity or sentiment, a mismatch we call the
-                        concept faithfulness gap. We introduce ProbeSAE, a probing-guided fine-tuning framework that
-                        closes this gap, yielding a more monosemantic sparse decomposition that stays causally
-                        effective. Evaluated on two SAE architectures and two domains across six languages, despite
-                        training only on English data, ProbeSAE learns language-independent, faithful features and
-                        passes SAEBench evaluation, ruling out simple overfitting.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI Safety &amp; MechInt</span>
-                    </div>
-                </div>
-                <div class="pub-year">2026<br><span class="pub-status">to appear</span></div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
-                        rel="noopener">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language
-                        Models Activation Space <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, <strong>Antonio
-                            Serino</strong></div>
-                    <div class="pub-venue">EACL 2026, Rabat, Morocco</div>
-                    <p class="pub-desc">We identify the layer where safe/unsafe concepts are maximally separable in
-                        pretrained LLMs. A simple linear classifier on internal representations provides robust
-                        safeguarding without weight modification, validated across 8 domains, 3 tasks, and 16
-                        non-English languages.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI Safety &amp; MechInt</span>
-                    </div>
-                </div>
-                <div class="pub-year">2026</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://aclanthology.org/2025.emnlp-industry.39/" target="_blank"
-                        rel="noopener">SFAL: Semantic-Functional Alignment Scores for Distributional Evaluation of
-                        Auto-Interpretability in Sparse Autoencoders <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Fabio Mercorio, Filippo Pallucchini, Daniele Potertì, <strong>Antonio
-                            Serino</strong>, Andrea Seveso</div>
-                    <div class="pub-venue">EMNLP 2025 (Industry Track), Suzhou, China</div>
-                    <p class="pub-desc">We propose SFAL, a novel evaluation framework that measures how well
-                        LLM-generated feature explanations align with actual feature behavior. Unlike costly
-                        simulation-based methods, SFAL uses embedding-based semantic similarity for fast, scalable
-                        assessment of auto-interpretability quality.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI Safety &amp; MechInt</span>
-                        <span class="tag">XAI, Trustworthy AI</span>
-                    </div>
-                </div>
-                <div class="pub-year">2025</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://arxiv.org/abs/2406.17535" target="_blank"
-                        rel="noopener">Disce aut Deficere: Evaluating LLMs Proficiency on the INVALSI Italian
-                        Benchmark <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Fabio Mercorio, Mario Mezzanzanica, Daniele Potertì, <strong>Antonio
-                            Serino</strong>, Andrea Seveso</div>
-                    <div class="pub-venue">ECML-PKDD 2025, Porto, Portugal</div>
-                    <p class="pub-desc">We introduce a rigorous benchmark using official Italian INVALSI standardized
-                        tests to evaluate LLMs' linguistic versatility beyond English. Our analysis reveals significant
-                        performance gaps between multilingual claims and actual non-English language understanding.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI Application</span>
-                    </div>
-                </div>
-                <div class="pub-year">2025</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://www.ijcai.org/proceedings/2025/1066" target="_blank"
-                        rel="noopener">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs
-                        <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Emilio Colombo, Fabio Mercorio, Mario Mezzanzanica, <strong>Antonio
-                            Serino</strong></div>
-                    <div class="pub-venue">IJCAI 2025, Montreal, Canada</div>
-                    <p class="pub-desc">We formalize TEAI (Task Exposure to AI Index), a data-driven framework using
-                        LLMs to systematically assess AI automation potential across U.S. occupations. Our methodology
-                        enables granular task-level analysis of workforce vulnerability to AI displacement.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI &amp; Labor Market</span>
-                    </div>
-                </div>
-                <div class="pub-year">2025</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://dl.acm.org/doi/10.1145/3672608.3707960" target="_blank"
-                        rel="noopener">SkiLLMo: Normalized ESCO Skill Extraction through Transformer Models
-                        <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></div>
-                    <div class="pub-venue">ACM SAC 2025, Catania, Italy</div>
-                    <p class="pub-desc">A complete pipeline combining Transformers and LLMs to extract skills from job
-                        advertisements and map them to the standardized ESCO taxonomy. Our approach addresses the
-                        critical challenge of skill normalization for labour market analytics.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI &amp; Labor Market</span>
-                    </div>
-                </div>
-                <div class="pub-year">2025</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://boa.unimib.it/handle/10281/526422" target="_blank"
-                        rel="noopener">An approach to Evaluative AI through Large Language Models
-                        <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, Navid Nobani,
-                        <strong>Antonio Serino</strong></div>
-                    <div class="pub-venue">ECAI 2024, Santiago de Compostela, Spain</div>
-                    <p class="pub-desc">We introduce EADS (Evaluative AI Decision Support), a framework that integrates
-                        LLMs into decision-making processes by generating structured pros/cons evaluations. This enables
-                        transparent, conversational explanations that augment human judgment.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">XAI, Trustworthy AI</span>
-                    </div>
-                </div>
-                <div class="pub-year">2024</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-3-031-63787-2_11"
-                        target="_blank" rel="noopener">Augmenting XAI with LLMs: A Case Study in Banking Marketing
-                        Recommendation <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-authors">Alessandro Castelnovo, Roberto Depalmas, Fabio Mercorio, Nicolò
-                        Mombelli, Daniele Potertì, <strong>Antonio Serino</strong>, Andrea Seveso, Salvatore
-                        Sorrentino, Laura Viola</div>
-                    <div class="pub-venue">XAI World Conference @ IJCAI 2024, Malta 🏆</div>
-                    <p class="pub-desc">We demonstrate how Generative AI can transform opaque ML model outputs into
-                        human-readable natural language explanations for recommender systems in banking. Awarded Best
-                        Presentation for bridging the gap between technical XAI and end-user understanding.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">XAI, Trustworthy AI</span>
-                        <span class="tag">AI Application</span>
-                    </div>
-                </div>
-                <div class="pub-year">2024</div>
-            </li>
-            <li class="pub-item">
-                <div class="pub-info">
-                    <a class="pub-title" href="https://ceur-ws.org/Vol-3670/paper87.pdf" target="_blank"
-                        rel="noopener">Skills-Hunter: adapting Large Language Models to the Labour Market for Skill
-                        Extraction <span class="pub-link-icon" aria-hidden="true">↗</span></a>
-                    <div class="pub-venue">AIxIA 2023, Rome, Italy</div>
-                    <p class="pub-desc">Our pioneering work on leveraging LLMs for automated skill extraction from job
-                        postings, addressing the fundamental data labelling bottleneck that had limited previous
-                        approaches to labour market analysis.</p>
-                    <div class="project-tags pub-topics">
-                        <span class="tag">AI &amp; Labor Market</span>
-                    </div>
-                </div>
-                <div class="pub-year">2023</div>
-            </li>
-        </ul>
-    </div>
-</section>
+    <article class="pub">
+        <h3 class="pub-title">Addressing the Concept Faithfulness Gap through Probe-Guided Sparse Autoencoders</h3>
+        <p class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></p>
+        <p class="pub-venue">EMNLP 2026 (Findings), Budapest, Hungary <span class="status">· to appear</span></p>
+        <p class="pub-abstract">Sparse Autoencoders often produce features that look interpretable but fail to
+            predict task-relevant concepts, a mismatch we call the concept faithfulness gap. ProbeSAE closes it with
+            probe-guided fine-tuning, yielding more monosemantic, language-independent features that remain
+            causally effective.</p>
+    </article>
 
-<!-- Map -->
-<section id="map-section" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">Where in the World</h2>
-    </div>
-    <div class="globe-container" data-anim>
-        <div id="globe"></div>
-        <p class="globe-hint">Drag to spin the globe 🌍</p>
-    </div>
-</section>
-
-<!-- Projects -->
-<!-- Experience & Service -->
-<section id="experience" class="container">
-    <div class="exp-grid">
-        <div>
-            <div class="section-header" data-anim>
-                <span class="section-dot"></span>
-                <h2 class="section-title">Experience</h2>
-            </div>
-            <div class="glass-card" data-anim>
-                <ul class="exp-list">
-                    <li class="exp-item">
-                        <div>
-                            <div class="exp-role">Visiting Researcher</div>
-                            <div class="exp-org">Nanyang Technological University (NTU), Singapore (with Prof.
-                                Erik Cambria)</div>
-                            <p class="exp-desc">Researching AI safety through mechanistic interpretability, funded by
-                                the Ermenegildo Zegna Founder's Scholarship and the University of Milan-Bicocca.</p>
-                        </div>
-                        <div class="exp-date">Aug 2026 – Jan 2027</div>
-                    </li>
-                    <li class="exp-item">
-                        <div>
-                            <div class="exp-role">Research collaboration</div>
-                            <div class="exp-org">University of Milan (MHEO Report)</div>
-                            <p class="exp-desc">Labour market analytics on 100K+ Lombardy graduates: analyzing
-                                occupational trajectories and education-to-employment transitions.</p>
-                            <div class="project-tags">
-                                <span class="tag">Python</span>
-                                <span class="tag">Econometrics</span>
-                                <span class="tag">Dashboards</span>
-                            </div>
-                        </div>
-                        <div class="exp-date">2024–25</div>
-                    </li>
-                    <li class="exp-item">
-                        <div>
-                            <div class="exp-role">NLP Researcher</div>
-                            <div class="exp-org">CRISP, Interuniversity Research Centre</div>
-                            <p class="exp-desc">Developing methodologies for skill extraction and standardization from
-                                job ads based on the ESCO taxonomy.</p>
-                        </div>
-                        <div class="exp-date">2023–24</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div>
-            <div class="section-header" data-anim>
-                <span class="section-dot"></span>
-                <h2 class="section-title">Review & Service</h2>
-            </div>
-            <div class="glass-card" data-anim>
-                <ul class="exp-list">
-                    <li class="exp-item">
-                        <div class="exp-role">ECML-PKDD, Research Track</div>
-                        <div class="exp-date">2024</div>
-                    </li>
-                    <li class="exp-item">
-                        <div class="exp-role">COLING, Industry Track</div>
-                        <div class="exp-date">2025</div>
-                    </li>
-                    <li class="exp-item">
-                        <div class="exp-role">Knowledge-Based Systems (Q1)</div>
-                        <div class="exp-date">Ongoing</div>
-                    </li>
-                    <li class="exp-item">
-                        <div class="exp-role">Intl. Journal of IT & Decision Making (Q2)</div>
-                        <div class="exp-date">Ongoing</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Education -->
-<section id="education" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">Education</h2>
-    </div>
-    <div class="glass-card" data-anim>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2023 – now</div>
-                <h3 class="timeline-title">PhD in Big Data & Analytics</h3>
-                <p class="timeline-desc">University of Milano-Bicocca. Researching NLP, LLM Evaluation, and Explainable
-                    AI.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2021 – 2023</div>
-                <h3 class="timeline-title">MSc in Data Science</h3>
-                <p class="timeline-desc">University of Milano-Bicocca. Skills in Python, Machine Learning, Deep
-                    Learning, and NLP.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2018 – 2021</div>
-                <h3 class="timeline-title">BSc in Computer Science</h3>
-                <p class="timeline-desc">University of Bari. Skills in C, C++, Java, Algorithms, and Data Structures.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Awards & Grants -->
-<section id="awards" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">Awards & Grants</h2>
-    </div>
-
-    <h3 class="subsection-label" data-anim>Awards</h3>
-    <div class="glass-card" data-anim>
-        <div class="award-item">
-            <span class="award-icon">🎓</span>
-            <div class="award-info">
-                <div class="award-title">Ermenegildo Zegna Founder's Scholarship</div>
-                <p class="award-desc">Co-funds, alongside the University of Milan-Bicocca, my visiting research
-                    period at NTU Singapore under the supervision of Prof. Erik Cambria, for my project
-                    <em>"AI Safety through Mechanistic Interpretability."</em> Recipients are selected based on
-                    academic excellence, leadership potential, the quality of their proposed research, and their
-                    commitment to giving a positive contribution to society.</p>
-            </div>
-            <div class="award-date">2026–27</div>
-        </div>
-        <div class="award-item">
-            <span class="award-icon">🏆</span>
-            <div class="award-info">
-                <div class="award-title">Best Presentation Award</div>
-                <p class="award-desc">For "Augmenting XAI with LLMs" at 2nd World Conference on Explainable AI, Malta.
-                </p>
-            </div>
-            <div class="award-date">Jul 2024</div>
-        </div>
-    </div>
-
-    <h3 class="subsection-label" data-anim>HPC Grants</h3>
-    <div class="glass-card" data-anim>
-        <ul class="grant-list">
-            <li class="grant-entry">
-                <div class="grant-entry-head">
-                    <span class="grant-badge grant-badge--pi">Principal Investigator</span>
-                    <span class="grant-code">MANSAFE</span>
-                    <span class="grant-meta">ISCRA Class C · Leonardo HPC</span>
-                </div>
-                <h3 class="grant-name">Untangling Safety Cross-Layer Manifold Dynamics in Large Language Models</h3>
-                <p class="grant-line">Studying how LLMs separate safe and unsafe concepts across layers, moving safety
-                    steering beyond linear directions toward the curved geometry of semantic manifolds
-                    (<em>geodesic steering</em>) for more robust, coherent interventions.</p>
-            </li>
-            <li class="grant-entry">
-                <div class="grant-entry-head">
-                    <span class="grant-badge">Team member</span>
-                    <span class="grant-code">PI-MLE</span>
-                    <span class="grant-meta">ISCRA Class C · Leonardo HPC</span>
-                </div>
-                <h3 class="grant-name">Mechanistic interpretability of language model representations</h3>
-                <p class="grant-line">Probed the Linear Representation Hypothesis with linear probes and sparse
-                    autoencoders (SAEs), and worked on scoring the quality of auto-interpretability explanations.</p>
-            </li>
-            <li class="grant-entry">
-                <div class="grant-entry-head">
-                    <span class="grant-badge">Team member</span>
-                    <span class="grant-code">LLM-EVAL</span>
-                    <span class="grant-meta">ISCRA Class C · Leonardo HPC</span>
-                </div>
-                <h3 class="grant-name">Benchmarking and evaluation of Large Language Models</h3>
-                <p class="grant-line">Large-scale benchmarking of LLMs across tasks and languages to assess their
-                    capabilities and limitations.</p>
-            </li>
-        </ul>
-    </div>
-</section>
-
-<!-- Contact -->
-<section id="contact" class="container">
-    <div class="section-header" data-anim>
-        <span class="section-dot"></span>
-        <h2 class="section-title">Contact</h2>
-    </div>
-    <div class="glass-card contact-content" data-anim>
-        <h3 class="contact-title">Let's Connect</h3>
-        <p class="contact-desc">
-            Interested in collaboration, research opportunities, or just want to chat about AI interpretability?
-            I'd love to hear from you.
+    <article class="pub">
+        <h3 class="pub-title"><a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
+                rel="noopener">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language Models
+                Activation Space</a></h3>
+        <p class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong>
         </p>
-        <div class="contact-links">
-            <a href="mailto:a.serino3@campus.unimib.it" class="btn btn-primary">Email Me</a>
-            <a href="https://github.com/serino28" target="_blank" class="btn btn-secondary">GitHub</a>
-            <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank"
-                class="btn btn-secondary">LinkedIn</a>
-            <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank"
-                class="btn btn-secondary">Scholar</a>
-        </div>
-    </div>
+        <p class="pub-venue">EACL 2026, Rabat, Morocco</p>
+        <p class="pub-abstract">We locate the layer where safe and unsafe concepts are maximally separable and show
+            that a simple linear classifier on internal representations safeguards a model without modifying its
+            weights, across 8 domains, 3 tasks and 16 non-English languages.</p>
+    </article>
+
+    <article class="pub">
+        <h3 class="pub-title"><a href="https://www.ijcai.org/proceedings/2025/1066" target="_blank"
+                rel="noopener">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</a></h3>
+        <p class="pub-authors">Emilio Colombo, Fabio Mercorio, Mario Mezzanzanica, <strong>Antonio Serino</strong>
+        </p>
+        <p class="pub-venue">IJCAI 2025, Montreal, Canada</p>
+        <p class="pub-abstract">We introduce TEAI, a task-level index that uses LLMs to assess how exposed U.S.
+            occupations are to AI automation, enabling granular analysis of workforce vulnerability to AI
+            displacement.</p>
+    </article>
+
+    <p class="more"><a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank"
+            rel="noopener">Full list on Google Scholar</a></p>
 </section>
 
 <script type="application/ld+json">
@@ -468,10 +73,13 @@ title: "Home"
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Antonio Serino",
-  "jobTitle": "PhD in AI & NLP, AI Scientist, Data Scientist",
+  "jobTitle": "PhD student, Visiting Researcher",
+  "affiliation": [
+    {"@type": "CollegeOrUniversity", "name": "University of Milano-Bicocca"},
+    {"@type": "CollegeOrUniversity", "name": "Nanyang Technological University"}
+  ],
   "alumniOf": [
-    {"@type":"CollegeOrUniversity","name":"University of Milano-Bicocca"},
-    {"@type":"CollegeOrUniversity","name":"University of Bari"}
+    {"@type": "CollegeOrUniversity", "name": "University of Bari"}
   ],
   "email": "mailto:a.serino3@campus.unimib.it",
   "image": "/assets/img/Antonio.jpeg",

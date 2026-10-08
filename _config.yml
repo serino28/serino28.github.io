@@ -1,36 +1,23 @@
 title: "Antonio Serino"
-description: "PhD in AI & NLP | Mechanistic Interpretability | AI Safety"
+description: "PhD student working on mechanistic interpretability and AI safety of large language models."
 url: "https://serino28.github.io"
 baseurl: ""
 
 # Build settings
 markdown: kramdown
-highlighter: rouge
 
 # Plugins (whitelisted on GitHub Pages)
 plugins:
   - jekyll-sitemap
 
 # Exclude from build
+# _archive holds the former research blog (restore with `git mv`).
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
   - node_modules
   - vendor
+  - _archive
   - _preview
   - .claude
-
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /research/:title/
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
