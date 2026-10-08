@@ -1,5 +1,5 @@
 /* Antonio Serino: personal site.
-   One page on warm paper. Thin type, wide tracking, one quiet symbol. */
+   Warm paper, thin type, one small symbol, one line. */
 
 :root {
   --paper: #f9f8f5;
@@ -7,9 +7,8 @@
   --soft: #2f2f2c;
   --muted: #6c6c68;
   --label: #80807c;
-  --tag: #92928e;
-  --rule: #e2e1dc;
   --wide: 68rem;
+  --gutter: clamp(1.25rem, 3.2vw, 3.5rem);
   --font: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -48,22 +47,22 @@ a:focus-visible {
 .page {
   max-width: var(--wide);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem clamp(4rem, 10vh, 7rem);
 }
 
-/* Hero: symbol, name, tagline */
+/* Hero: small symbol, name */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: clamp(2.5rem, 8vh, 5.5rem) 0 clamp(3.5rem, 9vh, 6.5rem);
+  padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 8vh, 5.5rem);
 }
 
 .halo {
-  width: clamp(150px, 21vw, 240px);
+  width: clamp(60px, 7vw, 88px);
   height: auto;
-  margin-bottom: clamp(1.5rem, 4vh, 2.75rem);
+  margin-bottom: clamp(1.1rem, 3vh, 1.75rem);
   overflow: visible;
 }
 
@@ -87,31 +86,36 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.tagline {
-  margin: 1.15rem 0 0;
-  padding-left: 0.42em;
-  font-weight: 300;
-  font-size: clamp(0.64rem, 1.6vw, 0.8rem);
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--tag);
-}
-
-/* Two columns: bio | publications */
+/* Two columns, divided by a single line that fades at both ends */
 .cols {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(2.5rem, 6vw, 6.5rem);
   align-items: start;
 }
 
+.bio { padding-right: var(--gutter); }
+
+.pubs {
+  position: relative;
+  padding-left: var(--gutter);
+}
+
+.pubs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(22, 22, 20, 0.5) 14%, rgba(22, 22, 20, 0.5) 86%, transparent);
+}
+
+/* Title of the right column; its line height matches the first line of the bio */
 .label {
-  margin: 0 0 1.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule);
+  margin: 0 0 1.5rem;
   font-weight: 400;
   font-size: 0.72rem;
-  line-height: 1;
+  line-height: 2.6;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--label);
@@ -171,7 +175,7 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.pub-venue .status { color: var(--label); }
+.pub-venue .status { color: var(--label); white-space: nowrap; }
 
 .pub-abstract {
   margin: 0;
@@ -180,39 +184,38 @@ a:focus-visible {
   color: var(--soft);
 }
 
-.more {
+/* Small closing line: "More at Google Scholar", also used on the 404 */
+.note {
   margin: 0;
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-}
-
-.more a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
-.more a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-
-/* Footer, closed by a thin black rule like the top edge */
-.foot {
-  margin-top: clamp(4rem, 10vh, 7rem);
-  border-bottom: 2px solid var(--ink);
-}
-
-.foot-inner {
-  max-width: var(--wide);
-  margin: 0 auto;
-  padding: 1.4rem 1.5rem 1.6rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   color: var(--label);
 }
 
-/* 404 */
-.lost { margin: 0; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; }
-.lost a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
-.lost a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.note a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+}
+
+.note a:hover { border-bottom-color: transparent; }
 
 @media (max-width: 56rem) {
-  .cols { grid-template-columns: 1fr; gap: 3.5rem; }
+  .cols { grid-template-columns: 1fr; }
+  .bio { padding-right: 0; padding-bottom: 3rem; }
+  .pubs { padding-left: 0; padding-top: 3rem; }
+
+  /* the line turns horizontal and short, centered between bio and publications */
+  .pubs::before {
+    top: 0;
+    bottom: auto;
+    left: 50%;
+    width: 2.5rem;
+    height: 1px;
+    transform: translateX(-50%);
+    background: rgba(22, 22, 20, 0.5);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
