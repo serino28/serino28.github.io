@@ -1,72 +1,84 @@
 ---
 layout: default
 ---
-<h1 class="name">Antonio Serino</h1>
+<header class="hero">
+    {% include halo.html %}
+    <h1 class="name">Antonio Serino</h1>
+    <p class="tagline">Interpretability · AI Safety</p>
+</header>
 
-<section class="bio">
-    <p>Hi! I am Antonio, a PhD student in Data Science and Artificial Intelligence at the 🇮🇹 University of
-        Milano-Bicocca, working on the interpretability and safety of large language models. I am currently a
-        Visiting Researcher at 🇸🇬 Nanyang Technological University. My supervisors are Fabio Mercorio and
-        Lorenzo Malandri in Italy, and Erik Cambria in Singapore.</p>
+<div class="cols">
+    <section class="bio">
+        <h2 class="label">01 · Bio</h2>
 
-    <p>🔬 My research sits at the intersection of mechanistic interpretability, representation engineering and AI
-        safety. I study how language models encode safety-critical features in latent geometric spaces, how these
-        can be faithfully interpreted, and how that geometry can be used to steer and control the internal
-        mechanisms behind a model's behavior.</p>
+        <p>Hi! I am Antonio, a PhD student in Data Science and Artificial Intelligence at the <span class="flag">🇮🇹</span> University of
+            Milano-Bicocca, working on the interpretability and safety of large language models. I am currently a
+            Visiting Researcher at <span class="flag">🇸🇬</span> Nanyang Technological University. My supervisors are Fabio Mercorio and
+            Lorenzo Malandri in Italy, and Erik Cambria in Singapore.</p>
 
-    <p>🎓 I am an Ermenegildo Zegna Founder's Scholar, and I contribute to high-performance computing research on
-        the Leonardo supercomputer, both as Principal Investigator and as a team member.</p>
+        <p>My research sits at the intersection of mechanistic interpretability, representation engineering and AI
+            safety. I study how language models encode safety-critical features in latent geometric spaces, how
+            these can be faithfully interpreted, and how that geometry can be used to steer and control the internal
+            mechanisms behind a model's behavior.</p>
 
-    <p>Outside of research, I enjoy interdisciplinary work and sugar-free coffee.</p>
+        <p>I am an Ermenegildo Zegna Founder's Scholar, and I contribute to high-performance computing research on
+            the Leonardo supercomputer, both as Principal Investigator and as a team member.</p>
 
-    <p class="links">
-        <a href="mailto:a.serino3@campus.unimib.it">Email</a>
-        <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank" rel="noopener">Scholar</a>
-        <a href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank"
-            rel="noopener">LinkedIn</a>
-    </p>
-</section>
+        <p>Outside of research, I enjoy interdisciplinary work and sugar-free coffee.</p>
 
-<section class="pubs">
-    <h2 class="label">Selected publications</h2>
-
-    <article class="pub">
-        <h3 class="pub-title">Addressing the Concept Faithfulness Gap through Probe-Guided Sparse Autoencoders</h3>
-        <p class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></p>
-        <p class="pub-venue">EMNLP 2026 (Findings), Budapest, Hungary <span class="status">· to appear</span></p>
-        <p class="pub-abstract">Sparse Autoencoders often produce features that look interpretable but fail to
-            predict task-relevant concepts, a mismatch we call the concept faithfulness gap. ProbeSAE closes it with
-            probe-guided fine-tuning, yielding more monosemantic, language-independent features that remain
-            causally effective.</p>
-    </article>
-
-    <article class="pub">
-        <h3 class="pub-title"><a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
-                rel="noopener">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language Models
-                Activation Space</a></h3>
-        <p class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong>
+        <p class="links">
+            <a href="mailto:a.serino3@campus.unimib.it">Email</a>
+            <a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank"
+                rel="noopener">Scholar</a>
+            <a href="https://github.com/serino28" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/antonio-serino-881799205" target="_blank"
+                rel="noopener">LinkedIn</a>
         </p>
-        <p class="pub-venue">EACL 2026, Rabat, Morocco</p>
-        <p class="pub-abstract">We locate the layer where safe and unsafe concepts are maximally separable and show
-            that a simple linear classifier on internal representations safeguards a model without modifying its
-            weights, across 8 domains, 3 tasks and 16 non-English languages.</p>
-    </article>
+    </section>
 
-    <article class="pub">
-        <h3 class="pub-title"><a href="https://www.ijcai.org/proceedings/2025/1066" target="_blank"
-                rel="noopener">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</a></h3>
-        <p class="pub-authors">Emilio Colombo, Fabio Mercorio, Mario Mezzanzanica, <strong>Antonio Serino</strong>
-        </p>
-        <p class="pub-venue">IJCAI 2025, Montreal, Canada</p>
-        <p class="pub-abstract">We introduce TEAI, a task-level index that uses LLMs to assess how exposed U.S.
-            occupations are to AI automation, enabling granular analysis of workforce vulnerability to AI
-            displacement.</p>
-    </article>
+    <section class="pubs">
+        <h2 class="label">02 · Selected publications</h2>
 
-    <p class="more"><a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank"
-            rel="noopener">Full list on Google Scholar</a></p>
-</section>
+        <article class="pub">
+            <h3 class="pub-title">Addressing the Concept Faithfulness Gap through Probe-Guided Sparse
+                Autoencoders</h3>
+            <p class="pub-authors">Lorenzo Malandri, Fabio Mercorio, <strong>Antonio Serino</strong></p>
+            <p class="pub-venue">EMNLP 2026 (Findings), Budapest, Hungary <span class="status">· To appear</span>
+            </p>
+            <p class="pub-abstract">Sparse Autoencoders often produce features that look interpretable but fail to
+                predict task-relevant concepts, a mismatch we call the concept faithfulness gap. ProbeSAE closes it
+                with probe-guided fine-tuning, yielding more monosemantic, language-independent features that remain
+                causally effective.</p>
+        </article>
+
+        <article class="pub">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2026.eacl-long.139/" target="_blank"
+                    rel="noopener">Safe-Unsafe Concept Separation Emerges from a Single Direction in Language Models
+                    Activation Space</a></h3>
+            <p class="pub-authors">Andrea Ermellino, Lorenzo Malandri, Fabio Mercorio, <strong>Antonio
+                    Serino</strong></p>
+            <p class="pub-venue">EACL 2026, Rabat, Morocco</p>
+            <p class="pub-abstract">We locate the layer where safe and unsafe concepts are maximally separable and
+                show that a simple linear classifier on internal representations safeguards a model without
+                modifying its weights, across 8 domains, 3 tasks and 16 non-English languages.</p>
+        </article>
+
+        <article class="pub">
+            <h3 class="pub-title"><a href="https://www.ijcai.org/proceedings/2025/1066" target="_blank"
+                    rel="noopener">Towards the Terminator Economy: Assessing Job Exposure to AI through LLMs</a>
+            </h3>
+            <p class="pub-authors">Emilio Colombo, Fabio Mercorio, Mario Mezzanzanica, <strong>Antonio
+                    Serino</strong></p>
+            <p class="pub-venue">IJCAI 2025, Montreal, Canada</p>
+            <p class="pub-abstract">We introduce TEAI, a task-level index that uses LLMs to assess how exposed U.S.
+                occupations are to AI automation, enabling granular analysis of workforce vulnerability to AI
+                displacement.</p>
+        </article>
+
+        <p class="more"><a href="https://scholar.google.com/citations?user=Bk1BKf0AAAAJ" target="_blank"
+                rel="noopener">Full list on Google Scholar</a></p>
+    </section>
+</div>
 
 <script type="application/ld+json">
 {

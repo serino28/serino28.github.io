@@ -2,5 +2,9 @@
 layout: default
 title: "404"
 ---
-<h1 class="name">404</h1>
-<p class="lost">This page got lost in the latent space. <a href="{{ '/' | relative_url }}">Back home</a>.</p>
+<header class="hero">
+    {% include halo.html %}
+    <h1 class="name">404</h1>
+    <p class="tagline">Lost in the latent space</p>
+</header>
+<p class="lost" style="text-align: center;"><a href="{{ '/' | relative_url }}">Back home</a></p>
