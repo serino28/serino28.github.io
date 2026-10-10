@@ -50,30 +50,21 @@ a:focus-visible {
   padding: 0 1.5rem clamp(4rem, 10vh, 7rem);
 }
 
-/* Hero: small symbol, name */
+/* Hero: name, then the living symbol filling the space down to the bio */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 8vh, 5.5rem);
+  padding: clamp(3rem, 10vh, 6rem) 0 clamp(1.5rem, 4vh, 2.5rem);
 }
 
-.halo {
-  width: clamp(60px, 7vw, 88px);
-  height: auto;
-  margin-bottom: clamp(1.1rem, 3vh, 1.75rem);
-  overflow: visible;
-}
-
-.halo-glow {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: breathe 9s ease-in-out infinite;
-}
-
-@keyframes breathe {
-  50% { transform: scale(1.035); opacity: 0.82; }
+.morph {
+  display: block;
+  width: 100%;
+  max-width: 38rem;
+  height: clamp(150px, 17vh, 180px);
+  margin-top: clamp(1.25rem, 3.5vh, 2rem);
 }
 
 .name {
@@ -216,8 +207,4 @@ a:focus-visible {
     transform: translateX(-50%);
     background: rgba(22, 22, 20, 0.5);
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .halo-glow { animation: none; }
 }
